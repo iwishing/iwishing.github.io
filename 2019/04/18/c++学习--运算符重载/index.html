@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Blog|我所希冀的未来</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="c++学习  环境：codeblocks：17.12系统：windows10 家庭版   –运算符的重载输入输出运算符重载，只能重载成友元函数 输出运算符重载通常情况下，输出符只能直接输出标准类型的值，而我们自定义类型是不能直接输出的cout返回值为coutcout &amp;lt;&amp;lt; p1 返回值还是cout，因为可以继续加&amp;lt;&amp;lt;输出 我们在Person对象中声明ostream友元函数f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blog|我所希冀的未来">
+<meta property="og:url" content="https://github.com/iwishing/myBlog.git/2019/04/18/c++学习--运算符重载/index.html">
+<meta property="og:site_name" content="Blog|我所希冀的未来">
+<meta property="og:description" content="c++学习  环境：codeblocks：17.12系统：windows10 家庭版   –运算符的重载输入输出运算符重载，只能重载成友元函数 输出运算符重载通常情况下，输出符只能直接输出标准类型的值，而我们自定义类型是不能直接输出的cout返回值为coutcout &amp;lt;&amp;lt; p1 返回值还是cout，因为可以继续加&amp;lt;&amp;lt;输出 我们在Person对象中声明ostream友元函数f">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403101633233.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403102842442.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403103019718.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403112257231.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403020543413.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403020612308.png">
+<meta property="og:updated_time" content="2019-04-18T14:17:06.946Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blog|我所希冀的未来">
+<meta name="twitter:description" content="c++学习  环境：codeblocks：17.12系统：windows10 家庭版   –运算符的重载输入输出运算符重载，只能重载成友元函数 输出运算符重载通常情况下，输出符只能直接输出标准类型的值，而我们自定义类型是不能直接输出的cout返回值为coutcout &amp;lt;&amp;lt; p1 返回值还是cout，因为可以继续加&amp;lt;&amp;lt;输出 我们在Person对象中声明ostream友元函数f">
+<meta name="twitter:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403101633233.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Blog|我所希冀的未来" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Blog|我所希冀的未来</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/iwishing/myBlog.git"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-c++学习--运算符重载" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/18/c++学习--运算符重载/" class="article-date">
+  <time datetime="2019-04-18T14:03:37.436Z" itemprop="datePublished">2019-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="c-学习"><a href="#c-学习" class="headerlink" title="c++学习"></a>c++学习</h1><blockquote>
+<blockquote>
+<p>环境：<br>codeblocks：17.12<br>系统：windows10 家庭版</p>
+</blockquote>
+</blockquote>
+<h2 id="–运算符的重载"><a href="#–运算符的重载" class="headerlink" title="–运算符的重载"></a>–运算符的重载</h2><p><strong>输入输出运算符重载，只能重载成友元函数</strong></p>
+<h3 id="输出运算符重载"><a href="#输出运算符重载" class="headerlink" title="输出运算符重载"></a>输出运算符重载</h3><p>通常情况下，输出符只能直接输出标准类型的值，而我们自定义类型是不能直接输出的<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403101633233.png" alt><br>cout返回值为cout<br>cout &lt;&lt; p1 返回值还是cout，因为可以继续加&lt;&lt;输出</p>
+<p>我们在Person对象中声明ostream友元函数<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403102842442.png" alt><br><code>friend ostream&amp; operator&lt;&lt;(ostream &amp;outPut,const Person &amp;p);</code><br>然后函数体<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ostream&amp; operator&lt;&lt;(ostream &amp;outPut,const Person &amp;p)</span><br><span class="line">&#123;</span><br><span class="line">    outPut &lt;&lt; p.name &lt;&lt; &quot;-&quot; &lt;&lt; p.address;</span><br><span class="line">    return outPut;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个时候我们再去输出p1试试<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403103019718.png" alt><br>这个时候可以发现，cout可以直接输出我们的自定义类型</p>
+<h3 id="输入运算符重载"><a href="#输入运算符重载" class="headerlink" title="输入运算符重载"></a>输入运算符重载</h3><p>正常情况下<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403112257231.png" alt><br>这样是不行的，不能直接给自定义类型输入值，但是我们重载输入运算符就能自己自定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">声明：</span><br><span class="line">   friend istream&amp; operator&gt;&gt;(istream &amp;inPut, Person &amp;p)</span><br><span class="line">函数体</span><br><span class="line">istream&amp; operator&gt;&gt;(istream &amp;inPut, Person &amp;p)</span><br><span class="line">&#123;</span><br><span class="line">    p.address = new char[10];</span><br><span class="line">    inPut &gt;&gt; p.name &gt;&gt; p.address;</span><br><span class="line">    return inPut;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试一下<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403020543413.png" alt><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403020612308.png" alt><br>重载成功</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/c++学习--运算符重载/" data-id="cjumrrnkc0005kktf4kerdevy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/18/Idea打jar包/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/18/c++学习--类型重载/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/18/小科普/为什么判断闰年不能单单看这一年是否为4的倍数/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--小实验/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--zookeeper/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--MapReduce程序编写/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--idea与maven的安装与配置/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Iwishing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

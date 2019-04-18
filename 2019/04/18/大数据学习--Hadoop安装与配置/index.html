@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Blog|我所希冀的未来</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="大数据学习–Hadoop安装与配置  环境：jdk：1.8hadoop：2.6.1linux：centOS 6.7VM：15.0.0外部环境：windows 10家庭版远程工具：SecureCRT   1. 网络环境配置因为我是处于学习阶段，所以使用vm虚拟机模拟大数据环境。设置3个服务器，选定一个作为主机。我选择第一个，也就是service01为主机。 首先配置ip，将三个服务器ip设置到同一网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blog|我所希冀的未来">
+<meta property="og:url" content="https://github.com/iwishing/myBlog.git/2019/04/18/大数据学习--Hadoop安装与配置/index.html">
+<meta property="og:site_name" content="Blog|我所希冀的未来">
+<meta property="og:description" content="大数据学习–Hadoop安装与配置  环境：jdk：1.8hadoop：2.6.1linux：centOS 6.7VM：15.0.0外部环境：windows 10家庭版远程工具：SecureCRT   1. 网络环境配置因为我是处于学习阶段，所以使用vm虚拟机模拟大数据环境。设置3个服务器，选定一个作为主机。我选择第一个，也就是service01为主机。 首先配置ip，将三个服务器ip设置到同一网">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324110341507.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324111638299.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112315705.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112414087.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112431091.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112457782.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112731303.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324110702179.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324110932243.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324113356993.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324113859060.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114141319.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114249976.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324115258041.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324115350198.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324121414887.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324121526986.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324121618909.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324122335603.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324122517876.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324122947439.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324102915221.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324103209122.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112142817.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324111543938.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324113841647.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114117205.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114506643.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114620907.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114941015.png">
+<meta property="og:updated_time" content="2019-04-18T14:34:12.356Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blog|我所希冀的未来">
+<meta name="twitter:description" content="大数据学习–Hadoop安装与配置  环境：jdk：1.8hadoop：2.6.1linux：centOS 6.7VM：15.0.0外部环境：windows 10家庭版远程工具：SecureCRT   1. 网络环境配置因为我是处于学习阶段，所以使用vm虚拟机模拟大数据环境。设置3个服务器，选定一个作为主机。我选择第一个，也就是service01为主机。 首先配置ip，将三个服务器ip设置到同一网">
+<meta name="twitter:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324110341507.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Blog|我所希冀的未来" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Blog|我所希冀的未来</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/iwishing/myBlog.git"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-大数据学习--Hadoop安装与配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/18/大数据学习--Hadoop安装与配置/" class="article-date">
+  <time datetime="2019-04-18T14:03:37.495Z" itemprop="datePublished">2019-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="大数据学习"><a href="#大数据学习" class="headerlink" title="大数据学习"></a>大数据学习</h1><h2 id="–Hadoop安装与配置"><a href="#–Hadoop安装与配置" class="headerlink" title="–Hadoop安装与配置"></a>–Hadoop安装与配置</h2><blockquote>
+<blockquote>
+<p>环境：<br>jdk：1.8<br>hadoop：2.6.1<br>linux：centOS 6.7<br>VM：15.0.0<br>外部环境：windows 10家庭版<br>远程工具：SecureCRT</p>
+</blockquote>
+</blockquote>
+<h3 id="1-网络环境配置"><a href="#1-网络环境配置" class="headerlink" title="1. 网络环境配置"></a>1. 网络环境配置</h3><p>因为我是处于学习阶段，所以使用vm虚拟机模拟大数据环境。设置3个服务器，选定一个作为主机。<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324110341507.png" alt><br>我选择第一个，也就是service01为主机。</p>
+<h4 id="首先配置ip，将三个服务器ip设置到同一网段。"><a href="#首先配置ip，将三个服务器ip设置到同一网段。" class="headerlink" title="首先配置ip，将三个服务器ip设置到同一网段。"></a>首先配置ip，将三个服务器ip设置到同一网段。</h4><p>修改ip地址有两个方法，一个是修改文件，还有个是进入setup修改。</p>
+<h5 id="通过文件修改："><a href="#通过文件修改：" class="headerlink" title="通过文件修改："></a>通过文件修改：</h5><p><code>vim /etc/sysconfig/network-scripts/ifcfg-eth8</code><br>输入以上命令进入eth8这块网卡，这个虚拟网卡是vm虚拟机自带的，还有一块eth0，我们使用哪一个都一样，只是一个名字。进入后我们可以看到以下界面：<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324111638299.png" alt><br>DEVICE=网卡名称<br>HWADDR=物理地址（硬件地址）<br>TYPE=网卡类型（可以设置成static，静态永久的）<br>UUID=是虚拟机自己设置的<br>ONBOOT=是否开机启动<br>IPADDR=ip地址，也就是我们要修改的<br>NETMASK=子网掩码<br>我们需要修改ip地址，将它的地址和我们自己的电脑，虚拟机的ip这3者的ip设置到同一网段内，另外两台同理，一样设置。</p>
+<h5 id="通过setup界面修改："><a href="#通过setup界面修改：" class="headerlink" title="通过setup界面修改："></a>通过setup界面修改：</h5><p>直接输入<br><code>setup</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112315705.png" alt><br>进入以上界面，选择第四个，network configuration<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112414087.png" alt><br>选择第一个<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112431091.png" alt><br>可以看到我们的eth8这块网卡，选择它<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112457782.png" alt><br>这里我们可以直接修改网卡名和ip地址，修改完成后，save&amp;quit，然后执行<br><code>service network restart</code><br>重启网络服务，再次输入<br><code>ifconfig</code><br>查看，可以看到，ip已经修改了<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112731303.png" alt></p>
+<h4 id="下一步修改主机名，不然三个服务器的主机名默认都是root，这对后来设置域名映射时会很麻烦。"><a href="#下一步修改主机名，不然三个服务器的主机名默认都是root，这对后来设置域名映射时会很麻烦。" class="headerlink" title="下一步修改主机名，不然三个服务器的主机名默认都是root，这对后来设置域名映射时会很麻烦。"></a>下一步修改主机名，不然三个服务器的主机名默认都是root，这对后来设置域名映射时会很麻烦。</h4><p>我们输入下面的命令，进入network文件。<br><code>vim /etc/sysconfig/network</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324110702179.png" alt><br>里面的HOSTNAME就是你的主机名，默认是root，修改成自己的，然后ESC，shift+:,wq保存退出<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324110932243.png" alt><br>可以看到，主机名改变了</p>
+<h3 id="2-域名映射，ssh免登陆设置"><a href="#2-域名映射，ssh免登陆设置" class="headerlink" title="2. 域名映射，ssh免登陆设置"></a>2. 域名映射，ssh免登陆设置</h3><p>为了以后使用ssh登录其他服务器方便，我们要做域名映射，不然，每次都是输入一串ip地址，太麻烦，我们要在hosts文件里面修改域名映射，按照上面的教程，我们应该已经将3台服务器的主机名都设置好了，我的是cbw，cbw1，cbw2.<br>输入<br><code>vim /etc/hosts</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324113356993.png" alt><br>进入hosts文件，直接换行，写ip地址，空格，主机名，3台服务器都设置，然后保存退出<br>使用ping测试一下是否能通。<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324113859060.png" alt><br>可以看到，我们直接ping名字也能ping通，说明设置成功。其他几台服务器一样设置，为了方便，我们采用分发的方式，直接将这个文件分发给另外两台服务器。<br><code>scp /etc/hosts cbw1:/etc/hosts</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114141319.png" alt><br>分发成功，cbw2同理，我们去看看另一台服务器是否能ping域名ping通。<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114249976.png" alt><br>可以看到，我通过cbw1直接ping主机cbw，是可以ping通的，说明文件分发成功，cbw2也通过相同的方式分发就行。<br>ssh免登陆设置：<br>我们使用ssh远程登录其他服务器的时候要输入密码，而因为hadoop的原因，有很多时候要多次登录其他服务器，每次都输入密码的话，很浪费时间和操作，而且我们使用hadoop的时候基本没有什么安全隐患，所有没必要设置每次都登录输入密码，这样会让操作变繁琐，因此我们要设置ssh免登陆。<br>先在root目录下查看是否有.ssh文件夹，如果没有的话就新建一个。<br>然后输入以下命令<br><code>ssh-keygen</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324115258041.png" alt><br>然后一直回车，直到出现一个图案<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324115350198.png" alt><br>这个时候代表获取密钥成功了，下一步，分发密钥给其他服务器<br><code>ssh-copy-id cbw1</code><br>然后它会提示你输入密码，输入密码之后就代表成功了，下次使用ssh命令进入cbw1时是不用输入密码的，同理，cbw2也配置一下，ssh免登陆设置成功。</p>
+<h3 id="3-服务器配置jdk环境"><a href="#3-服务器配置jdk环境" class="headerlink" title="3. 服务器配置jdk环境"></a>3. 服务器配置jdk环境</h3><blockquote>
+<blockquote>
+<p>以下所说的jdk都是你自己下载的jdk压缩包名，或者解压后的jdk文件夹的名字，我自己的改名叫jdk，方便修改其他东西</p>
+</blockquote>
+</blockquote>
+<p>首先下载好jdk<br><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">下载地址</a><br>要安装一种远程连接工具，xshell或secureCRT都行，我使用的是secureCRT，连接好主机后，使用alt+p调出sftp窗口<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324121414887.png" alt><br><code>put &lt;文件路径&gt;</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324121526986.png" alt><br>回车，上传jdk到服务器，然后查看root目录下，文件是否上传成功<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324121618909.png" alt><br>可以看到，jdk上传成功<br>再将jdk移动到/usr/文件夹下面<br><code>mv jdk /usr/</code><br>然后解压jdk<br><code>tar -xvzf jdk</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324122335603.png" alt><br>解压成功，可以看到有很多jar包。<br>接下来就是配置环境变量了，进入/etc/profile/文件<br><code>vim /etc/profile</code><br>跳到文件末尾，输入以下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/jdk</span><br><span class="line">export JRE_HOME=/usr/jdk/jre</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">export CLASSPATH=.$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324122517876.png" alt><br>然后出去输入<br><code>source /etc/profile</code><br>刷新文件并保存，再输入<br><code>java -version</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324122947439.png" alt><br>如果出现以上信息，说明jdk环境已经搭建完毕<br>然后，我们使用scp命令，将jdk和环境配置文件分发到其他的两台服务器上面<br><code>scp -r /usr/jdk/ cbw1:/usr/jdk/</code><br><code>scp /etc/profile/ cbw1:/etc/profile/</code><br>cbw2同理，然后去到另外两台服务器source一下文件,重新加载并生效<br><code>source /etc/profile</code><br>此时，3台服务器的jdk都已经配置完毕</p>
+<h3 id="4-服务器配置Hadoop环境"><a href="#4-服务器配置Hadoop环境" class="headerlink" title="4. 服务器配置Hadoop环境"></a>4. 服务器配置Hadoop环境</h3><p><a href="https://archive.apache.org/dist/hadoop/common/" target="_blank" rel="noopener">hadoop下载地址</a><br>找到相应版本下载即可<br>安装hadoop与jdk同理，上传hadoop压缩包，然后解压，然后放到/usr/里面，开始配置环境变量，进入/etc/profile/文件<br><code>vim /etc/profile</code><br>跳到文件末尾，输入以下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_HOME=/usr/hadoop-2.6.1</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324102915221.png" alt><br>然后出去输入<br><code>source /etc/profile</code><br>刷新文件并保存，再输入<br><code>hadoop version</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324103209122.png" alt><br>如果出现以上画面，说明环境配置完毕</p>
+<h3 id="5-Hadoop文件配置"><a href="#5-Hadoop文件配置" class="headerlink" title="5. Hadoop文件配置"></a>5. Hadoop文件配置</h3><p><code>cd /usr/hadoop2.6.1/etc/hadoop/</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112142817.png" alt><br>进入这个文件夹，我们需要配置6个文件：</p>
+<h4 id="hadoop-env-xml"><a href="#hadoop-env-xml" class="headerlink" title="hadoop-env.xml"></a>hadoop-env.xml</h4><p>这个文件用来配置jdk的根路径<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324111543938.png" alt><br><code>export JAVA_HOME=/usr/jdk</code><br>在文件末尾加入jdk的路径，保存退出</p>
+<h4 id="core-site-xml"><a href="#core-site-xml" class="headerlink" title="core-site.xml"></a>core-site.xml</h4><p>输入<br><code>vim core-site.xml</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324113841647.png" alt><br>文件内容如上，我们使用默认的文件系统<strong>fs.defaultFS</strong>，我们需要修改的是<strong>fs.defaultFS</strong>的<strong>value</strong>，这个值是告诉文件系统他的老大在哪台服务器启动，也就是主机，我的自然是cbw，后面的<strong>9000</strong>是端口。下面的<strong>hadoop.tmp.dir</strong>是告诉系统，hadoop的源文件存放在哪个目录下，<strong>value</strong>就是我设置的目录，默认是在hadoop根目录下的<strong>hdpdata</strong>文件夹，如果没有这个文件夹，hdfs在格式化的时候会去自动创建这个文件夹。                                                                                 </p>
+<h4 id="hdfs-site-xml"><a href="#hdfs-site-xml" class="headerlink" title="hdfs-site.xml"></a>hdfs-site.xml</h4><p>这个文件是配置上传文件的<strong>blocksize</strong>副本数的<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114117205.png" alt><br><strong>value</strong>设置为多少，block的副本数就是多少，如果不设置，它默认是3个，这里我们设置为2个</p>
+<h4 id="mapred-site-xml"><a href="#mapred-site-xml" class="headerlink" title="mapred-site.xml"></a>mapred-site.xml</h4><p>这个是配置mapreduce所使用的框架<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114506643.png" alt><br>我们使用yarn框架</p>
+<h4 id="yarn-site-xml"><a href="#yarn-site-xml" class="headerlink" title="yarn-site.xml"></a>yarn-site.xml</h4><p>这个文件配置yarn的主机和nodemanager的服务<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114620907.png" alt><br><strong>yarn</strong>的主机我们当然选择cbw，然后nodemanager的<strong>value</strong>我们写mapreduce_shuffle</p>
+<h4 id="slaves"><a href="#slaves" class="headerlink" title="slaves"></a>slaves</h4><p>这个文件时配置所有服务器的<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324114941015.png" alt><br>我们加上所有的服务器域名<br>到这里，需要配置的文件已经全部完成<br>然后格式化<strong>hdfs</strong><br><code>hdfs namenode -format</code><br>格式化完毕，同理，我们要将hadoop文件夹分发给其他服务器，还有环境文件也要分发<br><code>scp -r /usr/hadoop2.6.1 cbw1:/usr/hadoop2.6.1</code><br><code>scp /etc/profile cbw1:/etc/profile</code><br>cbw2同理<br>然后别忘记保存生效<br><code>source /etc/profile</code><br>到这一步hadoop的配置就完成了</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/大数据学习--Hadoop安装与配置/" data-id="cjumrrnl6000ekktfscxqtkcj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/18/大数据学习--Hive的安装与使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/18/大数据学习--HA/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/18/小科普/为什么判断闰年不能单单看这一年是否为4的倍数/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--小实验/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--zookeeper/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--MapReduce程序编写/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--idea与maven的安装与配置/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Iwishing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

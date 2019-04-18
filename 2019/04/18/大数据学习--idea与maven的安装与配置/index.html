@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Blog|我所希冀的未来</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="大数据学习–idea与maven的安装与配置  环境：idea：ultimate 2018.3maven：3.3.9   1.idea的安装与配置idea下载地址选择ultimate版本下载，这只能免费试用，所有我们需要破解，或者申请资格，我是使用学生身份申请一年的使用权开始安装选择安装位置根据自己的电脑配置选择启动器位数，第一个是在桌面创建一个快捷方式，第二个是选择是否在菜单上增加Open Fo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blog|我所希冀的未来">
+<meta property="og:url" content="https://github.com/iwishing/myBlog.git/2019/04/18/大数据学习--idea与maven的安装与配置/index.html">
+<meta property="og:site_name" content="Blog|我所希冀的未来">
+<meta property="og:description" content="大数据学习–idea与maven的安装与配置  环境：idea：ultimate 2018.3maven：3.3.9   1.idea的安装与配置idea下载地址选择ultimate版本下载，这只能免费试用，所有我们需要破解，或者申请资格，我是使用学生身份申请一年的使用权开始安装选择安装位置根据自己的电脑配置选择启动器位数，第一个是在桌面创建一个快捷方式，第二个是选择是否在菜单上增加Open Fo">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326030342882.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326010349306.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326010524893.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326010915397.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326011543602.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326011626758.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326012623459.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013300882.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013335195.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013551923.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013737527.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013856004.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013930517.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326014135892.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326014259782.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326022647784.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326023116153.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326023146845.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326023202538.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190327093339417.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326023440279.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326023638470.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326030131047.png">
+<meta property="og:updated_time" content="2019-04-18T14:10:12.196Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blog|我所希冀的未来">
+<meta name="twitter:description" content="大数据学习–idea与maven的安装与配置  环境：idea：ultimate 2018.3maven：3.3.9   1.idea的安装与配置idea下载地址选择ultimate版本下载，这只能免费试用，所有我们需要破解，或者申请资格，我是使用学生身份申请一年的使用权开始安装选择安装位置根据自己的电脑配置选择启动器位数，第一个是在桌面创建一个快捷方式，第二个是选择是否在菜单上增加Open Fo">
+<meta name="twitter:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326030342882.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Blog|我所希冀的未来" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Blog|我所希冀的未来</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/iwishing/myBlog.git"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-大数据学习--idea与maven的安装与配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/18/大数据学习--idea与maven的安装与配置/" class="article-date">
+  <time datetime="2019-04-18T14:03:37.527Z" itemprop="datePublished">2019-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="大数据学习"><a href="#大数据学习" class="headerlink" title="大数据学习"></a>大数据学习</h1><h2 id="–idea与maven的安装与配置"><a href="#–idea与maven的安装与配置" class="headerlink" title="–idea与maven的安装与配置"></a>–idea与maven的安装与配置</h2><blockquote>
+<blockquote>
+<p>环境：<br>idea：ultimate 2018.3<br>maven：3.3.9</p>
+</blockquote>
+</blockquote>
+<h3 id="1-idea的安装与配置"><a href="#1-idea的安装与配置" class="headerlink" title="1.idea的安装与配置"></a>1.idea的安装与配置</h3><p><a href="http://www.jetbrains.com/idea/download/#section=windows" target="_blank" rel="noopener">idea下载地址</a><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326030342882.png" alt><br>选择ultimate版本下载，这只能免费试用，所有我们需要破解，或者申请资格，我是使用学生身份申请一年的使用权<br><strong>开始安装</strong><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326010349306.png" alt><br>选择安装位置<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326010524893.png" alt><br>根据自己的电脑配置选择启动器位数，第一个是在桌面创建一个快捷方式，第二个是选择是否在菜单上增加<code>Open Folder as Project</code>功能，<strong>可√可不√</strong>，第三个是创建文件关联，<strong>可以√也可以不√</strong>，第四个如果电脑jdk环境已经配置了，<strong>可以不√</strong>，一般jdk中有jre，第五个是添加启动器目录到路径，<strong>可√可不√</strong><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326010915397.png" alt><br>下一步，选择开始菜单的文件夹，可以是默认的JetBrains，这样你在开始菜单找J字母，可以找到这个文件夹，里面就有idea<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326011543602.png" alt><br>点击Install，开始安装，等待<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326011626758.png" alt><br>选择重启完成安装<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326012623459.png" alt><br>导入设置文件，但是我们是第一次安装，就选第二个<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013300882.png" alt><br>同一用户协议<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013335195.png" alt><br>是否分享数据给JetBrains公司，可以也不可以，自己选择<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013551923.png" alt><br>设置主题<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013737527.png" alt><br>选择你要使用的功能，java默认启用了，可以直接下一步<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013856004.png" alt><br>安装插件，也可以直接下一步<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326013930517.png" alt><br>如果你购买了，可以登录账号，这里我们选择免费试用，只有30天的时间<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326014135892.png" alt><br>到了这一步安装完成了，可以开始使用了<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326014259782.png" alt></p>
+<h3 id="2-maven的安装与配置"><a href="#2-maven的安装与配置" class="headerlink" title="2.maven的安装与配置"></a>2.maven的安装与配置</h3><p><a href="https://archive.apache.org/dist/maven/maven-3/" target="_blank" rel="noopener">maven下载地址</a><br>选择相应版本下载， 这里我们选择3.3.9版本<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326022647784.png" alt><br>下载好了后，解压，放到自己选择的文件夹里面，下一步</p>
+<h4 id="环境变量的配置"><a href="#环境变量的配置" class="headerlink" title="环境变量的配置"></a>环境变量的配置</h4><p>右键我的电脑<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326023116153.png" alt><br>属性-&gt;高级系统设置<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326023146845.png" alt><br>环境变量<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326023202538.png" alt><br>在系统变量里面新建，然后设置<br><code>MAVEN_HOME= &lt;maven根目录&gt;</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190327093339417.png" alt><br>然后在Path里面新建，写上<br><code>%MAVEN_HOME%\bin</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326023440279.png" alt><br>确定之后，去cmd输入<br><code>mvn -v</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326023638470.png" alt><br>出现这个界面，说明maven配置已经完成</p>
+<h4 id="修改资源库"><a href="#修改资源库" class="headerlink" title="修改资源库"></a>修改资源库</h4><p>maven会自动给你下载所需要的jar包， 他默认是从apach的仓库下载，这里我们可以修改仓库，用阿里云或者其他近一点的仓库，这样下载速度会快一些，提高我们的工作效率<br>进入maven根目录<br><code>maven-&gt;conf-&gt;setting.xml</code></p>
+<blockquote>
+<blockquote>
+<p>这个文件要用notepad，或者其他编辑器打开，如果用记事本，里面的东西会很密集，这让修改起来会异常麻烦</p>
+</blockquote>
+</blockquote>
+<p>我们找到<strong>mirrors</strong>标签，写入以下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">     &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">     &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">     &lt;url&gt;http://maven.aliyun.com/nexus/content/repositories/central/&lt;/url&gt;</span><br><span class="line">&lt;/mirror&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326030131047.png" alt><br>这代表我们从阿里云的maven仓库下载jar包，修改完成保存退出。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/大数据学习--idea与maven的安装与配置/" data-id="cjumrrnki0009kktfk6c4fe2d" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/18/大数据学习--MapReduce程序编写/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/18/大数据学习--idea上运行WordCount程序/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/18/小科普/为什么判断闰年不能单单看这一年是否为4的倍数/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--小实验/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--zookeeper/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--MapReduce程序编写/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--idea与maven的安装与配置/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Iwishing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Blog|我所希冀的未来</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="网络连接的三种模式  环境系统：windows10 家庭版linux系统：centos 6.3vm：15.0.3   12345vm自带有3块网卡vmnet0：桥接模式vmnet1：仅主机模式vmnet8：NET模式我们可以打开编辑-&amp;gt;虚拟网络编辑器，里面查看是否有这3块网卡，没有的话，我们可以自行增加  1.仅主机模式这个模式我们只需要修改虚拟机的连接模式为仅主机模式，设置vm与主机ip在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blog|我所希冀的未来">
+<meta property="og:url" content="https://github.com/iwishing/myBlog.git/2019/04/18/网络连接的三种模式/index.html">
+<meta property="og:site_name" content="Blog|我所希冀的未来">
+<meta property="og:description" content="网络连接的三种模式  环境系统：windows10 家庭版linux系统：centos 6.3vm：15.0.3   12345vm自带有3块网卡vmnet0：桥接模式vmnet1：仅主机模式vmnet8：NET模式我们可以打开编辑-&amp;gt;虚拟网络编辑器，里面查看是否有这3块网卡，没有的话，我们可以自行增加  1.仅主机模式这个模式我们只需要修改虚拟机的连接模式为仅主机模式，设置vm与主机ip在">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417090323800.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417090438696.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417093745677.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417090910233.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417091153136.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417091301956.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417091900672.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417092033945.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417092505604.png">
+<meta property="og:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417092752075.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418062916493.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418062252478.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418062356772.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418063122341.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418063742666.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418065205550.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418065608463.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418070914844.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418071045037.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418064306987.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418064454848.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418065721214.png">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418071149212.png">
+<meta property="og:updated_time" content="2019-04-18T14:22:25.377Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blog|我所希冀的未来">
+<meta name="twitter:description" content="网络连接的三种模式  环境系统：windows10 家庭版linux系统：centos 6.3vm：15.0.3   12345vm自带有3块网卡vmnet0：桥接模式vmnet1：仅主机模式vmnet8：NET模式我们可以打开编辑-&amp;gt;虚拟网络编辑器，里面查看是否有这3块网卡，没有的话，我们可以自行增加  1.仅主机模式这个模式我们只需要修改虚拟机的连接模式为仅主机模式，设置vm与主机ip在">
+<meta name="twitter:image" content="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417090323800.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Blog|我所希冀的未来" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Blog|我所希冀的未来</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/iwishing/myBlog.git"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-网络连接的三种模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/18/网络连接的三种模式/" class="article-date">
+  <time datetime="2019-04-18T14:03:37.405Z" itemprop="datePublished">2019-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="网络连接的三种模式"><a href="#网络连接的三种模式" class="headerlink" title="网络连接的三种模式"></a>网络连接的三种模式</h1><blockquote>
+<blockquote>
+<p>环境<br>系统：windows10 家庭版<br>linux系统：centos 6.3<br>vm：15.0.3</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vm自带有3块网卡</span><br><span class="line">vmnet0：桥接模式</span><br><span class="line">vmnet1：仅主机模式</span><br><span class="line">vmnet8：NET模式</span><br><span class="line">我们可以打开编辑-&gt;虚拟网络编辑器，里面查看是否有这3块网卡，没有的话，我们可以自行增加</span><br></pre></td></tr></table></figure>
+<p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417090323800.png" alt><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417090438696.png" alt></p>
+<h3 id="1-仅主机模式"><a href="#1-仅主机模式" class="headerlink" title="1.仅主机模式"></a>1.仅主机模式</h3><p>这个模式我们只需要修改虚拟机的连接模式为仅主机模式，设置vm与主机ip在同一个网段，然后将虚拟机ip也设置在同一网段即可。这个时候，我们用主机ping虚拟机，如果能ping通就说明设置成功</p>
+<h5 id="a-查看主机ip"><a href="#a-查看主机ip" class="headerlink" title="a.查看主机ip"></a>a.查看主机ip</h5><p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417093745677.png" alt></p>
+<h5 id="b-设置vm的仅主机模式网卡ip"><a href="#b-设置vm的仅主机模式网卡ip" class="headerlink" title="b.设置vm的仅主机模式网卡ip"></a>b.设置vm的仅主机模式网卡ip</h5><p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417090910233.png" alt></p>
+<h5 id="c-设置虚拟机连接模式为仅主机模式"><a href="#c-设置虚拟机连接模式为仅主机模式" class="headerlink" title="c.设置虚拟机连接模式为仅主机模式"></a>c.设置虚拟机连接模式为仅主机模式</h5><p>右键点击虚拟机标签<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417091153136.png" alt><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417091301956.png" alt></p>
+<h5 id="d-设置虚拟机的ip"><a href="#d-设置虚拟机的ip" class="headerlink" title="d.设置虚拟机的ip"></a>d.设置虚拟机的ip</h5><p>有两种方式，一种是<code>setup</code>命令，到图形界面设置，还有一个是通过文件设置，这里我们都采取文件设置。<br>首先我们进入<code>network-scripts</code>目录查看我们的虚拟网卡，这个是vm配置的<br><code>ls /etc/sysconfig/network-scripts</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417091900672.png" alt><br>我们可以看到，有个<code>ifcfg-eth0</code>，这就是一块叫eth0的网卡，我们使用<code>ifconfig</code>命令查看网卡是否在使用<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417092033945.png" alt><br>这里已经在使用了<br>如果这里没有看到虚拟网卡，只有localhost的话，我们可以使用<code>ifup &lt;虚拟网卡名称&gt;</code>，这个命令启用网卡，比如我就是用<code>ifup eth0</code>，同理，使用<code>ifdown &lt;虚拟网卡名称&gt;</code>，停用网卡，这里不再赘述<br>修改ip，我们使用进入ifcfg-eth0文件<br><code>vim /etc/sysconfig/network-scripts/ifcfg-eth0</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417092505604.png" alt><br>我们将这个ip修改为<code>192.168.43.253</code>，保存退出，最后一步<br><code>service network restart</code></p>
+<h5 id="e-测试"><a href="#e-测试" class="headerlink" title="e.测试"></a>e.测试</h5><p>主机ping<code>192.168.43.253</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417092752075.png" alt><br>可以ping通，仅主机模式设置成功<br>如果以上步骤都完成了<br>虚拟机ping不通主机是因为主机有防火墙， 关闭防火墙也能ping通<br>主机ping不通虚拟机，虚拟机防火墙没有关闭</p>
+<hr>
+<h3 id="2-桥接模式"><a href="#2-桥接模式" class="headerlink" title="2.桥接模式"></a>2.桥接模式</h3><p>这个模式我们需要将虚拟机设置为桥接模式，然后修改虚拟机的<strong>网关</strong>和<strong>子网掩码</strong>，和主机正在使用且联网的那块网卡一致，再修改ip地址到同一网段即可</p>
+<h5 id="a-查看主机ip-1"><a href="#a-查看主机ip-1" class="headerlink" title="a.查看主机ip"></a>a.查看主机ip</h5><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418062916493.png" alt></p>
+<h5 id="b-修改虚拟机为桥接模式"><a href="#b-修改虚拟机为桥接模式" class="headerlink" title="b.修改虚拟机为桥接模式"></a>b.修改虚拟机为桥接模式</h5><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418062252478.png" alt><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418062356772.png" alt></p>
+<h5 id="c-修改虚拟机ip信息"><a href="#c-修改虚拟机ip信息" class="headerlink" title="c.修改虚拟机ip信息"></a>c.修改虚拟机ip信息</h5><p><code>vim /etc/sysconfig/network-scripts/ifcfg-eth0</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418063122341.png" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置</span><br><span class="line">子网掩码：255.255.255.0</span><br><span class="line">默认网关：192.168.43.1</span><br></pre></td></tr></table></figure></p>
+<p>改完别忘记<code>service network restart</code></p>
+<h5 id="d-测试"><a href="#d-测试" class="headerlink" title="d.测试"></a>d.测试</h5><p>我们直接ping<code>baidu.com</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418063742666.png" alt><br>如果可以ping通，代表桥接模式设置成功</p>
+<h3 id="3-NET模式"><a href="#3-NET模式" class="headerlink" title="3.NET模式"></a>3.NET模式</h3><p>这个模式只需要将虚拟机设置为NET模式，设置虚拟机和vm的子网掩码和网关一致，再修改ip为同一网段即可，不用管主机ip</p>
+<h5 id="a-设置vmip信息"><a href="#a-设置vmip信息" class="headerlink" title="a.设置vmip信息"></a>a.设置vmip信息</h5><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418065205550.png" alt><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418065608463.png" alt><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418070914844.png" alt><br>这里网关最后一位应为2，因为他是物理机虚拟出来的一个网络，物理机上面的vmnet8这块网卡的网关是不一样的<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418071045037.png" alt></p>
+<h5 id="b-修改虚拟机为NET模式"><a href="#b-修改虚拟机为NET模式" class="headerlink" title="b.修改虚拟机为NET模式"></a>b.修改虚拟机为NET模式</h5><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418064306987.png" alt><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418064454848.png" alt></p>
+<h5 id="c-修改虚拟机ip信息-1"><a href="#c-修改虚拟机ip信息-1" class="headerlink" title="c.修改虚拟机ip信息"></a>c.修改虚拟机ip信息</h5><p><code>vim /etc/sysconfig/network-scripts/ifcfg-eth0</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418065721214.png" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">设置</span><br><span class="line">子网掩码：255.255.255.0</span><br><span class="line">默认网关：192.168.255.2</span><br><span class="line">ip：192.168.255.253</span><br></pre></td></tr></table></figure></p>
+<p>改完别忘记<code>service network restart</code></p>
+<h5 id="d-测试-1"><a href="#d-测试-1" class="headerlink" title="d.测试"></a>d.测试</h5><p>我们直接ping<code>baidu.com</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418071149212.png" alt><br>如果可以ping通，代表NET模式设置成功</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/网络连接的三种模式/" data-id="cjumrrnl2000ckktf5kfed6sa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/18/问题/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/06/lilux相关/linux--webmin的安装与使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/18/小科普/为什么判断闰年不能单单看这一年是否为4的倍数/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--小实验/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--zookeeper/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--MapReduce程序编写/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--idea与maven的安装与配置/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Iwishing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

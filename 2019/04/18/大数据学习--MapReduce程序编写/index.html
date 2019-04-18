@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Blog|我所希冀的未来</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="大数据学习–MapReduce程序编写  环境：idea: ultimate 2018.1   运行流程示意图以wordCount为例 Mapper：数据输入进来的第一步，可以定制键值对Mapper类需要继承Mapper父类12345678public static class WordCountMapper extends Mapper&amp;lt;LongWritable,Text,Text,Int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blog|我所希冀的未来">
+<meta property="og:url" content="https://github.com/iwishing/myBlog.git/2019/04/18/大数据学习--MapReduce程序编写/index.html">
+<meta property="og:site_name" content="Blog|我所希冀的未来">
+<meta property="og:description" content="大数据学习–MapReduce程序编写  环境：idea: ultimate 2018.1   运行流程示意图以wordCount为例 Mapper：数据输入进来的第一步，可以定制键值对Mapper类需要继承Mapper父类12345678public static class WordCountMapper extends Mapper&amp;lt;LongWritable,Text,Text,Int">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--MapReduce%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99/20190406011925824.png">
+<meta property="og:updated_time" content="2019-04-11T09:27:36.899Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blog|我所希冀的未来">
+<meta name="twitter:description" content="大数据学习–MapReduce程序编写  环境：idea: ultimate 2018.1   运行流程示意图以wordCount为例 Mapper：数据输入进来的第一步，可以定制键值对Mapper类需要继承Mapper父类12345678public static class WordCountMapper extends Mapper&amp;lt;LongWritable,Text,Text,Int">
+<meta name="twitter:image" content="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--MapReduce%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99/20190406011925824.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Blog|我所希冀的未来" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Blog|我所希冀的未来</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/iwishing/myBlog.git"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-大数据学习--MapReduce程序编写" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/18/大数据学习--MapReduce程序编写/" class="article-date">
+  <time datetime="2019-04-18T14:03:37.537Z" itemprop="datePublished">2019-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="大数据学习"><a href="#大数据学习" class="headerlink" title="大数据学习"></a>大数据学习</h1><h2 id="–MapReduce程序编写"><a href="#–MapReduce程序编写" class="headerlink" title="–MapReduce程序编写"></a>–MapReduce程序编写</h2><blockquote>
+<blockquote>
+<p>环境：<br>idea: ultimate 2018.1</p>
+</blockquote>
+</blockquote>
+<p>运行流程示意图<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--MapReduce%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99/20190406011925824.png" alt><br>以wordCount为例</p>
+<h3 id="Mapper："><a href="#Mapper：" class="headerlink" title="Mapper："></a>Mapper：</h3><p>数据输入进来的第一步，可以定制键值对<br>Mapper类需要继承Mapper父类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public static class WordCountMapper extends Mapper&lt;LongWritable,Text,Text,IntWritable&gt;&#123;</span><br><span class="line">protected void map(LongWritable key,Text value, Context context) throws IOException, InterrupteException&#123;</span><br><span class="line">        String[] words = value.toString().split(&quot;,&quot;);</span><br><span class="line">        for(String word:words)&#123;</span><br><span class="line">            context.write(new Text(word),new IntWritable(1));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Mapper</strong>父类一共有4个参数<br>1：是数据的偏移量，例如刚进来为0，第二次进来因为已经读完了一行数据，他就等于第一行数据的长度+0，以此类推<br>2：表示下一行数据，在这个例子里面是一行的字符，也就是下面map方法中的value<br>3：输出的key的数据类型<br>4：这个表示map方法产生的value类型，在我们这个例子中是IntWritable型的，所以我们继承的时候要写IntWritable</p>
+<p><strong>map</strong>方法一共有3个参数<br>LongWritable key：偏移量<br>Text value：输入的这行的数据<br>Context：存储map运算后的数据，本例子中<code>context.write(new Text(word),new IntWritable(1))</code>,key是字母，value则为1，因为         字母出现一次就记一次</p>
+<h3 id="Reducer："><a href="#Reducer：" class="headerlink" title="Reducer："></a>Reducer：</h3><p>由流程图可以看出这是最后一步，就是总结的作用吧，汇总所有数据，然后进行输出<br>Reducer类需要继承Reducer父类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public static class HadoopReducer extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">    //相同的key聚合 几种类型的key调用reduce几次</span><br><span class="line">    private IntWritable count = new IntWritable();</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context) throws IOException, InterruptedException &#123;</span><br><span class="line">        int sum = 0;</span><br><span class="line">        for (IntWritable value : values) &#123;</span><br><span class="line">            sum += value.get();</span><br><span class="line">        &#125;</span><br><span class="line">        count.set(sum);</span><br><span class="line">        context.write(key, count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Reducer</strong>父类一共有4个参数<br>1：输入的key数据类型，本例中是字母，我们用Text存储<br>2：输入的value数据类型，本例中是频率，我们用IntWritable来存储<br>3：输出key的数据类型<br>4：这个表示reduce方法产生的value类型，在我们这个例子中是IntWritable型的，所以我们继承的时候要写IntWritable<br><strong>reduce</strong>方法一共有3个参数<br>Text key：map运算设置的key<br>Iterable<intwritable> value：这是key相同的value的聚合，本例中因为key是字母，value都是1，所以在这里是这样，如，key=a,如                              果里面有3个a，那么这个value中就是{1,1,1}，这个是迭代式的形式<br>Context：存储reduce运算后的数据，本例子中<code>context.write(new Text(word),new IntWritable(1))</code>,key是字母，value则为频          率</intwritable></p>
+<h3 id="main方法测试"><a href="#main方法测试" class="headerlink" title="main方法测试"></a>main方法测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Configuration config = new Configuration(); //初始化配置</span><br><span class="line">Job job = Job.getInstance(config);//把任务封装到job对象</span><br><span class="line">job.setJarByClass(HadoopDriver.class);//设置任务启动类</span><br><span class="line">job.setMapperClass(HadoopMapper.class);//设置mapper类</span><br><span class="line">job.setReducerClass(HadoopReducer.class);//设置reducer类</span><br><span class="line"></span><br><span class="line">//设置输出的key和value的数据类型， 如果map的输出和reduce输出key-value类型一致  可以不写map</span><br><span class="line">job.setMapOutputKeyClass(Text.class);</span><br><span class="line">job.setMapOutputValueClass(IntWritable.class);</span><br><span class="line">job.setOutputKeyClass(Text.class);</span><br><span class="line">job.setOutputValueClass(IntWritable.class);</span><br><span class="line"></span><br><span class="line">//告诉hadoop集群以什么方式读取数据，从哪里读取</span><br><span class="line">job.setInputFormatClass(TextInputFormat.class);//设置输入格式，默认是key-value输入</span><br><span class="line">TextInputFormat.setInputPaths(job, new Path(&quot;D:\\word.txt&quot;));//设置输入目录，本例也就是需要统计字频的文件</span><br><span class="line"></span><br><span class="line">//告诉hadoop集群以什么样的方式写入数据，数据写入到哪里</span><br><span class="line">job.setOutputFormatClass(TextOutputFormat.class);//设置输出格式，默认是key-value输出</span><br><span class="line">Path path = new Path(&quot;D:\\wordcount&quot;);//新建路径</span><br><span class="line">FileSystem fs = FileSystem.get(config);//新建文件系统</span><br><span class="line">if (fs.exists(path)) &#123;//判断路径是否存在，如果存在则删除，hadoop的严格的容错性保证每次输出一定是新目录</span><br><span class="line">    fs.delete(path, true);</span><br><span class="line">&#125;</span><br><span class="line">TextOutputFormat.setOutputPath(job, path);//设置输出路径</span><br><span class="line">//提交任务</span><br><span class="line">System.exit(job.waitForCompletion(true) ? 0 : 1);//当任务完成时，系统退出</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/大数据学习--MapReduce程序编写/" data-id="cjumrrnke0006kktf71j9kodv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/18/大数据学习--zookeeper/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/18/大数据学习--idea与maven的安装与配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/18/小科普/为什么判断闰年不能单单看这一年是否为4的倍数/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--小实验/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--zookeeper/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--MapReduce程序编写/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/18/大数据学习--idea与maven的安装与配置/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Iwishing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
