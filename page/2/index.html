@@ -1,452 +1,674 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+    <meta charset="utf-8">
+    <meta name="keywords" content="blogs">
+    <meta name="description" content="我所希冀的未来">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>我所希冀的未来</title>
+    <link rel="icon" type="image/png" href="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/f0efd497b0316c993d517f78de7a2141.png">
 
-  
-  <title>Blog|我所希冀的未来</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我的脚印">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Blog|我所希冀的未来">
-<meta property="og:url" content="https://github.com/iwishing/myBlog.git/page/2/index.html">
-<meta property="og:site_name" content="Blog|我所希冀的未来">
-<meta property="og:description" content="我的脚印">
-<meta property="og:locale" content="default">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Blog|我所希冀的未来">
-<meta name="twitter:description" content="我的脚印">
-  
-    <link rel="alternate" href="/atom.xml" title="Blog|我所希冀的未来" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Blog|我所希冀的未来</a>
-      </h1>
-      
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/f0efd497b0316c993d517f78de7a23.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">我所希冀的未来</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/f0efd497b0316c993d517f78de7a23.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">我所希冀的未来</div>
+        <div class="logo-desc">
+            
+            不会就给老子去学
+            
+        </div>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
         
-          <a class="main-nav-link" href="/">Home</a>
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
         
-      </nav>
-      <nav id="sub-nav">
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/iwishing/myBlog.git"></form>
-      </div>
-    </div>
-  </div>
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/iwishing" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/iwishing" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1223372496@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1223372496" class="tooltipped" data-tooltip="QQ联系我: 1223372496" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/iwishing" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
 </header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-Java学习--JDK的下载与配置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/18/Java学习--JDK的下载与配置/" class="article-date">
-  <time datetime="2019-04-18T14:03:37.466Z" itemprop="datePublished">2019-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Java学习"><a href="#Java学习" class="headerlink" title="Java学习"></a>Java学习</h1><h2 id="–JDK的下载与配置"><a href="#–JDK的下载与配置" class="headerlink" title="–JDK的下载与配置"></a>–JDK的下载与配置</h2><blockquote>
-<blockquote>
-<p>环境：<br>jdk:1.8<br>系统：windows10 家庭版</p>
-</blockquote>
-</blockquote>
-<h3 id="JDK下载"><a href="#JDK下载" class="headerlink" title="JDK下载"></a>JDK下载</h3><p><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">下载地址</a><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326031324146.png" alt><br>我们下载jdk1.8版本，windows x64的<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326031528449.png" alt><br>下载完成后我们运行安装文件，开始安装之后，点击下一步<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326032453469.png" alt><br>到达定制安装界面，我们修改一下安装位置就行，然后下一步<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326032542742.png" alt><br>正在安装<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326032748546.png" alt><br>确定<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326032826119.png" alt><br>安装jre，修改安装路径，下一步<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326033039868.png" alt><br>安装完成</p>
-<h3 id="JDK环境配置"><a href="#JDK环境配置" class="headerlink" title="JDK环境配置"></a>JDK环境配置</h3><p>右键我的电脑-&gt;属性<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326033220297.png" alt><br>左上角高级系统设置<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326033254314.png" alt><br>右下角环境变量<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326033330303.png" alt><br>在系统变量里面新建<strong>JAVA_HOME</strong>环境变量<br><code>JAVA_HOME= &lt;jdk安装根目录&gt;</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326033922213.png" alt><br>然后向Path里面新建路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%JAVA_HOME%\bin</span><br><span class="line">%JAVA_HOME%\lib\tools.jar</span><br><span class="line">%JAVA_HOME%\lib\dt.jar</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326034149740.png" alt><br>然后打开电脑cmd终端，输入java和javac<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326034655984.png" alt><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Java%E5%AD%A6%E4%B9%A0--JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326034718377.png" alt><br>上面一个是java命令，下面一个是javac命令，如果两个命令都能行，说明java环境配置成功</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/Java学习--JDK的下载与配置/" data-id="cjumrrnk70002kktfb7uwihsw" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
+<style type="text/css">
+    /* don't remove. */
+    .index-cover {
+        height: 100vh;
+    }
+</style>
 
+<div class="bg-cover  about-cover" style="background-image: url('/medias/cover.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
+                <div class="brand">
+                    <div class="title center-align">
+                    
+                        我所希冀的未来
+                    
+                    </div>
 
-  
-    <article id="post-Idea的快捷键" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/18/Idea的快捷键/" class="article-date">
-  <time datetime="2019-04-18T14:03:37.457Z" itemprop="datePublished">2019-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Idea的快捷键"><a href="#Idea的快捷键" class="headerlink" title="Idea的快捷键"></a>Idea的快捷键</h1><blockquote>
-<blockquote>
-<p>环境：<br>idea：ultimate 2018.1<br>系统：windows10 家庭版</p>
-</blockquote>
-</blockquote>
-<h2 id="1-psvm"><a href="#1-psvm" class="headerlink" title="1.psvm"></a>1.psvm</h2><p>可以直接输出main方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-sout"><a href="#2-sout" class="headerlink" title="2.sout"></a>2.sout</h2><p>可以字节输出打印语句<br><code>System.out.println();</code><br>小技巧：<br>使用sout的时候，用变量.sout可以直接打印出输出语句，并将变量放在括号中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s.sout</span><br><span class="line">System.out.println(s);</span><br></pre></td></tr></table></figure></p>
-<h2 id="3-alt-Enter"><a href="#3-alt-Enter" class="headerlink" title="3.alt+Enter"></a>3.alt+Enter</h2><p>在需要导入包的变量上按，可以快速导入需要的包</p>
-<h2 id="4-ctrl-alt-v"><a href="#4-ctrl-alt-v" class="headerlink" title="4.ctrl+alt+v"></a>4.ctrl+alt+v</h2><p>可以快速补全语句，如<br><code>new String();</code><br>可以快速补全为<br><code>String string = new String();</code></p>
-<h2 id="5-alt-insert"><a href="#5-alt-insert" class="headerlink" title="5.alt+insert"></a>5.alt+insert</h2><p>可以快速插入构造器，getter和setter方法等</p>
-<h2 id="6-ctrl-i"><a href="#6-ctrl-i" class="headerlink" title="6.ctrl+i"></a>6.ctrl+i</h2><p>可以快速实现该类所实现的接口的方法</p>
-<h2 id="7-ctrl-shift-c"><a href="#7-ctrl-shift-c" class="headerlink" title="7.ctrl+shift+c"></a>7.ctrl+shift+c</h2><p>可以快速注释大片代码</p>
-<h2 id="8-ctrl-shift-x"><a href="#8-ctrl-shift-x" class="headerlink" title="8.ctrl+shift+x"></a>8.ctrl+shift+x</h2><p>可以快速取消大片注释</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/Idea的快捷键/" data-id="cjumrrnk50001kktffk9j7f1m" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Idea打jar包" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/18/Idea打jar包/" class="article-date">
-  <time datetime="2019-04-18T14:03:37.447Z" itemprop="datePublished">2019-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Idea打包jar包"><a href="#Idea打包jar包" class="headerlink" title="Idea打包jar包"></a>Idea打包jar包</h1><blockquote>
-<blockquote>
-<p>环境：<br>idea：ultimate 2018.1<br>系统：windows10 家庭版</p>
-</blockquote>
-</blockquote>
-<p>1.先将代码修改成通用格式<br>一些常量修改为形参，如路径<br><code>Path path = new Path(&quot;D:\\test.txt&quot;);</code><br>可以修改为<br><code>Path path = new Path(args[0]);</code><br>2.修改完毕我们可以开始打包<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Idea%E6%89%93jar%E5%8C%85/20190409040343424.png" alt><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Idea%E6%89%93jar%E5%8C%85/20190409040503623.png" alt><br><strong>File</strong>-&gt;<strong>Project Structure</strong>-&gt;<strong>Artifacts</strong>-&gt;<strong>+号</strong>-&gt;<strong>JAR</strong>-&gt;<strong>From modules with dependencies</strong><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Idea%E6%89%93jar%E5%8C%85/20190409041019553.png" alt><br>在Main Class中找到自己要打包的class<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Idea%E6%89%93jar%E5%8C%85/20190409041214894.png" alt><br>下面那个是元数据信息，我们可以默认目录，也可以自己选择，然后<strong>ok</strong><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Idea%E6%89%93jar%E5%8C%85/20190409041904186.png" alt><br>这个目录是之后方jar包的目录，我们可以选择到自己项目的目录，方便查找，然后Apply，ok<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Idea%E6%89%93jar%E5%8C%85/20190409042256223.png" alt><br>之后我们点击Build-&gt;Build Artifacts<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Idea%E6%89%93jar%E5%8C%85/20190409042324094.png" alt><br>点击Build<br>这个时候我们进入刚刚设置的存放jar包的目录<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/Idea%E6%89%93jar%E5%8C%85/20190409043044229.png" alt><br>可以发现打包成功</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/Idea打jar包/" data-id="cjumrrnjx0000kktfucjz1plv" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-c++学习--运算符重载" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/18/c++学习--运算符重载/" class="article-date">
-  <time datetime="2019-04-18T14:03:37.436Z" itemprop="datePublished">2019-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="c-学习"><a href="#c-学习" class="headerlink" title="c++学习"></a>c++学习</h1><blockquote>
-<blockquote>
-<p>环境：<br>codeblocks：17.12<br>系统：windows10 家庭版</p>
-</blockquote>
-</blockquote>
-<h2 id="–运算符的重载"><a href="#–运算符的重载" class="headerlink" title="–运算符的重载"></a>–运算符的重载</h2><p><strong>输入输出运算符重载，只能重载成友元函数</strong></p>
-<h3 id="输出运算符重载"><a href="#输出运算符重载" class="headerlink" title="输出运算符重载"></a>输出运算符重载</h3><p>通常情况下，输出符只能直接输出标准类型的值，而我们自定义类型是不能直接输出的<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403101633233.png" alt><br>cout返回值为cout<br>cout &lt;&lt; p1 返回值还是cout，因为可以继续加&lt;&lt;输出</p>
-<p>我们在Person对象中声明ostream友元函数<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403102842442.png" alt><br><code>friend ostream&amp; operator&lt;&lt;(ostream &amp;outPut,const Person &amp;p);</code><br>然后函数体<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ostream&amp; operator&lt;&lt;(ostream &amp;outPut,const Person &amp;p)</span><br><span class="line">&#123;</span><br><span class="line">    outPut &lt;&lt; p.name &lt;&lt; &quot;-&quot; &lt;&lt; p.address;</span><br><span class="line">    return outPut;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个时候我们再去输出p1试试<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403103019718.png" alt><br>这个时候可以发现，cout可以直接输出我们的自定义类型</p>
-<h3 id="输入运算符重载"><a href="#输入运算符重载" class="headerlink" title="输入运算符重载"></a>输入运算符重载</h3><p>正常情况下<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403112257231.png" alt><br>这样是不行的，不能直接给自定义类型输入值，但是我们重载输入运算符就能自己自定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">声明：</span><br><span class="line">   friend istream&amp; operator&gt;&gt;(istream &amp;inPut, Person &amp;p)</span><br><span class="line">函数体</span><br><span class="line">istream&amp; operator&gt;&gt;(istream &amp;inPut, Person &amp;p)</span><br><span class="line">&#123;</span><br><span class="line">    p.address = new char[10];</span><br><span class="line">    inPut &gt;&gt; p.name &gt;&gt; p.address;</span><br><span class="line">    return inPut;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>测试一下<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403020543413.png" alt><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403020612308.png" alt><br>重载成功</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/c++学习--运算符重载/" data-id="cjumrrnkc0005kktf4kerdevy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-c++学习--类型重载" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/18/c++学习--类型重载/" class="article-date">
-  <time datetime="2019-04-18T14:03:37.423Z" itemprop="datePublished">2019-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="c-学习"><a href="#c-学习" class="headerlink" title="c++学习"></a>c++学习</h1><blockquote>
-<blockquote>
-<p>环境：<br>codeblocks：17.12<br>系统：windows10 家庭版</p>
-</blockquote>
-</blockquote>
-<h2 id="–类型重载"><a href="#–类型重载" class="headerlink" title="–类型重载"></a>–类型重载</h2><p>正常情况下，同一个类型只能给同一个类型赋值，如果想要让自定义类和标准类型之间可以复制，这个时候就需要类型重载，我们用成员函数的方式<br>我们定义一个<strong>Time</strong>类，然后有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hour   小时</span><br><span class="line">minute 分</span><br><span class="line">second 秒</span><br></pre></td></tr></table></figure></p>
-<p>然后我们将他赋值给<strong>float</strong>类型，让他将所有时间都换成秒。<br>格式如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">声明：</span><br><span class="line">    operator &lt;类型&gt;()</span><br><span class="line">函数体：</span><br><span class="line">    &lt;类名&gt;::operator &lt;类型&gt;()</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>实例代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Time</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int hour, minute,second;</span><br><span class="line">public :</span><br><span class="line">    Time(int hour, int minute, int second);</span><br><span class="line">    void print();</span><br><span class="line">    operator float();</span><br><span class="line">&#125;;</span><br><span class="line">Time::Time(int hour,int minute, int second)</span><br><span class="line">&#123;</span><br><span class="line">    this-&gt;hour = hour;</span><br><span class="line">    this-&gt;minute = minute;</span><br><span class="line">    this-&gt;second = second;</span><br><span class="line">&#125;</span><br><span class="line">void Time::print()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt;&quot;小时:&quot; &lt;&lt; this-&gt;hour &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt;&quot;分:&quot; &lt;&lt; this-&gt;minute &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt;&quot;秒:&quot; &lt;&lt; this-&gt;second &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Time::operator float()</span><br><span class="line">&#123;</span><br><span class="line">    float tamp;</span><br><span class="line">    tamp = hour * 3600 + minute * 60 + second;</span><br><span class="line">    return tamp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    Time t1(23,30,55);</span><br><span class="line">    t1.print();</span><br><span class="line">    float f = t1;</span><br><span class="line">    cout &lt;&lt; f;</span><br><span class="line">    getchar();</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>结果<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E7%B1%BB%E5%9E%8B%E9%87%8D%E8%BD%BD/20190403114204303.png" alt><br>可以看到，float型的f成功赋值</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/c++学习--类型重载/" data-id="cjumrrnkb0004kktfaqnfsbrr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/18/问题/" class="article-date">
-  <time datetime="2019-04-18T14:03:37.415Z" itemprop="datePublished">2019-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E9%97%AE%E9%A2%98/20190409055541933.png" alt><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E9%97%AE%E9%A2%98/20190409055551124.png" alt></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/问题/" data-id="cjumrrnl4000dkktfj29omvim" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-网络连接的三种模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/18/网络连接的三种模式/" class="article-date">
-  <time datetime="2019-04-18T14:03:37.405Z" itemprop="datePublished">2019-04-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="网络连接的三种模式"><a href="#网络连接的三种模式" class="headerlink" title="网络连接的三种模式"></a>网络连接的三种模式</h1><blockquote>
-<blockquote>
-<p>环境<br>系统：windows10 家庭版<br>linux系统：centos 6.3<br>vm：15.0.3</p>
-</blockquote>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vm自带有3块网卡</span><br><span class="line">vmnet0：桥接模式</span><br><span class="line">vmnet1：仅主机模式</span><br><span class="line">vmnet8：NET模式</span><br><span class="line">我们可以打开编辑-&gt;虚拟网络编辑器，里面查看是否有这3块网卡，没有的话，我们可以自行增加</span><br></pre></td></tr></table></figure>
-<p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417090323800.png" alt><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417090438696.png" alt></p>
-<h3 id="1-仅主机模式"><a href="#1-仅主机模式" class="headerlink" title="1.仅主机模式"></a>1.仅主机模式</h3><p>这个模式我们只需要修改虚拟机的连接模式为仅主机模式，设置vm与主机ip在同一个网段，然后将虚拟机ip也设置在同一网段即可。这个时候，我们用主机ping虚拟机，如果能ping通就说明设置成功</p>
-<h5 id="a-查看主机ip"><a href="#a-查看主机ip" class="headerlink" title="a.查看主机ip"></a>a.查看主机ip</h5><p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417093745677.png" alt></p>
-<h5 id="b-设置vm的仅主机模式网卡ip"><a href="#b-设置vm的仅主机模式网卡ip" class="headerlink" title="b.设置vm的仅主机模式网卡ip"></a>b.设置vm的仅主机模式网卡ip</h5><p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417090910233.png" alt></p>
-<h5 id="c-设置虚拟机连接模式为仅主机模式"><a href="#c-设置虚拟机连接模式为仅主机模式" class="headerlink" title="c.设置虚拟机连接模式为仅主机模式"></a>c.设置虚拟机连接模式为仅主机模式</h5><p>右键点击虚拟机标签<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417091153136.png" alt><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417091301956.png" alt></p>
-<h5 id="d-设置虚拟机的ip"><a href="#d-设置虚拟机的ip" class="headerlink" title="d.设置虚拟机的ip"></a>d.设置虚拟机的ip</h5><p>有两种方式，一种是<code>setup</code>命令，到图形界面设置，还有一个是通过文件设置，这里我们都采取文件设置。<br>首先我们进入<code>network-scripts</code>目录查看我们的虚拟网卡，这个是vm配置的<br><code>ls /etc/sysconfig/network-scripts</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417091900672.png" alt><br>我们可以看到，有个<code>ifcfg-eth0</code>，这就是一块叫eth0的网卡，我们使用<code>ifconfig</code>命令查看网卡是否在使用<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417092033945.png" alt><br>这里已经在使用了<br>如果这里没有看到虚拟网卡，只有localhost的话，我们可以使用<code>ifup &lt;虚拟网卡名称&gt;</code>，这个命令启用网卡，比如我就是用<code>ifup eth0</code>，同理，使用<code>ifdown &lt;虚拟网卡名称&gt;</code>，停用网卡，这里不再赘述<br>修改ip，我们使用进入ifcfg-eth0文件<br><code>vim /etc/sysconfig/network-scripts/ifcfg-eth0</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417092505604.png" alt><br>我们将这个ip修改为<code>192.168.43.253</code>，保存退出，最后一步<br><code>service network restart</code></p>
-<h5 id="e-测试"><a href="#e-测试" class="headerlink" title="e.测试"></a>e.测试</h5><p>主机ping<code>192.168.43.253</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190417092752075.png" alt><br>可以ping通，仅主机模式设置成功<br>如果以上步骤都完成了<br>虚拟机ping不通主机是因为主机有防火墙， 关闭防火墙也能ping通<br>主机ping不通虚拟机，虚拟机防火墙没有关闭</p>
-<hr>
-<h3 id="2-桥接模式"><a href="#2-桥接模式" class="headerlink" title="2.桥接模式"></a>2.桥接模式</h3><p>这个模式我们需要将虚拟机设置为桥接模式，然后修改虚拟机的<strong>网关</strong>和<strong>子网掩码</strong>，和主机正在使用且联网的那块网卡一致，再修改ip地址到同一网段即可</p>
-<h5 id="a-查看主机ip-1"><a href="#a-查看主机ip-1" class="headerlink" title="a.查看主机ip"></a>a.查看主机ip</h5><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418062916493.png" alt></p>
-<h5 id="b-修改虚拟机为桥接模式"><a href="#b-修改虚拟机为桥接模式" class="headerlink" title="b.修改虚拟机为桥接模式"></a>b.修改虚拟机为桥接模式</h5><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418062252478.png" alt><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418062356772.png" alt></p>
-<h5 id="c-修改虚拟机ip信息"><a href="#c-修改虚拟机ip信息" class="headerlink" title="c.修改虚拟机ip信息"></a>c.修改虚拟机ip信息</h5><p><code>vim /etc/sysconfig/network-scripts/ifcfg-eth0</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418063122341.png" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">设置</span><br><span class="line">子网掩码：255.255.255.0</span><br><span class="line">默认网关：192.168.43.1</span><br></pre></td></tr></table></figure></p>
-<p>改完别忘记<code>service network restart</code></p>
-<h5 id="d-测试"><a href="#d-测试" class="headerlink" title="d.测试"></a>d.测试</h5><p>我们直接ping<code>baidu.com</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418063742666.png" alt><br>如果可以ping通，代表桥接模式设置成功</p>
-<h3 id="3-NET模式"><a href="#3-NET模式" class="headerlink" title="3.NET模式"></a>3.NET模式</h3><p>这个模式只需要将虚拟机设置为NET模式，设置虚拟机和vm的子网掩码和网关一致，再修改ip为同一网段即可，不用管主机ip</p>
-<h5 id="a-设置vmip信息"><a href="#a-设置vmip信息" class="headerlink" title="a.设置vmip信息"></a>a.设置vmip信息</h5><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418065205550.png" alt><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418065608463.png" alt><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418070914844.png" alt><br>这里网关最后一位应为2，因为他是物理机虚拟出来的一个网络，物理机上面的vmnet8这块网卡的网关是不一样的<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418071045037.png" alt></p>
-<h5 id="b-修改虚拟机为NET模式"><a href="#b-修改虚拟机为NET模式" class="headerlink" title="b.修改虚拟机为NET模式"></a>b.修改虚拟机为NET模式</h5><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418064306987.png" alt><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418064454848.png" alt></p>
-<h5 id="c-修改虚拟机ip信息-1"><a href="#c-修改虚拟机ip信息-1" class="headerlink" title="c.修改虚拟机ip信息"></a>c.修改虚拟机ip信息</h5><p><code>vim /etc/sysconfig/network-scripts/ifcfg-eth0</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418065721214.png" alt><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">设置</span><br><span class="line">子网掩码：255.255.255.0</span><br><span class="line">默认网关：192.168.255.2</span><br><span class="line">ip：192.168.255.253</span><br></pre></td></tr></table></figure></p>
-<p>改完别忘记<code>service network restart</code></p>
-<h5 id="d-测试-1"><a href="#d-测试-1" class="headerlink" title="d.测试"></a>d.测试</h5><p>我们直接ping<code>baidu.com</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/20190418071149212.png" alt><br>如果可以ping通，代表NET模式设置成功</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/18/网络连接的三种模式/" data-id="cjumrrnl2000ckktf5kfed6sa" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-lilux相关/linux--webmin的安装与使用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/06/lilux相关/linux--webmin的安装与使用/" class="article-date">
-  <time datetime="2019-04-06T04:25:49.058Z" itemprop="datePublished">2019-04-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h1><h2 id="–webmin的安装与使用"><a href="#–webmin的安装与使用" class="headerlink" title="–webmin的安装与使用"></a>–webmin的安装与使用</h2><blockquote>
-<blockquote>
-<p>环境：<br>webmin:1.900</p>
-</blockquote>
-</blockquote>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><a href="https://sourceforge.net/projects/webadmin/files/webmin/1.900/" target="_blank" rel="noopener">webmin下载链接</a><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406122837265.png" alt><br>下载tar.gz包，上传到linux系统<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406123059569.png" alt><br>第一个，第二个是轻量的<br><strong>开始安装</strong><br>1.解压缩<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406123304374.png" alt><br>2.进入解压后的webmin文件目录，执行setup.sh脚本安装<br><code>./setup.sh</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406123435885.png" alt><br>配置文件目录，回车<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406123456619.png" alt><br>配置日志目录，回车<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406123627147.png" alt><br>配置perl语言的完整目录，回车<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406123647558.png" alt><br>配置端口，回车<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406123710525.png" alt><br>配置登录用户名，回车，默认admin<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406123727338.png" alt><br>配置密码，配置一下，回车，安装完成<br><strong>webmin的配置文件</strong><br><code>/etc/webmin/miniserv.conf</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406124600510.png" alt><br>修改密码<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406010221787.png" alt><br><code>/root/webmin-1.900/changepass.pl /etc/webmin/ admin 000000</code><br>这里<code>/root/webmin-1.900/changepass.pl</code>是解压目录<br><code>/etc/webmin/</code>是安装之后的配置目录<br><code>admin</code>是你要修改的用户的用户名<br><code>000000</code>替换你这个用户的密码<br>如果你连用户都忘了<br><code>vim /etc/webmin/miniserv.users</code><br>进入这个配置文件，可以看到用户名<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406010617820.png" alt><br><strong>卸载</strong><br><code>/etc/webmin/uninstall.sh</code></p>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>我们打开浏览器，注意它只支持部分浏览器，ie的不支持，使用ie内核的浏览器也不支持，我之前就是用360结果不行，然后换了火狐就好了<br>输入<br><code>http://localhost:10000</code><br>这个10000端口就是我们安装的时候默认的<br>注意这个<strong>localhost</strong>，你如果是用自己电脑安装的，可以直接用localhost，但是你如果使用的虚拟机，在虚拟机的linux中安装的webmin，那么localhost应该换成虚拟机的ip地址<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406011125046.png" alt><br>我们输入用户名和密码<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/linux--webmin%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190406011152227.png" alt><br>登录成功，可以开始使用了</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/iwishing/myBlog.git/2019/04/06/lilux相关/linux--webmin的安装与使用/" data-id="cjumrrnln000gkktfhdcjv5pd" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
-</section>
+                    <div class="description center-align">
+                    
+                        不会就给老子去学
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
     </div>
-  </div>
+</div>
 
+<script>
+// Dynamically switch banner pictures every day.
+$('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+</script>
 
-  
+<main class="content">
+
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/04/18/小科普/为什么判断闰年不能单单看这一年是否为4的倍数/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/18/大数据学习--小实验/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/18/大数据学习--zookeeper/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/18/大数据学习--MapReduce程序编写/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/18/大数据学习--idea与maven的安装与配置/">(no title)</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 Iwishing<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    
+
+    <!-- 所有文章卡片 -->
+    <article id="articles" class="container articles">
+        <div class="row article-row">
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/04/18/Idea打jar包/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt>
+                            
+                            <span class="card-title"></span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary">
+                            
+                                Idea打包jar包
+
+环境：idea：ultimate 2018.1系统：windows10 家庭版
+
+
+1.先将代码修改成通用格式一些常
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-user fa-fw"></i>
+                                Iwishing
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/04/18/c++学习--运算符重载/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="c++学习--运算符重载">
+                            
+                            <span class="card-title">c++学习--运算符重载</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary">
+                            
+                                c++学习–运算符重载
+
+环境：codeblocks：17.12系统：windows10 家庭版
+
+
+输入输出运算符重载，只能重载成友元函数
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-user fa-fw"></i>
+                                Iwishing
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/04/18/c++学习--类型重载/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="c++学习--类型重载">
+                            
+                            <span class="card-title">c++学习--类型重载</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary">
+                            
+                                c++学习–类型重载
+
+环境：codeblocks：17.12系统：windows10 家庭版
+
+
+正常情况下，同一个类型只能给同一个类型赋
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-user fa-fw"></i>
+                                Iwishing
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/04/18/问题/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt>
+                            
+                            <span class="card-title"></span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary">
+                            
+                                
+
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-user fa-fw"></i>
+                                Iwishing
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/04/18/网络连接的三种模式/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="网络连接的三种模式">
+                            
+                            <span class="card-title">网络连接的三种模式</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary">
+                            
+                                网络连接的三种模式
+
+环境系统：windows10 家庭版linux系统：centos 6.3vm：15.0.3
+
+
+vm自带有3块网卡
+v
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-user fa-fw"></i>
+                                Iwishing
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/04/06/lilux相关/linux--webmin的安装与使用/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="linux--webmin的安装与使用">
+                            
+                            <span class="card-title">linux--webmin的安装与使用</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary">
+                            
+                                linux–webmin的安装与使用
+
+环境：webmin:1.900
+
+
+安装webmin下载链接下载tar.gz包，上传到linux系统
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-06
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-user fa-fw"></i>
+                                Iwishing
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+        </div>
+    </article>
+
+</main>
+
+
+<div class="container paging">
+    <div class="row">
+        <div class="col s6 m4 l4">
+            
+            <a href="/" class="left btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            
+        </div>
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">2 / 2</div>
+        </div>
+        <div class="col s6 m4 l4">
+            
+            <a class="right btn-floating btn-large disabled">
+                <i class="fa fa-angle-right"></i>
+            </a>
+            
+        </div>
     </div>
-  </div>
+</div>
+
+
+
+<footer class="page-footer bg-color">
+
+            
+    <div class="container row center-align">
+	<!--<div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/iwishing" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1223372496@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1223372496" class="tooltipped" data-tooltip="QQ联系我: 1223372496" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>-->
+        <div class="col s12 copy-right">
+            <p>
+				<span>
+				&copy&nbsp2018&nbsp-&nbsp2019
+				</span>
+					By
+					<a href="https://github.com/iwishing" target="_blank">Iwishing</a>
+			</p>
+			Driven&nbsp-&nbsp
+            <a href="https://hexo.io/" target="_blank">Hexo</a> |
+            Theme - 
+			<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+
+        </div>
+    </div>
 </footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
+</div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
 
 
-<script src="/js/script.js"></script>
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
-  </div>
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
 </body>
 </html>
