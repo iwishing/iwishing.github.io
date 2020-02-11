@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>java对象的内存</title>
+      <link href="/2020/02/11/java%E5%AD%A6%E4%B9%A0--%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98/"/>
+      <url>/2020/02/11/java%E5%AD%A6%E4%B9%A0--%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一个对象的内存"><a href="#一个对象的内存" class="headerlink" title="一个对象的内存"></a>一个对象的内存</h1><p>首先要了解java中的内存分配机制</p><pre><code>栈（stack）：存放的都是方法中的局部变量，方法的运行在栈当中        局部变量：方法的参数，或者视方法体内部的变量        作用域：一旦超出作用域，立即从栈内存中消失堆（Heap）：凡是new出来的东西，都在堆当中。        堆内存里面的东西都有一个地址值：16进制的        堆内存里面的东西都有一个默认值。方法区（Method Area）：存储.class相关信息，包含方法的信息本地方法栈（Native Method Stack）：与操作系统相关寄存器（pc register）：与cpu相关</code></pre><p>用一个手机对象为例细说对象内存<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200211142733842/20200211023718046.png" alt><br>当程序运行的时候，首先方法区中会存放类的相关信息，和方法的相关信息<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200211142733842/20200211024234927.png" alt><br>如图，程序中两个class信息都存在方法区，当new出来一个phone时，将它存放在堆内存里面，而我们调用one.什么什么的时候，这些都算是main方法中的局部变量，所以是存在于栈内存中的</p><h4 id="程序中如果调用one-brand-“苹果”，他有2个步骤"><a href="#程序中如果调用one-brand-“苹果”，他有2个步骤" class="headerlink" title="程序中如果调用one.brand = “苹果”，他有2个步骤"></a>程序中如果调用one.brand = “苹果”，他有2个步骤</h4><p>1.该指令存放在栈里面<br>2.根据one对象的地址，到堆内存中寻找one对象的信息，再进行修改</p><h4 id="当调用one-call-“乔布斯”-这个方法时，他有"><a href="#当调用one-call-“乔布斯”-这个方法时，他有" class="headerlink" title="当调用one.call(“乔布斯”)这个方法时，他有"></a>当调用one.call(“乔布斯”)这个方法时，他有</h4><p>1.该指令存放在栈里面<br>2.根据one对象的地址，到堆内存中寻找one对象的信息<br>3.根据one对象的方法的地址，到方法区中寻找具体的方法<br>4.将该方法指令压入栈内存中，然后执行，执行完毕就出栈</p><h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/java%E5%AD%A6%E4%B9%A0--%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98/20200211045052020.png" alt><br>1.最开始main方法就是在栈中的，当main方法执行完毕，从栈中弹出，也就意味着程序运行完毕。<br>2.同一个类的不同对象的方法，是共用同一个方法区中的方法的，地址相同。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>小科普</title>
       <link href="/2019/04/18/%E5%B0%8F%E7%A7%91%E6%99%AE/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%A4%E6%96%AD%E9%97%B0%E5%B9%B4%E4%B8%8D%E8%83%BD%E5%8D%95%E5%8D%95%E7%9C%8B%E8%BF%99%E4%B8%80%E5%B9%B4%E6%98%AF%E5%90%A6%E4%B8%BA4%E7%9A%84%E5%80%8D%E6%95%B0/"/>
       <url>/2019/04/18/%E5%B0%8F%E7%A7%91%E6%99%AE/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%A4%E6%96%AD%E9%97%B0%E5%B9%B4%E4%B8%8D%E8%83%BD%E5%8D%95%E5%8D%95%E7%9C%8B%E8%BF%99%E4%B8%80%E5%B9%B4%E6%98%AF%E5%90%A6%E4%B8%BA4%E7%9A%84%E5%80%8D%E6%95%B0/</url>

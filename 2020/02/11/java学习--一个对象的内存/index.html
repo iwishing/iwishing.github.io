@@ -4,8 +4,13 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="小科普, blogs">
-    <meta name="description" content="为什么判断闰年不能单单看这一年是否为4的倍数答：地球绕太阳运行周期为365天5小时48分46秒（合365.24219天）即一回归年。公历的平年只有365日，比回归年短约0.2422 日，所余下的时间约为四年累计一天，故四年于2月加1天，使当">
+    <meta name="keywords" content="java对象的内存, blogs">
+    <meta name="description" content="一个对象的内存首先要了解java中的内存分配机制
+栈（stack）：存放的都是方法中的局部变量，方法的运行在栈当中
+        局部变量：方法的参数，或者视方法体内部的变量
+        作用域：一旦超出作用域，立即从栈内存中消失
+
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +18,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>小科普 | 我所希冀的未来</title>
+    <title>java对象的内存 | 我所希冀的未来</title>
     <link rel="icon" type="image/png" href="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -279,13 +284,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        小科普
+                        java对象的内存
                     </div>
                 </div>
             </div>
@@ -377,8 +382,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/小科普/" target="_blank">
-                                <span class="chip bg-color">小科普</span>
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
                             </a>
                         
                     </div>
@@ -389,8 +394,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/小科普/" class="post-category" target="_blank">
-                                小科普
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                Java
                             </a>
                         
                     </div>
@@ -401,14 +406,14 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-18
+                    2020-02-11
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        241
+                        510
                     </div>
                     
 
@@ -431,8 +436,24 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="为什么判断闰年不能单单看这一年是否为4的倍数"><a href="#为什么判断闰年不能单单看这一年是否为4的倍数" class="headerlink" title="为什么判断闰年不能单单看这一年是否为4的倍数"></a>为什么判断闰年不能单单看这一年是否为4的倍数</h1><h3 id="答："><a href="#答：" class="headerlink" title="答："></a>答：</h3><p>地球绕太阳运行周期为365天5小时48分46秒（合365.24219天）即一回归年。公历的平年只有365日，比回归年短约0.2422 日，所余下的时间约为四年累计一天，故四年于2月加1天，使当年的历年长度为366日，这一年就为闰年。现行公历中每400年有97个闰年。按照每四年一个闰年计算，平均每年就要多算出0.0078天，这样经过四百年就会多算出大约3天来。因此每四百年中要减少三个闰年。所以公历规定：年份是整百数时，必须是400的倍数才是闰年；不是400的倍数的年份，即使是4的倍数也不是闰年。</p>
-<h3 id="因此"><a href="#因此" class="headerlink" title="因此"></a>因此</h3><p>我们判断闰年，需要这样写<br><code>year%400 == 0||year%4 == 0&amp;&amp;year%100 != 0</code></p>
+                <h1 id="一个对象的内存"><a href="#一个对象的内存" class="headerlink" title="一个对象的内存"></a>一个对象的内存</h1><p>首先要了解java中的内存分配机制</p>
+<pre><code>栈（stack）：存放的都是方法中的局部变量，方法的运行在栈当中
+        局部变量：方法的参数，或者视方法体内部的变量
+        作用域：一旦超出作用域，立即从栈内存中消失
+
+堆（Heap）：凡是new出来的东西，都在堆当中。
+        堆内存里面的东西都有一个地址值：16进制的
+        堆内存里面的东西都有一个默认值。
+
+方法区（Method Area）：存储.class相关信息，包含方法的信息
+
+本地方法栈（Native Method Stack）：与操作系统相关
+
+寄存器（pc register）：与cpu相关
+</code></pre><p>用一个手机对象为例细说对象内存<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200211142733842/20200211023718046.png" alt><br>当程序运行的时候，首先方法区中会存放类的相关信息，和方法的相关信息<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200211142733842/20200211024234927.png" alt><br>如图，程序中两个class信息都存在方法区，当new出来一个phone时，将它存放在堆内存里面，而我们调用one.什么什么的时候，这些都算是main方法中的局部变量，所以是存在于栈内存中的</p>
+<h4 id="程序中如果调用one-brand-“苹果”，他有2个步骤"><a href="#程序中如果调用one-brand-“苹果”，他有2个步骤" class="headerlink" title="程序中如果调用one.brand = “苹果”，他有2个步骤"></a>程序中如果调用one.brand = “苹果”，他有2个步骤</h4><p>1.该指令存放在栈里面<br>2.根据one对象的地址，到堆内存中寻找one对象的信息，再进行修改</p>
+<h4 id="当调用one-call-“乔布斯”-这个方法时，他有"><a href="#当调用one-call-“乔布斯”-这个方法时，他有" class="headerlink" title="当调用one.call(“乔布斯”)这个方法时，他有"></a>当调用one.call(“乔布斯”)这个方法时，他有</h4><p>1.该指令存放在栈里面<br>2.根据one对象的地址，到堆内存中寻找one对象的信息<br>3.根据one对象的方法的地址，到方法区中寻找具体的方法<br>4.将该方法指令压入栈内存中，然后执行，执行完毕就出栈</p>
+<h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/java%E5%AD%A6%E4%B9%A0--%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98/20200211045052020.png" alt><br>1.最开始main方法就是在栈中的，当main方法执行完毕，从栈中弹出，也就意味着程序运行完毕。<br>2.同一个类的不同对象的方法，是共用同一个方法区中的方法的，地址相同。</p>
 
             </div>
             <hr>
@@ -456,7 +477,7 @@
                     </span>
                     <a href="https://iwishing.github.io" class="b-link-green">我所希冀的未来</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/18/小科普/为什么判断闰年不能单单看这一年是否为4的倍数/" class="b-link-green">小科普</a>
+                    <a href="/2020/02/11/java学习--一个对象的内存/" class="b-link-green">java对象的内存</a>
                 </p>
             </div>
         </div>
@@ -479,7 +500,8 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/02/11/java学习--一个对象的内存/">
                     <div class="card-image">
@@ -498,9 +520,9 @@
 
 </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-02-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-02-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -513,6 +535,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -531,24 +554,17 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/18/大数据学习--小实验/">
+                <a href="/2019/04/18/小科普/为什么判断闰年不能单单看这一年是否为4的倍数/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="大数据学习--小实验">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="小科普">
                         
-                        <span class="card-title">大数据学习--小实验</span>
+                        <span class="card-title">小科普</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">大数据学习– 小实验
-
-环境：idea：ultimate 2018.1系统：windows10 家庭版
-
-
-1.Count计数器
-2.自定义计数器(1)枚举类型在mapper中定义CustomCount枚举类型
-enum CustomCou</div>
+                    <div class="summary">为什么判断闰年不能单单看这一年是否为4的倍数答：地球绕太阳运行周期为365天5小时48分46秒（合365.24219天）即一回归年。公历的平年只有365日，比回归年短约0.2422 日，所余下的时间约为四年累计一天，故四年于2月加1天，使当</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
@@ -557,8 +573,8 @@ enum CustomCou</div>
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/大数据/" class="post-category" target="_blank">
-                                    大数据
+                            <a href="/categories/小科普/" class="post-category" target="_blank">
+                                    小科普
                                 </a>
                             
                             
@@ -568,8 +584,8 @@ enum CustomCou</div>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/test/" target="_blank">
-                        <span class="chip bg-color">test</span>
+                    <a href="/tags/小科普/" target="_blank">
+                        <span class="chip bg-color">小科普</span>
                     </a>
                     
                 </div>
