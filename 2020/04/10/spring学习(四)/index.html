@@ -4,13 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="java对象的内存, blogs">
-    <meta name="description" content="一个对象的内存首先要了解java中的内存分配机制
-栈（stack）：存放的都是方法中的局部变量，方法的运行在栈当中
-        局部变量：方法的参数，或者视方法体内部的变量
-        作用域：一旦超出作用域，立即从栈内存中消失
+    <meta name="keywords" content="AOP的概念与spring中的AOP, blogs">
+    <meta name="description" content="AOP的概念与spring中的AOP
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
 
-">
+一、AOP的概念1.什么是AOPAOP：全称是Aspect">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>java对象的内存 | 我所希冀的未来</title>
+    <title>AOP的概念与spring中的AOP | 我所希冀的未来</title>
     <link rel="icon" type="image/png" href="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -290,7 +288,7 @@
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        java对象的内存
+                        AOP的概念与spring中的AOP
                     </div>
                 </div>
             </div>
@@ -386,6 +384,10 @@
                                 <span class="chip bg-color">Java</span>
                             </a>
                         
+                            <a href="/tags/Spring/" target="_blank">
+                                <span class="chip bg-color">Spring</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -406,21 +408,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-11
+                    2020-04-10
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        510
+                        2.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        11 分
                     </div>
                     
                 
@@ -436,24 +438,235 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一个对象的内存"><a href="#一个对象的内存" class="headerlink" title="一个对象的内存"></a>一个对象的内存</h1><p>首先要了解java中的内存分配机制</p>
-<pre><code>栈（stack）：存放的都是方法中的局部变量，方法的运行在栈当中
-        局部变量：方法的参数，或者视方法体内部的变量
-        作用域：一旦超出作用域，立即从栈内存中消失
+                <h1 id="AOP的概念与spring中的AOP"><a href="#AOP的概念与spring中的AOP" class="headerlink" title="AOP的概念与spring中的AOP"></a><font size="36">AOP的概念与spring中的AOP</font></h1><blockquote>
+<p>环境：<br>Idea：2019.3.1<br>系统：windows10 家庭版<br>Jdk: 8<br>spring：5.0.3 release<br><a href="https://spring.io/projects/spring-framework" target="_blank" rel="noopener">spring文档</a><br><a href="https://github.com/iwishing/springStudyDemo" target="_blank" rel="noopener">项目代码</a></p>
+</blockquote>
+<h3 id="一、AOP的概念"><a href="#一、AOP的概念" class="headerlink" title="一、AOP的概念"></a>一、AOP的概念</h3><h5 id="1-什么是AOP"><a href="#1-什么是AOP" class="headerlink" title="1.什么是AOP"></a>1.什么是AOP</h5><pre><code>AOP：全称是Aspect Oriented Programming，即面向切面编程
+</code></pre><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331011412027.png" alt></p>
+<pre><code>简单地说它就是把我们程序重复的代码抽取出来，在需要执行的时候，使用动态代理技术，在不需要修改源码的基础上，对我们的已有方法进行增强
+</code></pre><h5 id="2-AOP的作用及优势"><a href="#2-AOP的作用及优势" class="headerlink" title="2.AOP的作用及优势"></a>2.AOP的作用及优势</h5><pre><code>作用：
+    在程序运行期间，不修复源码的已有方法进行增强
+优势：
+    减少重复代码
+    提高开发效率
+    维护方便
+</code></pre><h5 id="3-AOP的实现方式"><a href="#3-AOP的实现方式" class="headerlink" title="3.AOP的实现方式"></a>3.AOP的实现方式</h5><pre><code>动态代理技术实现
+</code></pre><h3 id="二、spring中的AOP"><a href="#二、spring中的AOP" class="headerlink" title="二、spring中的AOP"></a>二、spring中的AOP</h3><h5 id="1-AOP相关术语"><a href="#1-AOP相关术语" class="headerlink" title="1.AOP相关术语"></a>1.AOP相关术语</h5><pre><code>Joinpoint(连接点)：
+    所谓连接点是指那些被拦截到的点，在spring中，这些点指的是方法，因为spring只支持方法类型的连接点。即业务层中被动态代理的类中所有的方法
+Pointout(切入点)：
+    所谓切入点是指我们要对哪些Joinpoint进行拦截的定义，即业务层中被动态代理的类中被增强了的方法
+Advice(通知/增强)：
+    所谓通知是指拦截到Joinpoint之后所要做的事情就是通知
+    通知的类型：前置通知，后置通知，异常通知，最终通知，环绕通知
+</code></pre><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331050343170.png" alt></p>
+<pre><code>Introduction(引介)：
+    所谓引介是指一种特殊的通知，在不修改类代码的前提下，Introduction可以在运行期为类动态地添加一些方法成Field
+Target(目标对象)：
+    代理的目标对象
+Weaving(织入)：
+    是指把增强应用到目标对象来创建新的代理对象的过程
+    spring采用动态代理织入，而AspectJ采用编译期织入和类装载期织入
+</code></pre><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331111045039.png" alt></p>
+<pre><code>Proxy(代理)：
+    一个类被AOP织入增强后，就产生了一个结果代理类，Target是被代理对象，而Proxy则是代理对象
+Aspect(切面)：
+    是切入点和通知（引介）的结合，很抽象，就是在织入的过程中，哪个service，哪些增强方法，这些方法何时执行，这就叫做切面
+</code></pre><h5 id="2-学习spring中的AOP要明确的事"><a href="#2-学习spring中的AOP要明确的事" class="headerlink" title="2.学习spring中的AOP要明确的事"></a>2.学习spring中的AOP要明确的事</h5><pre><code>a、开发阶段(我们做的)
+    编写核心业务代码(开发主线)：大部分程序员来做，要求熟悉业务需求。
+    把公用代码抽取出来，制作成通知(开发阶段最后再做)：AOP编程人员来做
+    在配置文件中，声明切入点与通知间的关系，即切面：AOP编程人员来做
+b、运行阶段(spring框架完成的)
+    spring框架监控切入点方法的执行，一旦监控到切入点方法被运行，使用代理机制，动态创建目标对象的代理对象，根据通知类别，在代理对象的对应位置，将通知对应的功能织入，完成完整的代码逻辑运行
+</code></pre><h5 id="3-关于代理的选择"><a href="#3-关于代理的选择" class="headerlink" title="3.关于代理的选择"></a>3.关于代理的选择</h5><pre><code>在spring中，框架会根据目标类是否实现了接口来决定采用哪种动态代理的方式
+</code></pre><h3 id="三、spring中基于xml的AOP"><a href="#三、spring中基于xml的AOP" class="headerlink" title="三、spring中基于xml的AOP"></a>三、spring中基于xml的AOP</h3><h5 id="1-导入坐标"><a href="#1-导入坐标" class="headerlink" title="1.导入坐标"></a>1.导入坐标</h5><p>除了之前的，我们再导入一个aspectj的jar包<br>idea中，再pom.xml文件中，直接alt+insert，然后选择Dependency，在出来的框里面搜索需要的包就能找到，还能选择版本</p>
+<pre><code>        &lt;dependency&gt;
+            &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
+            &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;
+            &lt;version&gt;1.8.7&lt;/version&gt;
+        &lt;/dependency&gt;
+</code></pre><h5 id="2-新建项目springAOP"><a href="#2-新建项目springAOP" class="headerlink" title="2.新建项目springAOP"></a>2.新建项目springAOP</h5><p>最终项目结构如下<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401093826268.png" alt><br>业务层的AccountServiceImpl中的方法为我们所要增强的方法，即它是我们要用的切入点</p>
+<h6 id="AccountServiceImpl类"><a href="#AccountServiceImpl类" class="headerlink" title="AccountServiceImpl类"></a>AccountServiceImpl类</h6><pre><code>import com.cbw.service.IAccountService;
 
-堆（Heap）：凡是new出来的东西，都在堆当中。
-        堆内存里面的东西都有一个地址值：16进制的
-        堆内存里面的东西都有一个默认值。
+/**
+ * 账户的业务层实现类
+ */
+public class AccountServiceImpl implements IAccountService {
+    /**
+     * 保存账户方法
+     */
+    public void saveAccount() {
+        System.out.println(&quot;执行了保存&quot;);
+    }
 
-方法区（Method Area）：存储.class相关信息，包含方法的信息
+    /**
+     * 更新账户方法
+     * @param i
+     */
+    public void updateAccount(int i) {
+        System.out.println(&quot;执行了更新&quot; + i);
+    }
 
-本地方法栈（Native Method Stack）：与操作系统相关
+    /**
+     * 删除账户方法
+     * @return
+     */
+    public int deleteAccount() {
+        System.out.println(&quot;执行了删除&quot;);
+        return 0;
+    }
+}
+</code></pre><p>这3个方法都有各自的特点</p>
+<pre><code>    saveAccount()方法：    无返回值，无参数
+    updateAccount()方法：  无返回值，有参数
+    deleteAccount()方法：  有返回值，无参数
+</code></pre><p>这样设置是为了在后面知识学习中有个对比</p>
+<h6 id="Logger类"><a href="#Logger类" class="headerlink" title="Logger类"></a>Logger类</h6><p>它是用来提供切面中作为通知的方法的类，这里我们用打印日志作为前置通知，来增强service中的方法</p>
+<pre><code>/**
+ * 用于记录日志的工具类，它里面提供了公共的代码
+ */
+public class Logger {
 
-寄存器（pc register）：与cpu相关
-</code></pre><p>用一个手机对象为例细说对象内存<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200211142733842/20200211023718046.png" alt><br>当程序运行的时候，首先方法区中会存放类的相关信息，和方法的相关信息<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200211142733842/20200211024234927.png" alt><br>如图，程序中两个class信息都存在方法区，当new出来一个phone时，将它存放在堆内存里面，而我们调用one.什么什么的时候，这些都算是main方法中的局部变量，所以是存在于栈内存中的</p>
-<h4 id="程序中如果调用one-brand-“苹果”，他有2个步骤"><a href="#程序中如果调用one-brand-“苹果”，他有2个步骤" class="headerlink" title="程序中如果调用one.brand = “苹果”，他有2个步骤"></a>程序中如果调用one.brand = “苹果”，他有2个步骤</h4><p>1.该指令存放在栈里面<br>2.根据one对象的地址，到堆内存中寻找one对象的信息，再进行修改</p>
-<h4 id="当调用one-call-“乔布斯”-这个方法时，他有"><a href="#当调用one-call-“乔布斯”-这个方法时，他有" class="headerlink" title="当调用one.call(“乔布斯”)这个方法时，他有"></a>当调用one.call(“乔布斯”)这个方法时，他有</h4><p>1.该指令存放在栈里面<br>2.根据one对象的地址，到堆内存中寻找one对象的信息<br>3.根据one对象的方法的地址，到方法区中寻找具体的方法<br>4.将该方法指令压入栈内存中，然后执行，执行完毕就出栈</p>
-<h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/java%E5%AD%A6%E4%B9%A0--%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98/20200211045052020.png" alt><br>1.最开始main方法就是在栈中的，当main方法执行完毕，从栈中弹出，也就意味着程序运行完毕。<br>2.同一个类的不同对象的方法，是共用同一个方法区中的方法的，地址相同。</p>
+    /**
+     * 用于打印日志，计划让其在切入点方法执行之前执行(切入点方法就是业务层方法)
+     */
+    public void printLog(){
+        System.out.println(&quot;Logger类中的printLog方法开始执行&quot;);
+    }
+}
+</code></pre><h6 id="AopTest测试类"><a href="#AopTest测试类" class="headerlink" title="AopTest测试类"></a>AopTest测试类</h6><pre><code>import com.cbw.service.IAccountService;
+        import org.junit.Test;
+        import org.junit.runner.RunWith;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.test.context.ContextConfiguration;
+        import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+/**
+ * 测试aop的配置是否成功
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = &quot;classpath:applicationContext.xml&quot;)
+public class AopTest {
+    @Autowired
+    IAccountService accountService;
+
+    /**
+     * 测试存储账户方法
+     */
+    @Test
+    public void testSaveAccount(){
+        accountService.saveAccount();
+
+    }
+
+    /**
+     * 测试更新账户方法
+     */
+    @Test
+    public void testUpdateAccount(){
+        accountService.updateAccount(1);
+
+    }
+
+    /**
+     * 测试删除账户方法
+     */
+    @Test
+    public void testdeleteAccount(){
+        accountService.deleteAccount();
+    }
+}
+
+</code></pre><h5 id="3-applicationContext-xml中配置IOC和AOP"><a href="#3-applicationContext-xml中配置IOC和AOP" class="headerlink" title="3.applicationContext.xml中配置IOC和AOP"></a>3.applicationContext.xml中配置IOC和AOP</h5><h6 id="1-首先导入相关依赖"><a href="#1-首先导入相关依赖" class="headerlink" title="1.首先导入相关依赖"></a>1.首先导入相关依赖</h6><p>这个可以在文章开头的官方文档里，进Core technologies即core核心组件的文档中搜索xmlns:aop就能快速定位到</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd&quot;&gt;
+&lt;/bean&gt;
+</code></pre><h6 id="2-配置spring的ioc并且将bean对象加入容器"><a href="#2-配置spring的ioc并且将bean对象加入容器" class="headerlink" title="2.配置spring的ioc并且将bean对象加入容器"></a>2.配置spring的ioc并且将bean对象加入容器</h6><pre><code>&lt;!--把service对象配置进去--&gt;
+    &lt;bean id=&quot;accountService&quot; class=&quot;com.cbw.service.impl.AccountServiceImpl&quot;&gt;&lt;/bean&gt;
+&lt;!--配置Logger类，因为Logger类要在切入点方法之前执行，也就可以当作是前置通知--&gt;
+    &lt;bean id=&quot;Logger&quot; class=&quot;com.cbw.utils.Logger&quot;&gt;&lt;/bean&gt;
+</code></pre><h6 id="3-配置springAOP"><a href="#3-配置springAOP" class="headerlink" title="3.配置springAOP"></a>3.配置springAOP</h6><pre><code>·使用&lt;aop:config&gt;&lt;/aop:config&gt;标签表明开始AOP的配置
+·使用&lt;aop:aspect&gt;&lt;/aop:aspect&gt;标签表明开始配置切面，在&lt;aop:config&gt;&lt;/aop:config&gt;标签内部使用
+    属性：
+        id：是给切面提供一个唯一标识
+        ref属性：是指定通知类bean的id，即作为通知的方法所在的类的bean的id
+·在&lt;aop:aspect&gt;&lt;/aop:aspect&gt;标签内部使用不同的通知类型的标签来配置通知，这里我们先学前置通知，所用标签&lt;aop:before&gt;&lt;/aop:before&gt;
+    属性：
+        method：用于指定Logger类(即通知类)中哪个方法是前置通知
+        pointcut：用于指定切入点表达式，该表达式的含义指的是对业务层中哪些方法增强
+        切入点表达式的写法：
+            关键字：execution(表达式)
+            表达式：访问控制符 返回值 包名.包名.包名...类名.方法名(参数列表)
+            标准的实例：
+                     增强com.cbw.service.impl包下的AccountServiceImpl类中的pulic void saveAccount()方法
+                 表达式：
+·                    public void com.cbw.service.impl.AccountServiceImpl.saveAccount()
+        注意：切入点表达式可以用通配符表示，最简洁的即全通配符
+                * *..*.*(..)
+            由标准表达式到全通配符变换过程如下
+            1.标准
+                public void com.cbw.service.impl.AccountServiceImpl.saveAccount()
+            2.访问修饰符可以省略
+                void com.cbw.service.impl.AccountServiceImpl.saveAccount()
+            3.返回值可以使用通配符*，表示任意返回值
+                * com.cbw.service.impl.AccountServiceImpl.saveAccount()
+            4.包名可以使用通配符，表示任意包，但是有几级包，就需要写几个
+                * *.*.*.*.AccountServiceImpl.saveAccount()
+            5.包名可以使用..表示当前包及其子包
+                * *..AccountServiceImpl.saveAccount()
+            6.类名和方法名都可以使用通配符*来实现统配
+                * *..*.*()
+            7.参数列表：(这里就体现了设置3个不同方法的用处)
+                基本类型直接写名称   如int
+                      * *..*.*(int)
+                引用类型写包名.类名  如java.lang.String
+                      * *..*.*(java.lang.String)
+                可以使用通配符*表示任意类型，但是一定得有参数
+                      * *..*.*(*)
+                可以使用..表示有无参数均可，有参数则表示任意参数
+                 * *..*.*(..)       &lt;------------------------------------这个即全通配符写法
+
+             8.注意，我们实际开发中不能这么写，因为这么写，所有的方法都会被增强，因为它全是*，所有方法都满足条件
+                 写法规则：切到业务层实现类下的所有方法
+                   即：* com.cbw.service.impl.*.*(..)
+</code></pre><p>配置好的是这样的</p>
+<pre><code>        &lt;aop:config&gt;
+            &lt;aop:aspect id=&quot;logAdvice&quot; ref=&quot;Logger&quot;&gt;
+                &lt;aop:before method=&quot;printLog&quot; pointcut=&quot;execution(* com.cbw.service.impl.AccountServiceImpl.*.*(..))&quot;&gt;&lt;/aop:before&gt;
+            &lt;/aop:aspect&gt;
+        &lt;/aop:config&gt;
+</code></pre><p>还有一个小知识点，切入点表达式的解析由aspectjweaver负责，下面这个东西</p>
+<pre><code>        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-test&lt;/artifactId&gt;
+            &lt;version&gt;5.0.2.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+</code></pre><h6 id="4-完整的文件内容"><a href="#4-完整的文件内容" class="headerlink" title="4.完整的文件内容"></a>4.完整的文件内容</h6><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd&quot;&gt;
+//配置所需bean，并加入IOC核心容器
+&lt;bean id=&quot;accountService&quot; class=&quot;com.cbw.service.impl.AccountServiceImpl&quot;&gt;&lt;/bean&gt;
+&lt;bean id=&quot;Logger&quot; class=&quot;com.cbw.utils.Logger&quot;&gt;&lt;/bean&gt;
+//配置springAOP
+&lt;aop:config&gt;
+    &lt;aop:aspect id=&quot;logAdvice&quot; ref=&quot;Logger&quot;&gt;
+         &lt;aop:before method=&quot;printLog&quot; pointcut=&quot;execution(* com.cbw.service.impl.*.*(..))&quot;&gt;&lt;/aop:before&gt;
+    &lt;/aop:aspect&gt;
+&lt;/aop:config&gt;
+
+&lt;/beans&gt;
+</code></pre><h6 id="5-测试类中的测试结果"><a href="#5-测试类中的测试结果" class="headerlink" title="5.测试类中的测试结果"></a>5.测试类中的测试结果</h6><p>testSaveAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112043869.png" alt><br>testUpdateAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112121817.png" alt><br>testDeleteAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112156314.png" alt><br><strong>总结：</strong>方法增强成功了，也就是springAOP配置成功了</p>
+<h6 id="6-问题"><a href="#6-问题" class="headerlink" title="6.问题"></a>6.问题</h6><p>从上面一节应该可以发现一个问题，它的前置通知为什么输出了两次？我最初想的是可能是它的构造方法也给增强了<br>我就在AccountServiceImpl类中添加了无参构造方法，并加入一句话<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112515018.png" alt><br>然后我去执行testSaveAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112757950.png" alt><br>这里打印了构造方法中的语句，说明执行了构造方法，但是也不能说明构造方法被增强了，因为前置通知在构造方法的后面，按理说应该是不对的，然后我就想，会不会和bean的作用范围有关，毕竟bean的scope属性默认是sington，而sington类型的bean是在容器创建的时候就一起初始化了，而prototype类型的bean是在调用的时候才初始化的，抱着这个心态，我把accountService的scope设置成了prototype<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401113344111.png" alt><br>再次执行testSaveAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401113351837.png" alt><br>他顺序竟然对了，所以我暂时搞不懂，等查阅了相关资料再把这个问题弄明白</p>
 
             </div>
             <hr>
@@ -477,7 +690,7 @@
                     </span>
                     <a href="https://iwishing.github.io" class="b-link-green">我所希冀的未来</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/02/11/java学习--一个对象的内存/" class="b-link-green">java对象的内存</a>
+                    <a href="/2020/04/10/spring学习(四)/" class="b-link-green">AOP的概念与spring中的AOP</a>
                 </p>
             </div>
         </div>
@@ -502,20 +715,22 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/10/spring学习(二)/">
+                <a href="/2020/04/10/spring学习(五)/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="依赖注入，spring基于注解的IoC，spring整合junit">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="通知类型，基于注解的AOP">
                         
-                        <span class="card-title">依赖注入，spring基于注解的IoC，spring整合junit</span>
+                        <span class="card-title">通知类型，基于注解的AOP</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">依赖注入，spring基于注解的IoC，spring整合junit
+                    <div class="summary">通知类型，基于注解的AOP
 环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
 
-依赖注入spring中的依赖</div>
+一、通知类型1.前置通知作用：
+     切入点方法执行前执行
+标签</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-10
@@ -554,27 +769,30 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/18/小科普/为什么判断闰年不能单单看这一年是否为4的倍数/">
+                <a href="/2020/04/10/spring学习(三)/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="小科普">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="事务控制，动态代理，动态代理实现事务控制">
                         
-                        <span class="card-title">小科普</span>
+                        <span class="card-title">事务控制，动态代理，动态代理实现事务控制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">为什么判断闰年不能单单看这一年是否为4的倍数答：地球绕太阳运行周期为365天5小时48分46秒（合365.24219天）即一回归年。公历的平年只有365日，比回归年短约0.2422 日，所余下的时间约为四年累计一天，故四年于2月加1天，使当</div>
+                    <div class="summary">事务控制，动态代理，动态代理实现事务控制
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
+
+一、事务控制背景操作账户的项目结构如下正常流程是首先创</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/小科普/" class="post-category" target="_blank">
-                                    小科普
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
                                 </a>
                             
                             
@@ -584,8 +802,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/小科普/" target="_blank">
-                        <span class="chip bg-color">小科普</span>
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Spring/" target="_blank">
+                        <span class="chip bg-color">Spring</span>
                     </a>
                     
                 </div>

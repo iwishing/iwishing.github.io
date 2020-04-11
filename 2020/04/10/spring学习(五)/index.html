@@ -4,13 +4,13 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="java对象的内存, blogs">
-    <meta name="description" content="一个对象的内存首先要了解java中的内存分配机制
-栈（stack）：存放的都是方法中的局部变量，方法的运行在栈当中
-        局部变量：方法的参数，或者视方法体内部的变量
-        作用域：一旦超出作用域，立即从栈内存中消失
+    <meta name="keywords" content="通知类型，基于注解的AOP, blogs">
+    <meta name="description" content="通知类型，基于注解的AOP
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
 
-">
+一、通知类型1.前置通知作用：
+     切入点方法执行前执行
+标签">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>java对象的内存 | 我所希冀的未来</title>
+    <title>通知类型，基于注解的AOP | 我所希冀的未来</title>
     <link rel="icon" type="image/png" href="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -284,13 +284,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        java对象的内存
+                        通知类型，基于注解的AOP
                     </div>
                 </div>
             </div>
@@ -386,6 +386,10 @@
                                 <span class="chip bg-color">Java</span>
                             </a>
                         
+                            <a href="/tags/Spring/" target="_blank">
+                                <span class="chip bg-color">Spring</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -406,21 +410,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-11
+                    2020-04-10
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        510
+                        2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        8 分
                     </div>
                     
                 
@@ -436,24 +440,232 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一个对象的内存"><a href="#一个对象的内存" class="headerlink" title="一个对象的内存"></a>一个对象的内存</h1><p>首先要了解java中的内存分配机制</p>
-<pre><code>栈（stack）：存放的都是方法中的局部变量，方法的运行在栈当中
-        局部变量：方法的参数，或者视方法体内部的变量
-        作用域：一旦超出作用域，立即从栈内存中消失
+                <h1 id="通知类型，基于注解的AOP"><a href="#通知类型，基于注解的AOP" class="headerlink" title="通知类型，基于注解的AOP"></a><font size="36">通知类型，基于注解的AOP</font></h1><blockquote>
+<p>环境：<br>Idea：2019.3.1<br>系统：windows10 家庭版<br>Jdk: 8<br>spring：5.0.3 release<br><a href="https://spring.io/projects/spring-framework" target="_blank" rel="noopener">spring文档</a><br><a href="https://github.com/iwishing/springStudyDemo" target="_blank" rel="noopener">项目代码</a></p>
+</blockquote>
+<h3 id="一、通知类型"><a href="#一、通知类型" class="headerlink" title="一、通知类型"></a>一、通知类型</h3><h5 id="1-前置通知"><a href="#1-前置通知" class="headerlink" title="1.前置通知"></a>1.前置通知</h5><pre><code>作用：
+     切入点方法执行前执行
+标签：
+    &lt;aop:before&gt;&lt;/aop:before&gt;
+示例：
+    &lt;aop:before method=&quot;beforePrintLog&quot; pointcut=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;&gt;&lt;/aop:before&gt;
+</code></pre><h5 id="2-后置通知"><a href="#2-后置通知" class="headerlink" title="2.后置通知"></a>2.后置通知</h5><pre><code>作用：
+     切入点方法执行后执行
+标签：
+    &lt;aop:after-returning&gt;&lt;/aop:after-returning&gt;
+示例：
+    &lt;aop:after-returning method=&quot;afterReturningPrintLog&quot; pointcut=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;&gt;&lt;/aop:after-returning&gt;
+</code></pre><h5 id="3-异常通知"><a href="#3-异常通知" class="headerlink" title="3.异常通知"></a>3.异常通知</h5><pre><code>作用：
+     切入点方法异常时执行
+标签：
+    &lt;aop:after-throwing&gt;&lt;/aop:after-throwing&gt;
+示例：
+    &lt;aop:after-throwing method=&quot;afterThrowingPrintLog&quot; pointcut=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;&gt;&lt;/aop:after-throwing&gt;
+</code></pre><p><strong>注意：</strong>异常通知和后置通知同时只能有一个执行，能想到，如果后置通知执行了，就代表切入点方法没有问题，那么异常通知就不会执行，而如果切入点方法出现异常，那么异常通知就会执行，而此时不会执行到后置方法</p>
+<h5 id="4-最终通知"><a href="#4-最终通知" class="headerlink" title="4.最终通知"></a>4.最终通知</h5><pre><code>作用：
+     不管切入点方法是否成功执行都会执行
+标签：
+    &lt;aop:after&gt;&lt;/aop:after&gt;
+示例：
+    &lt;aop:after method=&quot;afterPrintLog&quot; pointcut=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;&gt;&lt;/aop:after&gt;
+</code></pre><h5 id="5-环绕通知"><a href="#5-环绕通知" class="headerlink" title="5.环绕通知"></a>5.环绕通知</h5><pre><code>标签：
+    &lt;aop:around&gt;&lt;/aop:around&gt;
+示例：
+    &lt;aop:around method=&quot;aroundPrintLog&quot; pointcut=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&gt;&lt;/aop:around&gt;
+</code></pre><p>这里要停顿下，我们这样配置了环绕通知后，运行切入点方法可以看到只有环绕通知执行了，而切入点方法没执行<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200403100902803.png" alt><br>这里我们对比一下我们之前写的动态代理增强的方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200403105114483.png" alt><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331050343170.png" alt><br>可以明确地知道，动态代理的环绕通知中有明确的切入点方法的调用，而我们配置的环绕通知方法中没有<br><strong>解决方法：</strong><br>spring框架为我们提供了一个接口，ProceedingJoinPoint，该接口有一个方法proceed()，此方法就相当于明确调用切入点方法。该接口可以作为环绕通知的方法参数，在程序执行时spring框架会为我们提供该接口的实现类供我们使用</p>
+<pre><code>/*
+ * rtValue：切入点方法的返回值
+*/
+    public Object aroundPrintLog(ProceedingJoinPoint pjp){
+        Object rtValue = null;
+        //明确调用切入点方法
+        try {
+            //得到方法执行所需参数
+            Object [] args = pjp.getArgs();
+            //明确调用业务层方法
+            rtValue = pjp.proceed(args);
+            return rtValue;
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        System.out.println(&quot;Logger类中的arountPrintLog方法开始执行&quot;);
+        return rtValue;
+    }
+</code></pre><p><strong>spring中的环绕通知：</strong><br>    它是spring框架为我们提供的一种可以在代码中手动控制增强方法何时执行的方式</p>
+<h5 id="6-补充"><a href="#6-补充" class="headerlink" title="6.补充"></a>6.补充</h5><p>标签：<code>&lt;aop:pointcut&gt;&lt;/aop:pointcut&gt;</code></p>
+<pre><code>作用：
+    可以将通知的pointcut表达式写在外边，就不会让通知标签太长影响阅读
+    此标签写在&lt;aop:aspect/&gt;标签内部，只能够该切面使用它也可以写在&lt;aop:aspect/&gt;外面，此时所有切面均可使用，但是它要在使用它的切面之前配置，不然会报错
+属性：
+    id：是point唯一标识
+    expression：pointcut表达式
+示例
+&lt;aop:aspect&gt;
+     &lt;aop:pointcut id=&quot;pc1&quot; expression=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;/&gt;
+     &lt;aop:before method=&quot;beforePrintLog&quot; pointcut-ref=&quot;pc1&quot;&gt;&lt;/aop:before&gt;
+&lt;/aop:aspect&gt;
+</code></pre><h3 id="二、基于注解的AOP"><a href="#二、基于注解的AOP" class="headerlink" title="二、基于注解的AOP"></a>二、基于注解的AOP</h3><h5 id="1-修改配置文件"><a href="#1-修改配置文件" class="headerlink" title="1.修改配置文件"></a>1.修改配置文件</h5><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
 
-堆（Heap）：凡是new出来的东西，都在堆当中。
-        堆内存里面的东西都有一个地址值：16进制的
-        堆内存里面的东西都有一个默认值。
+&lt;!--配置spring创建容器的时候要扫描的包--&gt;
+&lt;context:component-scan base-package=&quot;com.cbw&quot;&gt;&lt;/context:component-scan&gt;
 
-方法区（Method Area）：存储.class相关信息，包含方法的信息
+&lt;!--配置spring开启注解AOP的支持--&gt;
+&lt;!--    写上就支持，不写就不支持，也就是spring默认不支持--&gt;
+&lt;aop:aspectj-autoproxy&gt;&lt;/aop:aspectj-autoproxy&gt;
 
-本地方法栈（Native Method Stack）：与操作系统相关
+&lt;/beans&gt;
+</code></pre><h5 id="2-配置Logger类"><a href="#2-配置Logger类" class="headerlink" title="2.配置Logger类"></a>2.配置Logger类</h5><ul>
+<li>因为Logger类不是那三层的，所以我们就是用@Component注解</li>
+<li>使用@Aspect注解，表明这是一个切面类<pre><code>/**
+* 用于记录日志的工具类，它里面提供了公共的代码
+*/
+@Component(&quot;logger&quot;)
+@Aspect
+public class Logger {
+</code></pre></li>
+<li>用@Before注解前置通知<br>这5种注解的参数都是pointcut表达式<pre><code>  /**
+   * 前置通知
+   */
+  @Before(&quot;pct1()&quot;)
+  public void beforePrintLog(){
+      System.out.println(&quot;前置通知：Logger类中的printLog方法开始执行&quot;);
+  }
+</code></pre></li>
+<li>用@AfterReturning注解后置通知</li>
+</ul>
+<pre><code> /**
+     * 后置通知
+     */
+    @AfterReturning(&quot;pct1()&quot;)
+    public void afterReturningPrintLog(){
+        System.out.println(&quot;后置通知：Logger类中的afterReturningPrintLog方法开始执行&quot;);
+    }
+</code></pre><ul>
+<li>用@AfterThrowing注解异常通知</li>
+</ul>
+<pre><code>    /**
+     * 异常通知
+     */
+    @AfterThrowing(&quot;pct1()&quot;)
+    public void afterThrowingPrintLog(){
+        System.out.println(&quot;异常通知：Logger类中的afterThrowingPrintLog方法开始执行&quot;);
+    }
+</code></pre><ul>
+<li>用@After注解最终通知</li>
+</ul>
+<pre><code>    /**
+     * 最终通知
+     */
+    @After(&quot;pct1()&quot;)
+    public void afterPrintLog(){
+        System.out.println(&quot;最终通知：Logger类中的afterPrintLog方法开始执行&quot;);
+    }
+</code></pre><ul>
+<li>用@Around注解环绕通知</li>
+</ul>
+<pre><code>    @Around(&quot;pct1()&quot;)
+    public Object aroundPrintLog(ProceedingJoinPoint pjp){
+    }
+</code></pre><ul>
+<li>用@Pointcut注解，提供pointcut表达式，前面通知注解参数就是填写这个方法的名称，()不能掉</li>
+</ul>
+<pre><code>    @Pointcut(&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;)
+    private void pct1(){}
+</code></pre><ul>
+<li>完整代码</li>
+</ul>
+<pre><code>import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
 
-寄存器（pc register）：与cpu相关
-</code></pre><p>用一个手机对象为例细说对象内存<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200211142733842/20200211023718046.png" alt><br>当程序运行的时候，首先方法区中会存放类的相关信息，和方法的相关信息<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200211142733842/20200211024234927.png" alt><br>如图，程序中两个class信息都存在方法区，当new出来一个phone时，将它存放在堆内存里面，而我们调用one.什么什么的时候，这些都算是main方法中的局部变量，所以是存在于栈内存中的</p>
-<h4 id="程序中如果调用one-brand-“苹果”，他有2个步骤"><a href="#程序中如果调用one-brand-“苹果”，他有2个步骤" class="headerlink" title="程序中如果调用one.brand = “苹果”，他有2个步骤"></a>程序中如果调用one.brand = “苹果”，他有2个步骤</h4><p>1.该指令存放在栈里面<br>2.根据one对象的地址，到堆内存中寻找one对象的信息，再进行修改</p>
-<h4 id="当调用one-call-“乔布斯”-这个方法时，他有"><a href="#当调用one-call-“乔布斯”-这个方法时，他有" class="headerlink" title="当调用one.call(“乔布斯”)这个方法时，他有"></a>当调用one.call(“乔布斯”)这个方法时，他有</h4><p>1.该指令存放在栈里面<br>2.根据one对象的地址，到堆内存中寻找one对象的信息<br>3.根据one对象的方法的地址，到方法区中寻找具体的方法<br>4.将该方法指令压入栈内存中，然后执行，执行完毕就出栈</p>
-<h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/java%E5%AD%A6%E4%B9%A0--%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98/20200211045052020.png" alt><br>1.最开始main方法就是在栈中的，当main方法执行完毕，从栈中弹出，也就意味着程序运行完毕。<br>2.同一个类的不同对象的方法，是共用同一个方法区中的方法的，地址相同。</p>
+/**
+ * 用于记录日志的工具类，它里面提供了公共的代码
+ */
+@Component(&quot;logger&quot;)
+@Aspect
+public class Logger {
+    @Pointcut(&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;)
+    private void pct1(){}
+    /**
+     * 前置通知
+     */
+    @Before(&quot;pct1()&quot;)
+    public void beforePrintLog(){
+        System.out.println(&quot;前置通知：Logger类中的printLog方法开始执行&quot;);
+    }
+    /**
+     * 后置通知
+     */
+    @AfterReturning(&quot;pct1()&quot;)
+    public void afterReturningPrintLog(){
+        System.out.println(&quot;后置通知：Logger类中的afterReturningPrintLog方法开始执行&quot;);
+    }
+    /**
+     * 异常通知
+     */
+    @AfterThrowing(&quot;pct1()&quot;)
+    public void afterThrowingPrintLog(){
+        System.out.println(&quot;异常通知：Logger类中的afterThrowingPrintLog方法开始执行&quot;);
+    }
+    /**
+     * 最终通知
+     */
+    @After(&quot;pct1()&quot;)
+    public void afterPrintLog(){
+        System.out.println(&quot;最终通知：Logger类中的afterPrintLog方法开始执行&quot;);
+    }
+
+    /**
+     * 环绕通知
+     */
+    @Around(&quot;pct1()&quot;)
+    public Object aroundPrintLog(ProceedingJoinPoint pjp){
+        Object rtValue = null;
+        //明确调用切入点方法
+        try {
+            //得到方法执行所需参数
+            Object [] args = pjp.getArgs();
+            System.out.println(&quot;前置通知执行了.....&quot;);
+            //明确调用业务层方法
+            rtValue = pjp.proceed(args);
+            System.out.println(&quot;后置通知执行了.....&quot;);
+            return rtValue;
+        } catch (Throwable throwable) {
+            System.out.println(&quot;异常通知执行了.....&quot;);
+            throwable.printStackTrace();
+        }finally {
+            System.out.println(&quot;最终通知执行了.....&quot;);
+        }
+        System.out.println(&quot;Logger类中的arountPrintLog方法开始执行&quot;);
+        return rtValue;
+    }
+}
+</code></pre><h5 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h5><p>我们首先将环绕通知的注解注释掉，先测试前四种<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200405105933609.png" alt><br>可是，我们发现，最终通知却在后置通知前面执行，我们试试异常通知</p>
+<ul>
+<li>在saveAccount方法中加入int i=1/0;</li>
+</ul>
+<p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200405110151452.png" alt><br>然后发现，异常通知还是在最终通知后面，这是为什么呢？<br>其实这是基于注解的springaop中确实存在的通知顺序问题，老版本的spring中并没有改良，至少我这个版本是这样的<br>虽然有这个问题，但是我们还是能使用环绕通知来解决的，环绕通知能够让我们自己决定通知的顺序，我们将前四个通知的注解注释掉，然后把环绕通知注解恢复，再执行saveAccount方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200405111213451.png" alt><br>可以看到，顺序没问题了</p>
+<h5 id="4-纯注解方式"><a href="#4-纯注解方式" class="headerlink" title="4.纯注解方式"></a>4.纯注解方式</h5><pre><code>//他是一个bean对象
+@Component(&quot;logger&quot;)
+//他是一个切面对象
+@Aspect
+//扫描包
+@ComponentScan(&quot;com.cbw&quot;)
+//设置对注解支持
+@EnableAspectJAutoProxy
+public class Logger {
+}
+</code></pre><p>再删除xml文件，别忘了，创建容器的方法修改成<br><code>ApplicationContext ac = new AnnotationConfigApplicationContext(Logger.class);</code><br>执行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200406125519359.png" alt></p>
 
             </div>
             <hr>
@@ -477,7 +689,7 @@
                     </span>
                     <a href="https://iwishing.github.io" class="b-link-green">我所希冀的未来</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/02/11/java学习--一个对象的内存/" class="b-link-green">java对象的内存</a>
+                    <a href="/2020/04/10/spring学习(五)/" class="b-link-green">通知类型，基于注解的AOP</a>
                 </p>
             </div>
         </div>
@@ -502,20 +714,20 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/10/spring学习(二)/">
+                <a href="/2020/04/10/spring学习(一)/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="依赖注入，spring基于注解的IoC，spring整合junit">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="spring框架的概述以及spring中基于xml的IOC配置">
                         
-                        <span class="card-title">依赖注入，spring基于注解的IoC，spring整合junit</span>
+                        <span class="card-title">spring框架的概述以及spring中基于xml的IOC配置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">依赖注入，spring基于注解的IoC，spring整合junit
+                    <div class="summary">一.spring框架的概述以及spring中基于xml的IOC配置
 环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
 
-依赖注入spring中的依赖</div>
+1.spring的概述spr</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-10
@@ -554,27 +766,30 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/18/小科普/为什么判断闰年不能单单看这一年是否为4的倍数/">
+                <a href="/2020/04/10/spring学习(四)/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="小科普">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="AOP的概念与spring中的AOP">
                         
-                        <span class="card-title">小科普</span>
+                        <span class="card-title">AOP的概念与spring中的AOP</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">为什么判断闰年不能单单看这一年是否为4的倍数答：地球绕太阳运行周期为365天5小时48分46秒（合365.24219天）即一回归年。公历的平年只有365日，比回归年短约0.2422 日，所余下的时间约为四年累计一天，故四年于2月加1天，使当</div>
+                    <div class="summary">AOP的概念与spring中的AOP
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
+
+一、AOP的概念1.什么是AOPAOP：全称是Aspect</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/小科普/" class="post-category" target="_blank">
-                                    小科普
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
                                 </a>
                             
                             
@@ -584,8 +799,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/小科普/" target="_blank">
-                        <span class="chip bg-color">小科普</span>
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Spring/" target="_blank">
+                        <span class="chip bg-color">Spring</span>
                     </a>
                     
                 </div>

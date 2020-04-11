@@ -1,0 +1,1316 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="事务控制，动态代理，动态代理实现事务控制, blogs">
+    <meta name="description" content="事务控制，动态代理，动态代理实现事务控制
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
+
+一、事务控制背景操作账户的项目结构如下正常流程是首先创">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>事务控制，动态代理，动态代理实现事务控制 | 我所希冀的未来</title>
+    <link rel="icon" type="image/png" href="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/f0efd497b0316c993d517f78de7a23.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">我所希冀的未来</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/f0efd497b0316c993d517f78de7a23.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">我所希冀的未来</div>
+        <div class="logo-desc">
+            
+            a perfact combination of handsome and cute
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/iwishing" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/iwishing" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1223372496@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1223372496" class="tooltipped" data-tooltip="QQ联系我: 1223372496" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/iwishing" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        事务控制，动态代理，动态代理实现事务控制
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                            <a href="/tags/Spring/" target="_blank">
+                                <span class="chip bg-color">Spring</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                Java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-04-10
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        16 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="事务控制，动态代理，动态代理实现事务控制"><a href="#事务控制，动态代理，动态代理实现事务控制" class="headerlink" title="事务控制，动态代理，动态代理实现事务控制"></a><font size="36">事务控制，动态代理，动态代理实现事务控制</font></h1><blockquote>
+<p>环境：<br>Idea：2019.3.1<br>系统：windows10 家庭版<br>Jdk: 8<br>spring：5.0.3 release<br><a href="https://spring.io/projects/spring-framework" target="_blank" rel="noopener">spring文档</a><br><a href="https://github.com/iwishing/springStudyDemo" target="_blank" rel="noopener">项目代码</a></p>
+</blockquote>
+<h3 id="一、事务控制"><a href="#一、事务控制" class="headerlink" title="一、事务控制"></a>一、事务控制</h3><h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><p>操作账户的项目结构如下<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200330040823129.png" alt><br>正常流程是<br>首先创建一个账户业务层对象accountServiceImpl<br>再创建一个持久层对象accountDaoImpl<br>最后accountServiceImpl调用accountDao通过ConnectionUtils对象获取Conncetion连接，再执行操作，这就有个问题，按这种来写，如果有<strong>一个功能需要多条代码</strong>，例如，转账，A向B转账</p>
+<pre><code>    /**
+     * 转账
+     * @param sourceName：转出账户名称
+     * @param targetName：转入账户名称
+     * @param money：转账金额
+     */
+ public void transfer(String sourceName, String targetName, Float money) {
+        try {
+            //1.根据名称查询转出账户
+            Account sourceAccount = accountDao.findAccountByName(sourceName);
+            //2.根据名称查询转入账户
+            Account targetAccount = accountDao.findAccountByName(targetName);
+            //3.转出账户减钱
+            sourceAccount.setMoney(sourceAccount.getMoney() - money);
+            //4.转入账户加钱
+            targetAccount.setMoney(targetAccount.getMoney() + money);
+            //5.更新转出账户
+            accountDao.updateAccount(sourceAccount);
+            //6.更新转入账户
+            accountDao.updateAccount(targetAccount);
+        }catch (Exception e){
+
+        }
+</code></pre><p>我们在这6条操作中加入一条<font color="red">int sum = 1/0</font></p>
+<pre><code>            sourceAccount.setMoney(sourceAccount.getMoney() - money);
+            int sum = 1/0        &lt;--------------------------------------------------这里
+            //4.转入账户加钱
+            targetAccount.setMoney(targetAccount.getMoney() + money);
+</code></pre><p>执行程序后我们发现程序出错，转账失败，但是转出账户已经减钱了，这是因为这6条语句的事务都是相互独立的，后面语句出错也不会影响前面的事务在出错前已经提交了，我们要解决这个问题，就要将这些语句变成一个事务</p>
+<h5 id="事务控制"><a href="#事务控制" class="headerlink" title="事务控制"></a>事务控制</h5><p>1、新建一个事务控制器类<strong>TransactionManager</strong><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200330042954376.png" alt><br>该类的内容如下</p>
+<pre><code>import java.sql.SQLException;
+
+/**
+ * 和事务相关的工具类，它包含了开启事务，提交事务，回滚事务，释放连接
+ */
+public class TransactionManager {
+
+    private ConnectionUtils connectionUtils;
+
+    /**
+     * 开始事务
+     */
+    public void beginTranscation(){
+        try {
+        //关闭事务的自动提交，即改为手动提交
+            connectionUtils.getThreadConnection().setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 提交事务
+     */
+    public void commit(){
+        try {
+            connectionUtils.getThreadConnection().commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 回滚事务
+     */
+    public void rollback(){
+        try {
+            connectionUtils.getThreadConnection().rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 释放连接
+     */
+    public void release(){
+        try {
+            connectionUtils.getThreadConnection().close();//并不是真的关闭，是将conn连接还回连接池中
+            connectionUtils.removeConnection();//解绑，将连接对象和线程解绑
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setConnectionUtils(ConnectionUtils connectionUtils) {
+        this.connectionUtils = connectionUtils;
+    }
+}
+
+</code></pre><p>2、修改ConnectionUtils，用ThreadLoacl&lt;&gt;容器将Connection连接与当前线程绑定，要使一个线程中只有一个能控制事务的对象</p>
+<pre><code>import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+/**
+ * 连接的工具类，它用于从数据源中获取一个连接，并且实现和线程的绑定
+ */
+public class ConnectionUtils {
+    //threadlocal是一个线程内部的存储类，可以在指定线程内存储数据，数据存储以后，只有指定线程可以得到存储数据
+    private ThreadLocal&lt;Connection&gt; tl = new ThreadLocal&lt;Connection&gt;();
+    //数据源
+    private DataSource dataSource;
+
+    /**
+    *获取connection对象
+    */
+    public Connection getThreadConnection(){
+        try {
+        //1.先从ThreadLocal上获取Connection对象
+        Connection conn = tl.get();
+        //2.判断当前线程上是否有连接
+        if(conn == null){
+            //3.从数据源中获取一个连接，并且存入ThreadLocal中
+            conn = dataSource.getConnection();
+            tl.set(conn);
+        }
+        //4.返回当前线程上的连接
+            return conn;
+    }catch (SQLException e){
+        throw new RuntimeException();
+    }
+    }
+
+    /**
+     * 将线程和连接解绑
+     */
+    public void removeConnection(){
+        tl.remove();
+    }
+    /**
+    *设置数据源
+    */
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+}
+</code></pre><p>3、在业务层AccountServiceImpl中加入事务</p>
+<pre><code>    public void transfer(String sourceName, String targetName, Float money) {
+        try {
+            //一.开启事务
+            transactionManager.beginTranscation();
+            //二.执行操作
+            //1.根据名称查询转出账户
+            Account sourceAccount = accountDao.findAccountByName(sourceName);
+            //2.根据名称查询转入账户
+            Account targetAccount = accountDao.findAccountByName(targetName);
+            //3.转出账户减钱
+            sourceAccount.setMoney(sourceAccount.getMoney() - money);
+            //4.转入账户加钱
+            targetAccount.setMoney(targetAccount.getMoney() + money);
+            //5.更新转出账户
+            accountDao.updateAccount(sourceAccount);
+            //6.更新转入账户
+            accountDao.updateAccount(targetAccount);
+            //三.提交事务
+            transactionManager.commit();
+            //四.返回结果
+        }catch (Exception e){
+            //五.回滚事务
+            transactionManager.rollback();
+        }finally {
+            //六.释放连接
+            transactionManager.release();
+        }
+    }
+</code></pre><p>将业务操作代码放在第二步，当业务操作代码出问题，事务不会提交，相反，一切正常，事务就会提交，这样就解决了之前的事务问题</p>
+<h3 id="二、动态代理"><a href="#二、动态代理" class="headerlink" title="二、动态代理"></a>二、动态代理</h3><pre><code>特点：字节码随用随创建，随用随加载
+作用：不修改源码的基础上对方法增强
+分类：
+    1.基于接口的动态代理
+    2.基于子类的动态代理
+</code></pre><h5 id="基于接口的动态代理"><a href="#基于接口的动态代理" class="headerlink" title="基于接口的动态代理"></a>基于接口的动态代理</h5><pre><code>    1.涉及的类：
+        Proxy
+    2.提供者：
+        JDK官方
+    3.如何创建代理对象：
+        使用Proxy类中的newProxyInstance方法
+    4.创建基于接口的代理对象的要求：
+        被代理类最少实现一个接口，如果没有则不能使用
+    5.newProxyInstance方法参数：
+        ClassLoader：类加载器，用于加载代理对象字节码的，和被代理对象使用相同的类加载器,固定写法，类.getClass().getClassLoader();
+        Class[]：它是用于让代理对象和被代理对象有相同方法，固定写法，类.getClass().getInterfaces();
+        InvocationHandler：它是让我们写如何代理。我们一般都是写一些该接口的实现类，通常情况下都是匿名内部类，但不是必须的，此接口的实现类都是谁用谁写
+
+        Proxy.newProxyInstance(producer.getClass().getClassLoader(), producer.getClass().getInterfaces(), new InvocationHandler(){
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {}
+        }）
+</code></pre><h6 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h6><p>proxy类直接导入使用即可</p>
+<h6 id="Producer接口"><a href="#Producer接口" class="headerlink" title="Producer接口"></a>Producer接口</h6><pre><code>/**
+ * 对生产厂家要求的接口
+ */
+public interface IProducer {
+    /**
+     * 销售
+     * @param money
+     *
+     */
+    public void saleProduct(float money);
+    /**
+     * 售后
+     * @param money
+     */
+    public void afterService(float money);
+}
+</code></pre><h6 id="Producer类"><a href="#Producer类" class="headerlink" title="Producer类"></a>Producer类</h6><pre><code>/**
+ * 一个生产者
+ */
+public class Producer implements IProducer{
+    /**
+     * 销售方法
+     * @param money
+     *
+     */
+    public void saleProduct(float money){
+        System.out.println(&quot;销售产品,拿到钱：&quot;+money);
+    }
+
+    /**
+     * 售后方法
+     * @param money
+     */
+    public void afterService(float money){
+        System.out.println(&quot;提供售后服务，拿到钱：&quot; + money);
+    }
+}
+
+</code></pre><h6 id="测试类Client"><a href="#测试类Client" class="headerlink" title="测试类Client"></a>测试类Client</h6><pre><code>import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+/**
+ * 模拟一个消费着
+ */
+public class Client {
+    public static void main(String[] args) {
+        //创建一个生产商
+        final Producer producer = new Producer();
+
+        IProducer proxyProducer = (IProducer) Proxy.newProxyInstance(producer.getClass().getClassLoader(), producer.getClass().getInterfaces(), new InvocationHandler() {
+            /**
+             *
+             * 作用：执行被代理对象的任何接口方法都会经过该方法
+             * 参数：
+             * @param proxy 代理对象的引用
+             * @param method 当前执行的方法
+             * @param args 当前执行方法所需参数
+             * @return 和被代理对象具有相同返回值
+             * @throws Throwable
+             */
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                //这里进行方法增强，比如，这里我们可以抽取部分提成
+                Object returnValue = null;
+                //1.获取方法执行的参数
+                Float money = (Float)args[0];
+                //2.判断当前方法是不是销售
+                if(&quot;saleProduct&quot;.equals(method.getName())){
+                    //提成20%
+                    returnValue = method.invoke(producer,money*0.8f);
+                }
+                return returnValue;
+            }
+        });
+        proxyProducer.saleProduct(10000f);
+    }
+}
+</code></pre><p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200329042850822.png" alt></p>
+<h5 id="基于子类的动态代理"><a href="#基于子类的动态代理" class="headerlink" title="基于子类的动态代理"></a>基于子类的动态代理</h5><pre><code>    1.涉及的类：
+        Enhancer
+    2.提供者：
+        第三方cglib库
+    3.如何创建代理对象：
+        使用Enhancer类中的create方法
+    4.创建基于子类的代理对象的要求：
+        被代理对象不能是最终类
+    5.create方法参数：
+        Class：字节码，用于指定被代理对象的字节码，固定写法，类.getClass()
+        Callback：用于让我们写如何代理，一般写一个该接口的实现类，常用MethodInterceptor，通常情况下都是写匿名内部类，但不是必须的，谁用谁写
+
+        Enhancer.create(producer.getClass(), new MethodInterceptor() {
+        @Override
+        public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable { 
+        }
+    });
+</code></pre><h6 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h6><p>首先导入Enhancer类所需cglib库的坐标</p>
+<pre><code>        &lt;dependency&gt;
+            &lt;groupId&gt;cglib&lt;/groupId&gt;
+            &lt;artifactId&gt;cglib&lt;/artifactId&gt;
+            &lt;version&gt;2.2.2&lt;/version&gt;
+        &lt;/dependency&gt;
+</code></pre><h6 id="Producer类-1"><a href="#Producer类-1" class="headerlink" title="Producer类"></a>Producer类</h6><pre><code>package com.cbw.cglib;
+
+
+/**
+ * 一个生产者
+ */
+public class Producer {
+    /**
+     * 销售
+     * @param money
+     *
+     */
+    public void saleProduct(float money){
+        System.out.println(&quot;销售产品,拿到钱：&quot;+money);
+    }
+
+    /**
+     * 售后
+     * @param money
+     */
+    public void afterService(float money){
+        System.out.println(&quot;提供售后服务，拿到钱：&quot; + money);
+    }
+}
+
+</code></pre><h6 id="测试类Client-1"><a href="#测试类Client-1" class="headerlink" title="测试类Client"></a>测试类Client</h6><pre><code>package com.cbw.cglib;
+
+
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
+
+
+import java.lang.reflect.Method;
+
+
+/**
+ * 模拟一个消费着
+ */
+public class Client {
+    public static void main(String[] args) {
+        final Producer producer = new Producer();
+
+        /*
+        *动态代理：
+        *   特点：字节码随用随创建，随用随加载
+        *   作用：不修改源码的基础上对方法增强
+        *   分类：
+        *       1.基于接口的动态代理
+        *       2.基于子类的动态代理
+        * 这里我们使用基于子类的动态代理：
+        *       涉及的类：Enhancer
+        *       提供者：第三方cglib库
+        * 学习过程：
+        *       1.如何创建代理对象：
+        *           使用Enhancer类中的create方法
+        *       2.创建代理对象的要求：
+        *           被代理对象不能是最终类
+        *       3.create方法参数：
+        *           Class：字节码，用于指定被代理对象的字节码，固定写法，类.getClass()
+        *           Callback：用于让我们写如何代理，一般写一个该接口的实现类，常用MethodInterceptor，通常情况下都是写匿名内部类，但不是必须的，谁用谁写
+         */
+        Producer proxyProducer = (Producer) Enhancer.create(producer.getClass(), new MethodInterceptor() {
+
+            @Override
+            public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
+                //这里进行方法增强，比如，这里我们可以抽取部分提成
+                Object returnValue = null;
+                //1.获取方法执行的参数
+                Float money = (Float)args[0];
+                //2.判断当前方法是不是销售
+                if(&quot;saleProduct&quot;.equals(method.getName())){
+                    returnValue = method.invoke(producer,money*0.8f);
+                }
+                return returnValue;
+            }
+        });
+        proxyProducer.saleProduct(10000f);
+
+    }
+}
+</code></pre><p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200330033635030.png" alt><br>AccountServiceImpl是之前事务所用到的，所以里面每个方法都套了一遍事务<br>而AccountServiceImpl_new则是无添加事务的普通service，我们使用这个，然后其他文件照旧</p>
+<h3 id="三、动态代理实现事务控制"><a href="#三、动态代理实现事务控制" class="headerlink" title="三、动态代理实现事务控制"></a>三、动态代理实现事务控制</h3><p>我们使用基于接口的动态代理，项目结构如下<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200330111443944.png" alt></p>
+<h4 id="1、在之前事务的项目下新建BeanFactory类，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中"><a href="#1、在之前事务的项目下新建BeanFactory类，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中" class="headerlink" title="1、在之前事务的项目下新建BeanFactory类，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中"></a>1、在之前事务的项目下新建<strong>BeanFactory类</strong>，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中</h4><pre><code>import com.cbw.service.IAccountService;
+import com.cbw.utils.TransactionManager;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+/**
+ * 用于创建service的代理对象的工厂
+ */
+public class BeanFactory {
+    //accountService对象
+    private IAccountService accountService;
+    //事务管理器对象
+    private TransactionManager transactionManager;
+
+    /**
+     * 用于注入transactionManager的set方法
+     * @param transactionManager
+     */
+    public final void setTransactionManager(TransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+    }
+    /**
+     * 用于注入accountService的set方法
+     * @param accountService
+     */
+    public final void setAccountService(IAccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    /**
+     * 获取service代理对象的方法
+     * @return
+     */
+    public IAccountService getAccountService(){
+       return  (IAccountService) Proxy.newProxyInstance(accountService.getClass().getClassLoader(), accountService.getClass().getInterfaces(), new InvocationHandler() {
+            /**
+             * 添加事务的支持
+             * @param proxy
+             * @param method
+             * @param args
+             * @return
+             * @throws Throwable
+             */
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                Object rtValue = null;
+                try {
+                    //1.开启事务
+                    transactionManager.beginTranscation();
+                    //2.执行操作
+                    rtValue = method.invoke(accountService,args);
+                    //3.提交事务
+                    transactionManager.commit();
+                    //4.返回结果
+                    return rtValue;
+                }catch (Exception e){
+                    //5.回滚事务
+                    transactionManager.rollback();
+                }finally {
+                    //6.释放连接
+                    transactionManager.release();
+                }
+                return rtValue;
+            }
+        });
+    }
+}
+
+</code></pre><p>根据上面事务和动态代理的知识，不难理解这个类。<br>这个类有一个核心方法，就是<strong>getAccountService()</strong> ，用于获取accountService的代理对象，这里简写了，直接return (IAccountService) Proxy.newProxyInstance(…..);这个对象就是accountService的代理对象<br>然后 <strong>invoke(….)</strong> 方法中，首先定义一个rtValue对象，这个是用来接收方法的返回值的，然后执行之前写的事务6步骤，在第2步执行method.invoke(accountService,args)方法，accountService参数是被代理的对象，args则是该方法的参数数组，执行完方法后返回值由rtValue来接收，然后第4步返回返回值，这里我们用Object类型来定义rtValue，所以在外面的return还要强转一下</p>
+<p><font color="red">补充：</font><br>    因为增强方法实在匿名内部类中，又因为我们对象是用set方法注入的，所以我们要在accountService和transactionManager两个对象的set方法加上final关键字</p>
+<h4 id="2、applicationContext-xml文件"><a href="#2、applicationContext-xml文件" class="headerlink" title="2、applicationContext.xml文件"></a>2、applicationContext.xml文件</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+
+&lt;!--    1.配置代理的service对象，使用的是普通工厂的方法获取bean对象--&gt;
+        &lt;bean id=&quot;proxyAccountService&quot; factory-bean=&quot;beanFactory&quot; factory-method=&quot;getAccountService&quot;&gt;&lt;/bean&gt;
+
+&lt;!--    2.配置factory对象--&gt;
+        &lt;bean id=&quot;beanFactory&quot; class=&quot;com.cbw.factory.BeanFactory&quot;&gt;
+            &lt;!--        注入service对象--&gt;
+                &lt;property name=&quot;accountService&quot; ref=&quot;accountService&quot;&gt;&lt;/property&gt;
+            &lt;!--        注入事务管理器对象，这个在第8步--&gt;
+                &lt;property name=&quot;transactionManager&quot; ref=&quot;transactionManager&quot;&gt;&lt;/property&gt;
+        &lt;/bean&gt;
+
+&lt;!--    3.配置service对象--&gt;
+        &lt;bean id=&quot;accountService&quot; class=&quot;com.cbw.service.impl.AccountServiceImpl_new&quot;&gt;
+            &lt;!--        注入accountDao--&gt;
+                &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;&gt;&lt;/property&gt;
+            &lt;!--注入事务管理器对象--&gt;
+                &lt;property name=&quot;transactionManager&quot; ref=&quot;transactionManager&quot;&gt;&lt;/property&gt;--&gt;
+        &lt;/bean&gt;
+
+&lt;!--    4.配置Dao对象--&gt;
+        &lt;bean id=&quot;accountDao&quot; class=&quot;com.cbw.dao.impl.AccountDaoImpl&quot;&gt;
+            &lt;!--        注入runner--&gt;
+                &lt;property name=&quot;runner&quot; ref=&quot;runner&quot;&gt;&lt;/property&gt;
+            &lt;!--注入ConnectionUtils--&gt;
+                &lt;property name=&quot;connectionUtils&quot; ref=&quot;connectionUtils&quot;&gt;&lt;/property&gt;
+        &lt;/bean&gt;
+
+&lt;!--    5.配置runner对象--&gt;
+        &lt;bean id=&quot;runner&quot; class=&quot;org.apache.commons.dbutils.QueryRunner&quot; scope=&quot;prototype&quot;&gt;&lt;/bean&gt;
+
+&lt;!--    6.配置数据源--&gt;
+        &lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;
+            &lt;!--        注入连接数据库的必备信息--&gt;
+                &lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;
+                &lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql://localhost:3306/myspringspace?useUnicode=true&amp;amp;characterEncoding=utf8&quot;&gt;&lt;/property&gt;
+                &lt;property name=&quot;user&quot; value=&quot;root&quot;&gt;&lt;/property&gt;
+                &lt;property name=&quot;password&quot; value=&quot;123456&quot;&gt;&lt;/property&gt;
+        &lt;/bean&gt;
+
+&lt;!--    7.配置ConncetionUtils工具类--&gt;
+        &lt;bean id=&quot;connectionUtils&quot; class=&quot;com.cbw.utils.ConnectionUtils&quot;&gt;
+            &lt;!--        注入连接池--&gt;
+                &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+        &lt;/bean&gt;
+
+&lt;!--    8.创建事务管理器对象--&gt;
+        &lt;bean id=&quot;transactionManager&quot; class=&quot;com.cbw.utils.TransactionManager&quot;&gt;
+            &lt;!--        注入connectionUtils对象--&gt;
+                &lt;property name=&quot;connectionUtils&quot; ref=&quot;connectionUtils&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre><p>用了c3p0连接池，还有apache的dbUtils工具包，实现的内容是一样的，用原生jdbc也是一样的效果，除此之外，没什么要补充的</p>
+<p><font color="red">补充：</font><br>    第1步中获取的bean是accountService的代理对象所以也是IAccountService接口的实现类，再加上第3步中，我们又配置了一个具有相同接口的bean对象，所以我们在使用@Autowried自动注入的时候，要加上@Qualifier(“id”)指定注入的bean类型，不然会出错</p>
+<h4 id="3、TestAccount测试类"><a href="#3、TestAccount测试类" class="headerlink" title="3、TestAccount测试类"></a>3、TestAccount测试类</h4><p>Junit整合spring在上一个笔记</p>
+<pre><code>import com.cbw.domain.Account;
+import com.cbw.service.IAccountService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
+
+/**
+ * 使用junit单元测试测试我们的配置
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = &quot;classpath:applicationContext.xml&quot;)
+public class accountTest {
+    @Autowired
+    @Qualifier(&quot;proxyAccountService&quot;)
+    private IAccountService accountService;
+
+    /**
+     * 测试转账方法
+     */
+    @Test
+    public void testTransfer(){
+        System.out.println(&quot;转账前&quot;);
+        testFindAll();
+        accountService.transfer(&quot;aaa&quot;,&quot;bbb&quot;,200f);
+        System.out.println(&quot;转账后&quot;);
+        testFindAll();
+    }
+
+    /**
+     * 测试查找全部方法
+     */
+    @Test
+    public void testFindAll(){
+        List&lt;Account&gt; accountList = accountService.findAllAccount();
+        System.out.println(accountList);
+    }
+}
+</code></pre><p>测试aaa给bbb转账200块，测试结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331121018061.png" alt><br>转账成功，忽略中间的日志<br>我们再来测试一下，操作如果出问题，事务功能能否实现，在accountServiceImpl_new文件的transfer方法中加入 <strong>int i=1/0</strong>;<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331121446847.png" alt><br>记住，aaa的钱是800，bbb是1200，如果转账出错，不会变的，测试结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331121627473.png" alt><br>钱并没有变动，奇怪的是没有报错1/by zero</p>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://iwishing.github.io" class="b-link-green">我所希冀的未来</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2020/04/10/spring学习(三)/" class="b-link-green">事务控制，动态代理，动态代理实现事务控制</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/04/10/spring学习(四)/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="AOP的概念与spring中的AOP">
+                        
+                        <span class="card-title">AOP的概念与spring中的AOP</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">AOP的概念与spring中的AOP
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
+
+一、AOP的概念1.什么是AOPAOP：全称是Aspect</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Spring/" target="_blank">
+                        <span class="chip bg-color">Spring</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/04/10/spring学习(七)/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="spring中的事务控制">
+                        
+                        <span class="card-title">spring中的事务控制</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">spring中的事务控制
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
+
+一.概述1.JavaEE体系进行分层开发，事务处理位于业务层，Spri</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Spring/" target="_blank">
+                        <span class="chip bg-color">Spring</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 我所希冀的未来<br />'
+            + '作者: Iwishing<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+
+            
+    <div class="container row center-align">
+	<!--<div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/iwishing" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1223372496@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1223372496" class="tooltipped" data-tooltip="QQ联系我: 1223372496" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>-->
+        <div class="col s12 copy-right">
+            <p>
+				<span>
+				&copy&nbsp2018&nbsp-&nbsp2019
+				</span>
+					By
+					<a href="https://github.com/iwishing" target="_blank">Iwishing</a>
+			</p>
+			Driven&nbsp-&nbsp
+            <a href="https://hexo.io/" target="_blank">Hexo</a> |
+            Theme - 
+			<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

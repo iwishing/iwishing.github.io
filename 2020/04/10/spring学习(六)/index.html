@@ -4,13 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="java对象的内存, blogs">
-    <meta name="description" content="一个对象的内存首先要了解java中的内存分配机制
-栈（stack）：存放的都是方法中的局部变量，方法的运行在栈当中
-        局部变量：方法的参数，或者视方法体内部的变量
-        作用域：一旦超出作用域，立即从栈内存中消失
+    <meta name="keywords" content="spring中的JdbcTemplate, blogs">
+    <meta name="description" content="spring中的JdbcTemplate
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
 
-">
+1.概述它是spring框架中提供的一个对象，是对原始">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>java对象的内存 | 我所希冀的未来</title>
+    <title>spring中的JdbcTemplate | 我所希冀的未来</title>
     <link rel="icon" type="image/png" href="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -284,13 +282,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        java对象的内存
+                        spring中的JdbcTemplate
                     </div>
                 </div>
             </div>
@@ -386,6 +384,10 @@
                                 <span class="chip bg-color">Java</span>
                             </a>
                         
+                            <a href="/tags/Spring/" target="_blank">
+                                <span class="chip bg-color">Spring</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -406,21 +408,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-11
+                    2020-04-10
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        510
+                        2.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        9 分
                     </div>
                     
                 
@@ -436,25 +438,174 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一个对象的内存"><a href="#一个对象的内存" class="headerlink" title="一个对象的内存"></a>一个对象的内存</h1><p>首先要了解java中的内存分配机制</p>
-<pre><code>栈（stack）：存放的都是方法中的局部变量，方法的运行在栈当中
-        局部变量：方法的参数，或者视方法体内部的变量
-        作用域：一旦超出作用域，立即从栈内存中消失
+                <h1 id="spring中的JdbcTemplate"><a href="#spring中的JdbcTemplate" class="headerlink" title="spring中的JdbcTemplate"></a><font size="36">spring中的JdbcTemplate</font></h1><blockquote>
+<p>环境：<br>Idea：2019.3.1<br>系统：windows10 家庭版<br>Jdk: 8<br>spring：5.0.3 release<br><a href="https://spring.io/projects/spring-framework" target="_blank" rel="noopener">spring文档</a><br><a href="https://github.com/iwishing/springStudyDemo" target="_blank" rel="noopener">项目代码</a></p>
+</blockquote>
+<h5 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h5><pre><code>它是spring框架中提供的一个对象，是对原始Jdbc AOP对象的简单封装，spring框架为我们提供了很多的操作模板类。
+操作关系型数据的：
+    JDBCTemplate
+    HibernateTemplate
+操作Nosql数据库的
+    RedisTemplate
+操作消息队列的：
+    JMSTemplate
+</code></pre><p>JdbcTemplate在 <code>spring-jdbc-5.0.2.RELEASE.jar</code> 中，导入包的时候，除了这个jar包，还得导入一个和事务相关的包<br><code>spring-tx-5.0.2.RELEASE.jar</code></p>
+<h5 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h5><p>配置JdbcTemplate及数据源</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+&lt;!--    配置jdbctemplate--&gt;
+    &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/myspringspace&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;username&quot; value=&quot;root&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;password&quot; value=&quot;123456&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre><p>使用JdbcTemplate插入账户数据</p>
+<pre><code>public class JdbcTemplateDemo2 {
+    public static void main(String[] args) {
+        //1.获取容器
+        ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+        //2.获取JdbcTemplate对象
+        JdbcTemplate jt = (JdbcTemplate) ac.getBean(&quot;jdbcTemplate&quot;,JdbcTemplate.class);
+        //3.执行语句
+        jt.execute(&quot;insert into account(name,money)values(&#39;xxx&#39;,10000)&quot;);
+    }
+}
+</code></pre><h5 id="3-实现curd操作"><a href="#3-实现curd操作" class="headerlink" title="3.实现curd操作"></a>3.实现curd操作</h5><font size="4" color="black">保存</font><br><code>jt.update(&quot;insert into account(name,money)values(?,?)&quot;,&quot;zzz&quot;,1000f);</code><br><font size="4" color="black">更新</font><br><code>jt.update(&quot;update account set name=?,money=? where id=?&quot;,&quot;llll&quot;,20000f,8);</code><br><font size="4" color="black">删除</font><br><code>jt.update(&quot;delete from account where id=?&quot;,9);</code><br><font size="4" color="black">查询</font><br><strong>查询所有</strong><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200406103704460.png" alt><br>这是所有的query方法，但是并不是都能用到，我们通过2点来过滤<br><em> 我们提供什么：sql语句，语句的参数
+</em> 我们需要什么：返回一个List集合<br><br>根据这两点我们能定位到，只剩两个方法我们更适合去使用<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200406104011033.png" alt><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200406104052809.png" alt><br>这两个方法是针对不同的JDK版本使用的，第一个所有版本都能使用，第二个是JDK1.5之后才能使用，因为参数中有了可变参数<br>我们是JDK1.8所以能够使用第二种，这里我们使用第二种来查询<br><code>accountList = jt.query(&quot;select * from account where money=?&quot;, 第二个参数 ,1000f);</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200406112404435.png" alt><br>定位到RowMapper后发现，它是一个接口，所以我们要使用它的实现类来作为参数传入进方法<br><code>/**
+ * 定义account封装策略
+ */
+class AccountRowMapper implements RowMapper {
 
-堆（Heap）：凡是new出来的东西，都在堆当中。
-        堆内存里面的东西都有一个地址值：16进制的
-        堆内存里面的东西都有一个默认值。
+    /**
+     * 把结果集中的数据封装到Account中，并由spring把每个Account加入到List集合中
+     *
+     * @param resultSet
+     * @param i
+     * @return
+     * @throws SQLException
+     */
+    public Object mapRow(ResultSet resultSet, int i) throws SQLException {
+    //这里可以将Account的属性和表中的字段对应起来
+        Account account = new Account();
+        account.setId(resultSet.getInt(&quot;id&quot;));
+        account.setName(resultSet.getString(&quot;name&quot;));
+        account.setMoney(resultSet.getFloat(&quot;money&quot;));
 
-方法区（Method Area）：存储.class相关信息，包含方法的信息
+        return account;
+    }
+}</code><br>完整的查询语句是这样的<br><code>List&lt;Account&gt; accountList = jt.query(&quot;select * from account where money&gt;?&quot;,new AccountRowMapper(),1000f);</code><br>当然我们也可以使用spring为我们提供的RowMapper接口实现类<code>BeanPropertyRowMapper&lt;T&gt;</code><br><code>//传入Account字节码
+List&lt;Account&gt; accountList = jt.query(&quot;select * from account where money&gt;?&quot;,new BeanPropertyRowMapper&lt;Account&gt;(Account.class),1000f);</code><br>类比一下dbutils中的QueryRunner中的query方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200406113724015.png" alt><br><em> QueryRunner.query：它的返回值类型是一个泛型，它的返回值类型是由ResultSethandler<t>中的返回值类型来觉得的
+</t></em> JdbcTemplate.query：它的返回值类型是由不同的query方法来实现返回的，根据最开始截的那张query方法图能发现，有很多query方法，有参数不同的，有返回值不同的<br><br><strong>查询一个</strong><br>还是可以使用查询所有的方法<br><code>//传入Account字节码
+List&lt;Account&gt; accountList = jt.query(&quot;select * from account where id=?&quot;,new BeanPropertyRowMapper&lt;Account&gt;(Account.class),1);
+//取出查询结果
+System.out.println(accountList.isEmpty() ? &quot;没有内容&quot; : accountList.get(0));</code><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200406115300756.png" alt><br>可以看到取出来id为1的账户<br>因为这一个方法可以满足查询任何情况，所以实际开发中也是使用这个方法<br><strong>查询返回一行一列(使用聚合函数，但是不加group by字句)</strong><br><code>//因为要返回一行一列，一行一列可以认为是一个数据，就像count(*)函数的结果，所以不能使用query方法，而是要使用queryForObject方法
+//第二个参数填返回值类型的字节码，你传的什么类型的字节码，那么这个方法的返回值就是那个数据类型，我们使用的是long，所以我们用long来接受，int也可以，但是如果实际数据大于int的数据范围就会报错，所以实际上我们直接使用更大的long来接受
+long count = jt.queryForObject(&quot;select count(*) from account where money&gt;?&quot;,long.class,1000f);
+System.out.println(count);</code><br>##### 4.Jdbc的使用以及Dao的两种配置方式 #####<br>刚刚是在main方法执行的语句，但是实际开发中，main方法一般是留给测试人员使用，我们应该将语句的执行放在dao层，我们新建dao层，创建<font color="red">IAccountServce</font>接口，创建<font color="red">AccountServceImpl</font>类，如下<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200408045836820.png" alt><br>AccountServiceImpl代码如下<br><code>import com.cbw.dao.IAccountDao;
+import com.cbw.domain.Account;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-本地方法栈（Native Method Stack）：与操作系统相关
+import java.util.List;
 
-寄存器（pc register）：与cpu相关
-</code></pre><p>用一个手机对象为例细说对象内存<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200211142733842/20200211023718046.png" alt><br>当程序运行的时候，首先方法区中会存放类的相关信息，和方法的相关信息<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200211142733842/20200211024234927.png" alt><br>如图，程序中两个class信息都存在方法区，当new出来一个phone时，将它存放在堆内存里面，而我们调用one.什么什么的时候，这些都算是main方法中的局部变量，所以是存在于栈内存中的</p>
-<h4 id="程序中如果调用one-brand-“苹果”，他有2个步骤"><a href="#程序中如果调用one-brand-“苹果”，他有2个步骤" class="headerlink" title="程序中如果调用one.brand = “苹果”，他有2个步骤"></a>程序中如果调用one.brand = “苹果”，他有2个步骤</h4><p>1.该指令存放在栈里面<br>2.根据one对象的地址，到堆内存中寻找one对象的信息，再进行修改</p>
-<h4 id="当调用one-call-“乔布斯”-这个方法时，他有"><a href="#当调用one-call-“乔布斯”-这个方法时，他有" class="headerlink" title="当调用one.call(“乔布斯”)这个方法时，他有"></a>当调用one.call(“乔布斯”)这个方法时，他有</h4><p>1.该指令存放在栈里面<br>2.根据one对象的地址，到堆内存中寻找one对象的信息<br>3.根据one对象的方法的地址，到方法区中寻找具体的方法<br>4.将该方法指令压入栈内存中，然后执行，执行完毕就出栈</p>
-<h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/java%E5%AD%A6%E4%B9%A0--%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98/20200211045052020.png" alt><br>1.最开始main方法就是在栈中的，当main方法执行完毕，从栈中弹出，也就意味着程序运行完毕。<br>2.同一个类的不同对象的方法，是共用同一个方法区中的方法的，地址相同。</p>
+/**
+ * 账户的持久层实现类
+ */
+public class AccountDaoImpl3 implements IAccountDao {
+    private JdbcTemplate jdbcTemplate;
 
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public Account findAccountById(Integer accountId) {
+        List&lt;Account&gt; accountList = jdbcTemplate.query(&quot;select * from account where id=?&quot;,new BeanPropertyRowMapper&lt;Account&gt;(Account.class),accountId);
+        return accountList.isEmpty()?null:accountList.get(0);
+    }
+
+    public Account findAccountByName(String accountName) {
+        List&lt;Account&gt; accountList = jdbcTemplate.query(&quot;select * from account where name =?&quot;,new BeanPropertyRowMapper&lt;Account&gt;(Account.class),accountName);
+        return accountList.isEmpty()?null:accountList.get(0);
+    }
+
+    public void updateAccount(Account account) {
+        jdbcTemplate.update(&quot;update account set name=?,money=? where id=?&quot;,account.getName(),account.getMoney(),account.getId());
+    }
+}</code><br>试想一下，如果dao层实现类比较多，实际开发肯定不止这一个啊，那么我们每一个daoimp里面都有这段重复代码<br><code>private JdbcTemplate jdbcTemplate;
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }</code><br>新建一个JdbcDaoSupport类<br><code>import org.springframework.jdbc.core.JdbcTemplate;
+
+import javax.sql.DataSource;
+
+/**
+ * 此类用于抽取dao中的重复代码
+ */
+public class JdbcDaoSupport {
+    private JdbcTemplate jdbcTemplate;
+
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        if(jdbcTemplate == null){
+            jdbcTemplate = createJdbcTemplate(dataSource);
+        }
+    }
+    private JdbcTemplate createJdbcTemplate(DataSource dataSource){
+        return new JdbcTemplate(dataSource);
+    }
+}</code><br>然后让accountDaoImpl类继承这个类，就只需要使用super关键子调用jdbcTemplate类了<br><code>import com.cbw.dao.IAccountDao;
+import com.cbw.domain.Account;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+
+import java.util.List;
+
+/**
+ * 账户的持久层实现类
+ */
+public class AccountDaoImpl extends JdbcDaoSupport implements IAccountDao {
+
+    public Account findAccountById(Integer accountId) {
+        List&lt;Account&gt; accountList = super.getJdbcTemplate().query(&quot;select * from account where id=?&quot;,new BeanPropertyRowMapper&lt;Account&gt;(Account.class),accountId);
+        return accountList.isEmpty()?null:accountList.get(0);
+    }
+
+    public Account findAccountByName(String accountName) {
+        List&lt;Account&gt; accountList = super.getJdbcTemplate().query(&quot;select * from account where name =?&quot;,new BeanPropertyRowMapper&lt;Account&gt;(Account.class),accountName);
+        return accountList.isEmpty()?null:accountList.get(0);
+    }
+
+    public void updateAccount(Account account) {
+        super.getJdbcTemplate().update(&quot;update account set name=?,money=? where id=?&quot;,account.getName(),account.getMoney(),account.getId());
+    }
+}</code><br>别忘了在xml文件中，配置accountDao，并在里面注入dataSource<br><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+&lt;!--    配置账户的持久层--&gt;
+    &lt;bean id=&quot;accountDao&quot; class=&quot;com.cbw.dao.impl.AccountDaoImpl&quot;&gt;
+            &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/myspringspace&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;username&quot; value=&quot;root&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;password&quot; value=&quot;123456&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;</code><br>执行测试<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200408053851108.png" alt><br>当然，spring中也给我们实现了这种方式，我们可以直接继承spring中的JdbcDaoSupport类<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200408053026231.png" alt><br>我们就不需要自己写support类，但是，这样写的话，我们就不能自己用注解配置jdbcTemplate了，因为那个是spring提供的jar包里面的，所以，<font color="red">当我们使用继承spring中的JdbcDaoSupport类时，我们是使用xml配置dao的，当我们不使用这种方式，我们就可以使用注解方式来配置dao了，怎么选择看我们自己</font>
             </div>
             <hr>
 
@@ -477,7 +628,7 @@
                     </span>
                     <a href="https://iwishing.github.io" class="b-link-green">我所希冀的未来</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/02/11/java学习--一个对象的内存/" class="b-link-green">java对象的内存</a>
+                    <a href="/2020/04/10/spring学习(六)/" class="b-link-green">spring中的JdbcTemplate</a>
                 </p>
             </div>
         </div>
@@ -502,20 +653,20 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/10/spring学习(二)/">
+                <a href="/2020/04/10/spring学习(七)/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="依赖注入，spring基于注解的IoC，spring整合junit">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="spring中的事务控制">
                         
-                        <span class="card-title">依赖注入，spring基于注解的IoC，spring整合junit</span>
+                        <span class="card-title">spring中的事务控制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">依赖注入，spring基于注解的IoC，spring整合junit
+                    <div class="summary">spring中的事务控制
 环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
 
-依赖注入spring中的依赖</div>
+一.概述1.JavaEE体系进行分层开发，事务处理位于业务层，Spri</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-10
@@ -554,27 +705,30 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/18/小科普/为什么判断闰年不能单单看这一年是否为4的倍数/">
+                <a href="/2020/04/10/spring学习(二)/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="小科普">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="依赖注入，spring基于注解的IoC，spring整合junit">
                         
-                        <span class="card-title">小科普</span>
+                        <span class="card-title">依赖注入，spring基于注解的IoC，spring整合junit</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">为什么判断闰年不能单单看这一年是否为4的倍数答：地球绕太阳运行周期为365天5小时48分46秒（合365.24219天）即一回归年。公历的平年只有365日，比回归年短约0.2422 日，所余下的时间约为四年累计一天，故四年于2月加1天，使当</div>
+                    <div class="summary">依赖注入，spring基于注解的IoC，spring整合junit
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
+
+依赖注入spring中的依赖</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/小科普/" class="post-category" target="_blank">
-                                    小科普
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
                                 </a>
                             
                             
@@ -584,8 +738,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/小科普/" target="_blank">
-                        <span class="chip bg-color">小科普</span>
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Spring/" target="_blank">
+                        <span class="chip bg-color">Spring</span>
                     </a>
                     
                 </div>

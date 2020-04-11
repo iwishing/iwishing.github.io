@@ -1,0 +1,1118 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="spring中的事务控制, blogs">
+    <meta name="description" content="spring中的事务控制
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
+
+一.概述1.JavaEE体系进行分层开发，事务处理位于业务层，Spri">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>spring中的事务控制 | 我所希冀的未来</title>
+    <link rel="icon" type="image/png" href="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/f0efd497b0316c993d517f78de7a23.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">我所希冀的未来</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/f0efd497b0316c993d517f78de7a23.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">我所希冀的未来</div>
+        <div class="logo-desc">
+            
+            a perfact combination of handsome and cute
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/iwishing" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/iwishing" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1223372496@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1223372496" class="tooltipped" data-tooltip="QQ联系我: 1223372496" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/iwishing" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        spring中的事务控制
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                            <a href="/tags/Spring/" target="_blank">
+                                <span class="chip bg-color">Spring</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                Java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-04-10
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        14 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="spring中的事务控制"><a href="#spring中的事务控制" class="headerlink" title="spring中的事务控制"></a><font size="36">spring中的事务控制</font></h1><blockquote>
+<p>环境：<br>Idea：2019.3.1<br>系统：windows10 家庭版<br>Jdk: 8<br>spring：5.0.3 release<br><a href="https://spring.io/projects/spring-framework" target="_blank" rel="noopener">spring文档</a><br><a href="https://github.com/iwishing/springStudyDemo" target="_blank" rel="noopener">项目代码</a></p>
+</blockquote>
+<h3 id="一-概述"><a href="#一-概述" class="headerlink" title="一.概述"></a>一.概述</h3><pre><code>1.JavaEE体系进行分层开发，事务处理位于业务层，Spring提供了分层设计业务层的事务处理解决方案
+2.spring框架为我们提供了一组事务控制的接口，这组接口是在spring-tx-5.0.2.RELEASE.jar中
+3.spring的事务控制都是基于AOP的，它既可以使用编程的方式实现，也可以使用配置的方式实现
+</code></pre><h3 id="二-spring中事务控制的API介绍"><a href="#二-spring中事务控制的API介绍" class="headerlink" title="二.spring中事务控制的API介绍"></a>二.spring中事务控制的API介绍</h3><p><strong>PlatformTransactionManager</strong></p>
+<p>此接口是spring的事务管理器，它里面提供了我们常用的操作事务的方法，包含3个具体的操作</p>
+<pre><code>1.获取事务状态信息
+    TransactionStatus getTransaction(TransactionDefinition definition)
+2.提交事务
+    void commit(TransactionStatus status)
+3.回滚事务
+    void rollback(TransactionStatus status)
+</code></pre><p>我们在开发中都是使用它的实现类</p>
+<pre><code>1.org.springframework.jdbc.datasource.DataSourceTransactionManager
+    使用Spring JDBC或iBatis进行持久化数据时使用
+2.org.springframework.orm.hibernate5.HibernateTransactionManager
+    使用Hibernate版本进行持久化数据时使用
+</code></pre><p><strong>TransactionDefinition</strong><br>它是事务的定义信息对象，包含的方法如下</p>
+<p><font size="2" color="black">String getName()</font></p>
+<pre><code>获取事务对象名称
+</code></pre><p><font size="2" color="black">int getIsolationLevel()</font></p>
+<pre><code>获取事务隔离级别
+
+事务的隔离级别反映事务提交并发访问时的处理态度
+    -ISOLATION_DEFAULT
+        默认级别，归属于下列某一种
+    -ISOLATION_READ_UNCOMMITTED
+        可以读取未提交数据
+    -ISOLATION_READ_COMMITEED
+        只能读取已提交数据，解决脏读问题(Oracle默认级别)
+    -ISOLATION_REPEATABLE_READ
+        是否读取其他事务提交修改后的数据，解决不可重复读问题(MySQL默认级别)
+    -ISOLATION_SERIALIZABLE
+        是否读取其他事务提交添加后的数据，解决幻影读问题
+</code></pre><p><font size="2" color="black">int getPropagationBehavior()</font></p>
+<pre><code>获取事务传播行为
+
+事务的传播行为
+    REQUIRED：
+        如果当前没有事务，就新建一个事务，如果已经存在于一个事务中，则加入到这个事务中。一般的选择(默认值)
+    SUPPORTS：
+        支持当前事务，如果当前没有事务，就以非事务方式执行(没有事务)
+    MANDATORY：
+        使用当前的事务，如果当前没有事务，就抛出异常
+    REQUERS_NEW：
+        新建事务，如果当前在事务中，把当前事务挂起
+    NOT_SUPPORTED：
+        以非事务方式执行操作，如果当前存在事务，就把当前事务挂起
+    NEVER：
+        以非事务方式运行，如果当前存在事务，抛出异常
+    NESTED：
+        如果当前存在事务，则在嵌套事务内执行，如果当前没有事务，则执行REQUIRED类似的操作
+</code></pre><p><font size="2" color="black">int getTimeout()</font></p>
+<pre><code>获取事务超时时间
+
+默认值是-1，就是没有超时限制，如果有，以秒为单位进行设置
+</code></pre><p><font size="2" color="black">boolean isReadOnly()</font></p>
+<pre><code>获取事务是否只读
+
+读写型事务：增加、删除、修改开启事务
+只读型事务：查询时开启事务，建议查询时设置为只读
+</code></pre><p><strong>TransactionStatus</strong><br>此接口提供的是事务具体的运行状态，包含了6个具体的操作</p>
+<p><font size="2" color="black">void flush()</font></p>
+<pre><code>刷新事务
+</code></pre><p><font size="2" color="black">boolean hasSavepoint()</font></p>
+<pre><code>获取是否存在存储点
+</code></pre><p><font size="2" color="black">boolean isCompleted()</font></p>
+<pre><code>获取事务是否完成
+</code></pre><p><font size="2" color="black">boolean isNewTransaction()</font></p>
+<pre><code>获取事务是否为新的事务
+</code></pre><p><font size="2" color="black">boolean isRollbackOnly()</font></p>
+<pre><code>获取事务是否回滚
+</code></pre><p><font size="2" color="black">void setRollbackOnly()</font></p>
+<pre><code>设置事务回滚
+</code></pre><h3 id="三-spring中基于xml的声明式事务控制"><a href="#三-spring中基于xml的声明式事务控制" class="headerlink" title="三.spring中基于xml的声明式事务控制"></a>三.spring中基于xml的声明式事务控制</h3><p>沿用上篇文章中的使用spring的JdbcDaoSupport的工程文件，然后做以下修改</p>
+<h5 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h5><p>别忘了导入spring-jdbc和spring-tx的坐标，其他所需要的按照之前项目导</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+       xsi:schemaLocation=&quot;
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+&lt;/beans&gt;
+</code></pre><h5 id="配置事务管理器"><a href="#配置事务管理器" class="headerlink" title="配置事务管理器"></a>配置事务管理器</h5><pre><code>&lt;!--    配置事务管理器--&gt;
+&lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;
+</code></pre><h5 id="配置事务的通知"><a href="#配置事务的通知" class="headerlink" title="配置事务的通知"></a>配置事务的通知</h5><p>配置事务的通知<br><code>&lt;tx:advice&gt;&lt;/tx:advice&gt;</code></p>
+<pre><code>属性：
+    id：给事务通知起一个唯一标识
+    transaction-manager：给事务通知提供一个事务管理器引用
+</code></pre><p>配置事务的属性<br><code>&lt;tx:attributes&gt;&lt;/tx:attributes&gt;</code><br>在这个标签里面用<code>&lt;tx:method/&gt;</code>标签指定切入点和属性</p>
+<pre><code>属性：
+    name=&quot;&quot;:用于指定切入点名称
+    isolation=&quot;&quot;：用于指定事务的隔离级别，默认值是DEFAULT，表示使用数据库的隔离级别
+    propagation=&quot;&quot;用于指定事务的传播行为，默认值是REQUIRED，表示一定会有事务，增删改的选择，查询方法可以选择SUPPORTS
+    read-only=&quot;&quot;用于指定事务是否只读，只有查询方法才能设置为true，默认值是false，表示读写
+    timeout=&quot;&quot;用于指定事务的超时时间，默认值是-1，表示永不超时，如果指定了数值，以秒为单位
+    no-rollback-for=&quot;&quot;用于指定一个异常，表示当该异常发生时事务不回滚，产生其他异常时都回滚，没有默认值，表示任何异常都回滚
+    rollback-for=&quot;&quot;用于指定一个异常，表示当该异常发生时事务回滚，产生其他异常时事务不回滚，没有默认值，表示任何异常都回滚
+</code></pre><p>name属性可以使用<strong>通配符</strong>来表示多个连接点，所以我们一般地将查询方法都用find开头，这样在设置<code>&lt;tx:method/&gt;</code>属性时，可以直接指定name = “find*”，因为事务的原因，我们一般都按照下面这种写法，为什么这样设置，可以查看最上面对这些属性的值的说明</p>
+<pre><code>&lt;!-- 配置事务的通知--&gt;
+&lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;transactionManager&quot;&gt;
+&lt;!--    配置事务的属性--&gt;
+    &lt;tx:attributes&gt;
+        //增删改方法，命名按自己的来，propagation=&quot;REQUIRED&quot;,read-only设置为读写
+        &lt;tx:method name=&quot;transfer&quot; propagation=&quot;REQUIRED&quot; read-only=&quot;false&quot;/&gt;
+        //所有查询方法都用find打头，这里用find*指定所有查询方法，然后设置propagation=&quot;SUPPORTS&quot;,read-only设置为只读
+        &lt;tx:method name=&quot;find*&quot; propagation=&quot;SUPPORTS&quot; read-only=&quot;true&quot;&gt;&lt;/tx:method&gt;
+    &lt;/tx:attributes&gt;
+&lt;/tx:advice&gt;
+</code></pre><h5 id="配置aop中的通用切入点表达式并和事务通知建立关系"><a href="#配置aop中的通用切入点表达式并和事务通知建立关系" class="headerlink" title="配置aop中的通用切入点表达式并和事务通知建立关系"></a>配置aop中的通用切入点表达式并和事务通知建立关系</h5><pre><code>&lt;!--    配置aop中的通用切入点表达式--&gt;
+    &lt;aop:config&gt;
+        &lt;aop:pointcut id=&quot;pt1&quot; expression=&quot;execution(* com.cbw.service.impl.*.*(..))&quot;/&gt;
+        &lt;!--    建立事务通知和切入点表达式的关系--&gt;
+        &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut-ref=&quot;pt1&quot;&gt;&lt;/aop:advisor&gt;
+    &lt;/aop:config&gt;
+</code></pre><p>完整的配置文件如下</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+       xsi:schemaLocation=&quot;
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;context:component-scan base-package=&quot;com.cbw&quot;&gt;&lt;/context:component-scan&gt;
+
+&lt;!--    配置账户的持久层--&gt;
+    &lt;bean id=&quot;accountDao&quot; class=&quot;com.cbw.dao.impl.AccountDaoImpl&quot;&gt;
+            &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+        &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/myspringspace&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;username&quot; value=&quot;root&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;password&quot; value=&quot;123456&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+&lt;!--    1.配置事务管理器--&gt;
+&lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;
+&lt;!--    2.配置事务的通知--&gt;
+&lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;transactionManager&quot;&gt;
+&lt;!--5.配置事务的属性
+--&gt;
+    &lt;tx:attributes&gt;
+        &lt;tx:method name=&quot;transfer&quot; propagation=&quot;REQUIRED&quot; read-only=&quot;false&quot;/&gt;
+        &lt;tx:method name=&quot;find*&quot; propagation=&quot;SUPPORTS&quot; read-only=&quot;true&quot;&gt;&lt;/tx:method&gt;
+    &lt;/tx:attributes&gt;
+&lt;/tx:advice&gt;
+&lt;!--    3.配置aop中的通用切入点表达式--&gt;
+    &lt;aop:config&gt;
+        &lt;aop:pointcut id=&quot;pt1&quot; expression=&quot;execution(* com.cbw.service.impl.*.*(..))&quot;/&gt;
+        &lt;!--    4.建立事务通知和切入点表达式的关系--&gt;
+        &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut-ref=&quot;pt1&quot;&gt;&lt;/aop:advisor&gt;
+    &lt;/aop:config&gt;
+&lt;/beans&gt;
+</code></pre><p>测试<br>我们运行带<font color="red">int i=1/0</font>错误的转账方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200410103718331.png" alt><br>可以看到转账钱这么多钱，然后报错了，我们再去表中看下，是否转账人转了帐，收账人没收到<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200410103812083.png" alt><br>可以看到，既没有转账也没有收账，说明事务配置成功了</p>
+<h3 id="四-spring中基于注解的事务控制"><a href="#四-spring中基于注解的事务控制" class="headerlink" title="四.spring中基于注解的事务控制"></a>四.spring中基于注解的事务控制</h3><p>使用纯注解的方式实现</p>
+<h5 id="创建配置类"><a href="#创建配置类" class="headerlink" title="创建配置类"></a>创建配置类</h5><p>1.springConfiguration</p>
+<blockquote>
+<p>主配置文件</p>
+</blockquote>
+<pre><code>import org.springframework.context.annotation.*;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+/**
+ * spring的配置类，相当于applicationContext.xml
+ */
+//表示这是一个配置类
+@Configuration
+//设置要扫描的包
+@ComponentScan(&quot;com.cbw&quot;)
+//导入另外两个配置类
+@Import({JdbcConfig.class,TransactionConfig.class})
+//导入外部的properties文件，里面写了数据库连接所需参数
+@PropertySource(&quot;jdbcConfig.properties&quot;)
+//开启事务支持
+@EnableTransactionManagement
+public class SpringConfiguration {
+
+}
+</code></pre><p>2.JdbcConfig</p>
+<blockquote>
+<p>和数据库相关的配置类</p>
+</blockquote>
+<pre><code>import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import javax.sql.DataSource;
+
+/**
+ * 和连接数据库相关的类
+ */
+public class JdbcConfig {
+    @Value(&quot;${jdbc.driver}&quot;)
+    private String classDriver;
+    @Value(&quot;${jdbc.url}&quot;)
+    private String url;
+    @Value(&quot;${jdbc.username}&quot;)
+    private String username;
+    @Value(&quot;${jdbc.password}&quot;)
+    private String password;
+    /**
+     *
+     * 创建JdbcTemplate对象
+     * @param dataSource
+     * @return
+     */
+    @Bean(name = &quot;jdbcTemplate&quot;)
+    public JdbcTemplate createJdbcTemplate(DataSource dataSource){
+        return new JdbcTemplate(dataSource);
+    }
+
+    @Bean(name = &quot;dataSource&quot;)
+    public DataSource createDataSource(){
+        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+        driverManagerDataSource.setDriverClassName(classDriver);
+        driverManagerDataSource.setUrl(url);
+        driverManagerDataSource.setUsername(username);
+        driverManagerDataSource.setPassword(password);
+
+        return driverManagerDataSource;
+    }
+}
+
+</code></pre><p> 3.TransactionConfig</p>
+<blockquote>
+<p>和事务相关的配置类</p>
+</blockquote>
+<pre><code>import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import javax.sql.DataSource;
+
+/**
+ * 和事务相关的配置类
+ */
+public class TransactionConfig {
+    /**
+     * 用于创建事务管理器对象的
+     * @param dataSource
+     * @return
+     */
+    @Bean(&quot;TransactionManager&quot;)
+    public PlatformTransactionManager createTransactionManager(DataSource dataSource){
+        return new DataSourceTransactionManager(dataSource);
+    }
+}
+</code></pre><h5 id="jdbcConfig-properties文件"><a href="#jdbcConfig-properties文件" class="headerlink" title="jdbcConfig.properties文件"></a>jdbcConfig.properties文件</h5><pre><code>jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/myspringspace
+jdbc.username=root
+jdbc.password=123456
+</code></pre><h5 id="业务层开启事务"><a href="#业务层开启事务" class="headerlink" title="业务层开启事务"></a>业务层开启事务</h5><p> 用<code>@Transactional</code>注解在service层中的service实现类，开启事务</p>
+<pre><code>import com.cbw.dao.IAccountDao;
+import com.cbw.domain.Account;
+import com.cbw.service.IAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service(&quot;accountService&quot;)
+@Transactional
+public class AccountServiceImpl implements IAccountService {
+    @Autowired
+    private IAccountDao accountDao;
+
+    public Account findAccountByID(Integer accountId) {
+        return accountDao.findAccountById(accountId);
+    }
+
+    public void transfer(String sourceName, String targetName, Float money) {
+        //1.查询出转账人
+        Account source = accountDao.findAccountByName(sourceName);
+        //2.查询出收账人
+        Account target = accountDao.findAccountByName(targetName);
+        //3.转账人减钱
+        source.setMoney(source.getMoney() - money);
+        //4.收账人加钱
+        target.setMoney(target.getMoney() + money);
+        //5.更新两个账户
+        accountDao.updateAccount(source);
+        accountDao.updateAccount(target);
+
+    }
+}
+</code></pre><p>当然这里也可以给方法设置事务属性，还是<code>@Transactional</code>标签</p>
+<pre><code>    @Transactional(propagation = Propagation.REQUIRED,readOnly = true)
+    public Account findAccountByID(Integer accountId) {
+        return accountDao.findAccountById(accountId);
+    }
+</code></pre><h5 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h5><p>之前的<code>@ContextConfiguration</code>标签里面的location参数改成classes，指明配置类</p>
+<pre><code>import com.cbw.config.SpringConfiguration;
+import com.cbw.domain.Account;
+import com.cbw.service.IAccountService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringConfiguration.class)
+public class TestTx {
+
+    @Autowired
+    private IAccountService as;
+
+    @Test
+    public void testTransfer(){
+        //转账前
+        System.out.println(&quot;转账前&quot;);
+        Account source = as.findAccountByID(1);
+        Account target = as.findAccountByID(2);
+        System.out.println(&quot;转账人：&quot; + source);
+        System.out.println(&quot;收账人：&quot; + target);
+
+        //转账
+        as.transfer(source.getName(),target.getName(),200f);
+
+        //转账后
+        System.out.println(&quot;转账后&quot;);
+        source = as.findAccountByID(1);
+        target = as.findAccountByID(2);
+        System.out.println(&quot;转账人：&quot; + source);
+        System.out.println(&quot;收账人：&quot; + target);
+    }
+}
+</code></pre><p>老样子，在转账的方法中，加入<font color="red">int i=1/0;</font><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200410012558271.png" alt><br>查看表<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200406104228134/20200410012617193.png" alt><br>一样没变</p>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://iwishing.github.io" class="b-link-green">我所希冀的未来</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2020/04/10/spring学习(七)/" class="b-link-green">spring中的事务控制</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/04/10/spring学习(三)/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="事务控制，动态代理，动态代理实现事务控制">
+                        
+                        <span class="card-title">事务控制，动态代理，动态代理实现事务控制</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">事务控制，动态代理，动态代理实现事务控制
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
+
+一、事务控制背景操作账户的项目结构如下正常流程是首先创</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Spring/" target="_blank">
+                        <span class="chip bg-color">Spring</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/04/10/spring学习(六)/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="spring中的JdbcTemplate">
+                        
+                        <span class="card-title">spring中的JdbcTemplate</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">spring中的JdbcTemplate
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
+
+1.概述它是spring框架中提供的一个对象，是对原始</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Spring/" target="_blank">
+                        <span class="chip bg-color">Spring</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 我所希冀的未来<br />'
+            + '作者: Iwishing<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+
+            
+    <div class="container row center-align">
+	<!--<div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/iwishing" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1223372496@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1223372496" class="tooltipped" data-tooltip="QQ联系我: 1223372496" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>-->
+        <div class="col s12 copy-right">
+            <p>
+				<span>
+				&copy&nbsp2018&nbsp-&nbsp2019
+				</span>
+					By
+					<a href="https://github.com/iwishing" target="_blank">Iwishing</a>
+			</p>
+			Driven&nbsp-&nbsp
+            <a href="https://hexo.io/" target="_blank">Hexo</a> |
+            Theme - 
+			<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
