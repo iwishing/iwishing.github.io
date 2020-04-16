@@ -417,14 +417,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2k
+                        1.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        8 分
+                        7 分
                     </div>
                     
                 
@@ -443,214 +443,230 @@
                 <h1 id="通知类型，基于注解的AOP"><a href="#通知类型，基于注解的AOP" class="headerlink" title="通知类型，基于注解的AOP"></a><font size="6">通知类型，基于注解的AOP</font></h1><blockquote>
 <p>环境：<br>Idea：2019.3.1<br>系统：windows10 家庭版<br>Jdk: 8<br>spring：5.0.3 release<br><a href="https://spring.io/projects/spring-framework" target="_blank" rel="noopener">spring文档</a><br><a href="https://github.com/iwishing/springStudyDemo" target="_blank" rel="noopener">项目代码</a></p>
 </blockquote>
-<h3 id="一、通知类型"><a href="#一、通知类型" class="headerlink" title="一、通知类型"></a>一、通知类型</h3><h5 id="1-前置通知"><a href="#1-前置通知" class="headerlink" title="1.前置通知"></a>1.前置通知</h5><pre><code>作用：
+<h3 id="一、通知类型"><a href="#一、通知类型" class="headerlink" title="一、通知类型"></a>一、通知类型</h3><h5 id="1-前置通知"><a href="#1-前置通知" class="headerlink" title="1.前置通知"></a>1.前置通知</h5><pre class=" language-xml"><code class="language-xml">作用：
      切入点方法执行前执行
 标签：
-    &lt;aop:before&gt;&lt;/aop:before&gt;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>before</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>before</span><span class="token punctuation">></span></span>
 示例：
-    &lt;aop:before method=&quot;beforePrintLog&quot; pointcut=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;&gt;&lt;/aop:before&gt;
-</code></pre><h5 id="2-后置通知"><a href="#2-后置通知" class="headerlink" title="2.后置通知"></a>2.后置通知</h5><pre><code>作用：
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>before</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>beforePrintLog<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>before</span><span class="token punctuation">></span></span>
+</code></pre>
+<h5 id="2-后置通知"><a href="#2-后置通知" class="headerlink" title="2.后置通知"></a>2.后置通知</h5><pre class=" language-xml"><code class="language-xml">作用：
      切入点方法执行后执行
 标签：
-    &lt;aop:after-returning&gt;&lt;/aop:after-returning&gt;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>after-returning</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>after-returning</span><span class="token punctuation">></span></span>
 示例：
-    &lt;aop:after-returning method=&quot;afterReturningPrintLog&quot; pointcut=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;&gt;&lt;/aop:after-returning&gt;
-</code></pre><h5 id="3-异常通知"><a href="#3-异常通知" class="headerlink" title="3.异常通知"></a>3.异常通知</h5><pre><code>作用：
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>after-returning</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>afterReturningPrintLog<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>after-returning</span><span class="token punctuation">></span></span>
+</code></pre>
+<h5 id="3-异常通知"><a href="#3-异常通知" class="headerlink" title="3.异常通知"></a>3.异常通知</h5><pre class=" language-xml"><code class="language-xml">作用：
      切入点方法异常时执行
 标签：
-    &lt;aop:after-throwing&gt;&lt;/aop:after-throwing&gt;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>after-throwing</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>after-throwing</span><span class="token punctuation">></span></span>
 示例：
-    &lt;aop:after-throwing method=&quot;afterThrowingPrintLog&quot; pointcut=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;&gt;&lt;/aop:after-throwing&gt;
-</code></pre><p><strong>注意：</strong>异常通知和后置通知同时只能有一个执行，能想到，如果后置通知执行了，就代表切入点方法没有问题，那么异常通知就不会执行，而如果切入点方法出现异常，那么异常通知就会执行，而此时不会执行到后置方法</p>
-<h5 id="4-最终通知"><a href="#4-最终通知" class="headerlink" title="4.最终通知"></a>4.最终通知</h5><pre><code>作用：
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>after-throwing</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>afterThrowingPrintLog<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>after-throwing</span><span class="token punctuation">></span></span>
+</code></pre>
+<p><strong>注意：</strong>异常通知和后置通知同时只能有一个执行，能想到，如果后置通知执行了，就代表切入点方法没有问题，那么异常通知就不会执行，而如果切入点方法出现异常，那么异常通知就会执行，而此时不会执行到后置方法</p>
+<h5 id="4-最终通知"><a href="#4-最终通知" class="headerlink" title="4.最终通知"></a>4.最终通知</h5><pre class=" language-xml"><code class="language-xml">作用：
      不管切入点方法是否成功执行都会执行
 标签：
-    &lt;aop:after&gt;&lt;/aop:after&gt;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>after</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>after</span><span class="token punctuation">></span></span>
 示例：
-    &lt;aop:after method=&quot;afterPrintLog&quot; pointcut=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;&gt;&lt;/aop:after&gt;
-</code></pre><h5 id="5-环绕通知"><a href="#5-环绕通知" class="headerlink" title="5.环绕通知"></a>5.环绕通知</h5><pre><code>标签：
-    &lt;aop:around&gt;&lt;/aop:around&gt;
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>after</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>afterPrintLog<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>after</span><span class="token punctuation">></span></span>
+</code></pre>
+<h5 id="5-环绕通知"><a href="#5-环绕通知" class="headerlink" title="5.环绕通知"></a>5.环绕通知</h5><pre class=" language-xml"><code class="language-xml">标签：
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>around</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>around</span><span class="token punctuation">></span></span>
 示例：
-    &lt;aop:around method=&quot;aroundPrintLog&quot; pointcut=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&gt;&lt;/aop:around&gt;
-</code></pre><p>这里要停顿下，我们这样配置了环绕通知后，运行切入点方法可以看到只有环绕通知执行了，而切入点方法没执行<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200403100902803.png" alt><br>这里我们对比一下我们之前写的动态代理增强的方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200403105114483.png" alt><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331050343170.png" alt><br>可以明确地知道，动态代理的环绕通知中有明确的切入点方法的调用，而我们配置的环绕通知方法中没有<br><strong>解决方法：</strong><br>spring框架为我们提供了一个接口，ProceedingJoinPoint，该接口有一个方法proceed()，此方法就相当于明确调用切入点方法。该接口可以作为环绕通知的方法参数，在程序执行时spring框架会为我们提供该接口的实现类供我们使用</p>
-<pre><code>/*
+    &lt;aop:around method="aroundPrintLog" pointcut="execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>around</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>这里要停顿下，我们这样配置了环绕通知后，运行切入点方法可以看到只有环绕通知执行了，而切入点方法没执行<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200403100902803.png" alt><br>这里我们对比一下我们之前写的动态代理增强的方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200403105114483.png" alt><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331050343170.png" alt><br>可以明确地知道，动态代理的环绕通知中有明确的切入点方法的调用，而我们配置的环绕通知方法中没有<br><strong>解决方法：</strong><br>spring框架为我们提供了一个接口，ProceedingJoinPoint，该接口有一个方法proceed()，此方法就相当于明确调用切入点方法。该接口可以作为环绕通知的方法参数，在程序执行时spring框架会为我们提供该接口的实现类供我们使用</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
  * rtValue：切入点方法的返回值
-*/
-    public Object aroundPrintLog(ProceedingJoinPoint pjp){
-        Object rtValue = null;
-        //明确调用切入点方法
-        try {
-            //得到方法执行所需参数
-            Object [] args = pjp.getArgs();
-            //明确调用业务层方法
-            rtValue = pjp.proceed(args);
-            return rtValue;
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-        System.out.println(&quot;Logger类中的arountPrintLog方法开始执行&quot;);
-        return rtValue;
-    }
-</code></pre><p><strong>spring中的环绕通知：</strong><br>    它是spring框架为我们提供的一种可以在代码中手动控制增强方法何时执行的方式</p>
+*/</span>
+    <span class="token keyword">public</span> Object <span class="token function">aroundPrintLog</span><span class="token punctuation">(</span>ProceedingJoinPoint pjp<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        Object rtValue <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//明确调用切入点方法</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//得到方法执行所需参数</span>
+            Object <span class="token punctuation">[</span><span class="token punctuation">]</span> args <span class="token operator">=</span> pjp<span class="token punctuation">.</span><span class="token function">getArgs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//明确调用业务层方法</span>
+            rtValue <span class="token operator">=</span> pjp<span class="token punctuation">.</span><span class="token function">proceed</span><span class="token punctuation">(</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> rtValue<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> throwable<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            throwable<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Logger类中的arountPrintLog方法开始执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> rtValue<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p><strong>spring中的环绕通知：</strong><br>    它是spring框架为我们提供的一种可以在代码中手动控制增强方法何时执行的方式</p>
 <h5 id="6-补充"><a href="#6-补充" class="headerlink" title="6.补充"></a>6.补充</h5><p>标签：<code>&lt;aop:pointcut&gt;&lt;/aop:pointcut&gt;</code></p>
-<pre><code>作用：
+<pre class=" language-xml"><code class="language-xml">作用：
     可以将通知的pointcut表达式写在外边，就不会让通知标签太长影响阅读
-    此标签写在&lt;aop:aspect/&gt;标签内部，只能够该切面使用它也可以写在&lt;aop:aspect/&gt;外面，此时所有切面均可使用，但是它要在使用它的切面之前配置，不然会报错
+    此标签写在<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspect</span><span class="token punctuation">/></span></span>标签内部，只能够该切面使用它也可以写在<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspect</span><span class="token punctuation">/></span></span>外面，此时所有切面均可使用，但是它要在使用它的切面之前配置，不然会报错
 属性：
     id：是point唯一标识
     expression：pointcut表达式
 示例
-&lt;aop:aspect&gt;
-     &lt;aop:pointcut id=&quot;pc1&quot; expression=&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;/&gt;
-     &lt;aop:before method=&quot;beforePrintLog&quot; pointcut-ref=&quot;pc1&quot;&gt;&lt;/aop:before&gt;
-&lt;/aop:aspect&gt;
-</code></pre><h3 id="二、基于注解的AOP"><a href="#二、基于注解的AOP" class="headerlink" title="二、基于注解的AOP"></a>二、基于注解的AOP</h3><h5 id="1-修改配置文件"><a href="#1-修改配置文件" class="headerlink" title="1.修改配置文件"></a>1.修改配置文件</h5><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
-       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
-       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspect</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>pointcut</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pc1<span class="token punctuation">"</span></span> <span class="token attr-name">expression</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>before</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>beforePrintLog<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut-ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pc1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>before</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>aspect</span><span class="token punctuation">></span></span>
+</code></pre>
+<h3 id="二、基于注解的AOP"><a href="#二、基于注解的AOP" class="headerlink" title="二、基于注解的AOP"></a>二、基于注解的AOP</h3><h5 id="1-修改配置文件"><a href="#1-修改配置文件" class="headerlink" title="1.修改配置文件"></a>1.修改配置文件</h5><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xmlns:</span>aop</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/aop<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xmlns:</span>context</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/context<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
         https://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context
-        https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+        https://www.springframework.org/schema/context/spring-context.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 
-&lt;!--配置spring创建容器的时候要扫描的包--&gt;
-&lt;context:component-scan base-package=&quot;com.cbw&quot;&gt;&lt;/context:component-scan&gt;
+<span class="token comment" spellcheck="true">&lt;!--配置spring创建容器的时候要扫描的包--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">context:</span>component-scan</span> <span class="token attr-name">base-package</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.cbw<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">context:</span>component-scan</span><span class="token punctuation">></span></span>
 
-&lt;!--配置spring开启注解AOP的支持--&gt;
-&lt;!--    写上就支持，不写就不支持，也就是spring默认不支持--&gt;
-&lt;aop:aspectj-autoproxy&gt;&lt;/aop:aspectj-autoproxy&gt;
+<span class="token comment" spellcheck="true">&lt;!--配置spring开启注解AOP的支持--></span>
+<span class="token comment" spellcheck="true">&lt;!--    写上就支持，不写就不支持，也就是spring默认不支持--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspectj-autoproxy</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>aspectj-autoproxy</span><span class="token punctuation">></span></span>
 
-&lt;/beans&gt;
-</code></pre><h5 id="2-配置Logger类"><a href="#2-配置Logger类" class="headerlink" title="2.配置Logger类"></a>2.配置Logger类</h5><ul>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span>
+</code></pre>
+<h5 id="2-配置Logger类"><a href="#2-配置Logger类" class="headerlink" title="2.配置Logger类"></a>2.配置Logger类</h5><ul>
 <li>因为Logger类不是那三层的，所以我们就是用@Component注解</li>
-<li>使用@Aspect注解，表明这是一个切面类<pre><code>/**
+<li>使用@Aspect注解，表明这是一个切面类<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
 * 用于记录日志的工具类，它里面提供了公共的代码
-*/
-@Component(&quot;logger&quot;)
-@Aspect
-public class Logger {
-</code></pre></li>
-<li>用@Before注解前置通知<br>这5种注解的参数都是pointcut表达式<pre><code>  /**
+*/</span>
+<span class="token annotation punctuation">@Component</span><span class="token punctuation">(</span><span class="token string">"logger"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Aspect</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Logger</span> <span class="token punctuation">{</span>
+</code></pre>
+</li>
+<li>用@Before注解前置通知<br>这5种注解的参数都是pointcut表达式<pre class=" language-java"><code class="language-java">  <span class="token comment" spellcheck="true">/**
    * 前置通知
-   */
-  @Before(&quot;pct1()&quot;)
-  public void beforePrintLog(){
-      System.out.println(&quot;前置通知：Logger类中的printLog方法开始执行&quot;);
-  }
-</code></pre></li>
+   */</span>
+  <span class="token annotation punctuation">@Before</span><span class="token punctuation">(</span><span class="token string">"pct1()"</span><span class="token punctuation">)</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">beforePrintLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"前置通知：Logger类中的printLog方法开始执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+</li>
 <li>用@AfterReturning注解后置通知</li>
 </ul>
-<pre><code> /**
+<pre class=" language-java"><code class="language-java"> <span class="token comment" spellcheck="true">/**
      * 后置通知
-     */
-    @AfterReturning(&quot;pct1()&quot;)
-    public void afterReturningPrintLog(){
-        System.out.println(&quot;后置通知：Logger类中的afterReturningPrintLog方法开始执行&quot;);
-    }
-</code></pre><ul>
+     */</span>
+    <span class="token annotation punctuation">@AfterReturning</span><span class="token punctuation">(</span><span class="token string">"pct1()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterReturningPrintLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"后置通知：Logger类中的afterReturningPrintLog方法开始执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<ul>
 <li>用@AfterThrowing注解异常通知</li>
 </ul>
-<pre><code>    /**
+<pre class=" language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
      * 异常通知
-     */
-    @AfterThrowing(&quot;pct1()&quot;)
-    public void afterThrowingPrintLog(){
-        System.out.println(&quot;异常通知：Logger类中的afterThrowingPrintLog方法开始执行&quot;);
-    }
-</code></pre><ul>
+     */</span>
+    <span class="token annotation punctuation">@AfterThrowing</span><span class="token punctuation">(</span><span class="token string">"pct1()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterThrowingPrintLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"异常通知：Logger类中的afterThrowingPrintLog方法开始执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<ul>
 <li>用@After注解最终通知</li>
 </ul>
-<pre><code>    /**
+<pre class=" language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
      * 最终通知
-     */
-    @After(&quot;pct1()&quot;)
-    public void afterPrintLog(){
-        System.out.println(&quot;最终通知：Logger类中的afterPrintLog方法开始执行&quot;);
-    }
-</code></pre><ul>
+     */</span>
+    <span class="token annotation punctuation">@After</span><span class="token punctuation">(</span><span class="token string">"pct1()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterPrintLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"最终通知：Logger类中的afterPrintLog方法开始执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<ul>
 <li>用@Around注解环绕通知</li>
 </ul>
-<pre><code>    @Around(&quot;pct1()&quot;)
-    public Object aroundPrintLog(ProceedingJoinPoint pjp){
-    }
-</code></pre><ul>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Around</span><span class="token punctuation">(</span><span class="token string">"pct1()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> Object <span class="token function">aroundPrintLog</span><span class="token punctuation">(</span>ProceedingJoinPoint pjp<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<ul>
 <li>用@Pointcut注解，提供pointcut表达式，前面通知注解参数就是填写这个方法的名称，()不能掉</li>
 </ul>
-<pre><code>    @Pointcut(&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;)
-    private void pct1(){}
-</code></pre><ul>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Pointcut</span><span class="token punctuation">(</span><span class="token string">"execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">pct1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+<ul>
 <li>完整代码</li>
 </ul>
-<pre><code>import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
-import org.springframework.stereotype.Component;
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> org<span class="token punctuation">.</span>aspectj<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>ProceedingJoinPoint<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>aspectj<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
 
-/**
+<span class="token comment" spellcheck="true">/**
  * 用于记录日志的工具类，它里面提供了公共的代码
- */
-@Component(&quot;logger&quot;)
-@Aspect
-public class Logger {
-    @Pointcut(&quot;execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())&quot;)
-    private void pct1(){}
-    /**
+ */</span>
+<span class="token annotation punctuation">@Component</span><span class="token punctuation">(</span><span class="token string">"logger"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Aspect</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Logger</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Pointcut</span><span class="token punctuation">(</span><span class="token string">"execution(public void com.cbw.service.impl.AccountServiceImpl.saveAccount())"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">pct1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">/**
      * 前置通知
-     */
-    @Before(&quot;pct1()&quot;)
-    public void beforePrintLog(){
-        System.out.println(&quot;前置通知：Logger类中的printLog方法开始执行&quot;);
-    }
-    /**
+     */</span>
+    <span class="token annotation punctuation">@Before</span><span class="token punctuation">(</span><span class="token string">"pct1()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">beforePrintLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"前置通知：Logger类中的printLog方法开始执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">/**
      * 后置通知
-     */
-    @AfterReturning(&quot;pct1()&quot;)
-    public void afterReturningPrintLog(){
-        System.out.println(&quot;后置通知：Logger类中的afterReturningPrintLog方法开始执行&quot;);
-    }
-    /**
+     */</span>
+    <span class="token annotation punctuation">@AfterReturning</span><span class="token punctuation">(</span><span class="token string">"pct1()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterReturningPrintLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"后置通知：Logger类中的afterReturningPrintLog方法开始执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">/**
      * 异常通知
-     */
-    @AfterThrowing(&quot;pct1()&quot;)
-    public void afterThrowingPrintLog(){
-        System.out.println(&quot;异常通知：Logger类中的afterThrowingPrintLog方法开始执行&quot;);
-    }
-    /**
+     */</span>
+    <span class="token annotation punctuation">@AfterThrowing</span><span class="token punctuation">(</span><span class="token string">"pct1()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterThrowingPrintLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"异常通知：Logger类中的afterThrowingPrintLog方法开始执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">/**
      * 最终通知
-     */
-    @After(&quot;pct1()&quot;)
-    public void afterPrintLog(){
-        System.out.println(&quot;最终通知：Logger类中的afterPrintLog方法开始执行&quot;);
-    }
+     */</span>
+    <span class="token annotation punctuation">@After</span><span class="token punctuation">(</span><span class="token string">"pct1()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterPrintLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"最终通知：Logger类中的afterPrintLog方法开始执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 环绕通知
-     */
-    @Around(&quot;pct1()&quot;)
-    public Object aroundPrintLog(ProceedingJoinPoint pjp){
-        Object rtValue = null;
-        //明确调用切入点方法
-        try {
-            //得到方法执行所需参数
-            Object [] args = pjp.getArgs();
-            System.out.println(&quot;前置通知执行了.....&quot;);
-            //明确调用业务层方法
-            rtValue = pjp.proceed(args);
-            System.out.println(&quot;后置通知执行了.....&quot;);
-            return rtValue;
-        } catch (Throwable throwable) {
-            System.out.println(&quot;异常通知执行了.....&quot;);
-            throwable.printStackTrace();
-        }finally {
-            System.out.println(&quot;最终通知执行了.....&quot;);
-        }
-        System.out.println(&quot;Logger类中的arountPrintLog方法开始执行&quot;);
-        return rtValue;
-    }
-}
-</code></pre><h5 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h5><p>我们首先将环绕通知的注解注释掉，先测试前四种<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200405105933609.png" alt><br>可是，我们发现，最终通知却在后置通知前面执行，我们试试异常通知</p>
+     */</span>
+    <span class="token annotation punctuation">@Around</span><span class="token punctuation">(</span><span class="token string">"pct1()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> Object <span class="token function">aroundPrintLog</span><span class="token punctuation">(</span>ProceedingJoinPoint pjp<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        Object rtValue <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//明确调用切入点方法</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//得到方法执行所需参数</span>
+            Object <span class="token punctuation">[</span><span class="token punctuation">]</span> args <span class="token operator">=</span> pjp<span class="token punctuation">.</span><span class="token function">getArgs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"前置通知执行了....."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//明确调用业务层方法</span>
+            rtValue <span class="token operator">=</span> pjp<span class="token punctuation">.</span><span class="token function">proceed</span><span class="token punctuation">(</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"后置通知执行了....."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> rtValue<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> throwable<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"异常通知执行了....."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            throwable<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">finally</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"最终通知执行了....."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Logger类中的arountPrintLog方法开始执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> rtValue<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h5 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h5><p>我们首先将环绕通知的注解注释掉，先测试前四种<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200405105933609.png" alt><br>可是，我们发现，最终通知却在后置通知前面执行，我们试试异常通知</p>
 <ul>
 <li>在saveAccount方法中加入int i=1/0;</li>
 </ul>

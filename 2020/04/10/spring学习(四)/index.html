@@ -415,14 +415,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.7k
+                        2.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        11 分
+                        10 分
                     </div>
                     
                 
@@ -479,193 +479,203 @@ b、运行阶段(spring框架完成的)
     spring框架监控切入点方法的执行，一旦监控到切入点方法被运行，使用代理机制，动态创建目标对象的代理对象，根据通知类别，在代理对象的对应位置，将通知对应的功能织入，完成完整的代码逻辑运行
 </code></pre><h5 id="3-关于代理的选择"><a href="#3-关于代理的选择" class="headerlink" title="3.关于代理的选择"></a>3.关于代理的选择</h5><pre><code>在spring中，框架会根据目标类是否实现了接口来决定采用哪种动态代理的方式
 </code></pre><h3 id="三、spring中基于xml的AOP"><a href="#三、spring中基于xml的AOP" class="headerlink" title="三、spring中基于xml的AOP"></a>三、spring中基于xml的AOP</h3><h5 id="1-导入坐标"><a href="#1-导入坐标" class="headerlink" title="1.导入坐标"></a>1.导入坐标</h5><p>除了之前的，我们再导入一个aspectj的jar包<br>idea中，再pom.xml文件中，直接alt+insert，然后选择Dependency，在出来的框里面搜索需要的包就能找到，还能选择版本</p>
-<pre><code>        &lt;dependency&gt;
-            &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
-            &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;
-            &lt;version&gt;1.8.7&lt;/version&gt;
-        &lt;/dependency&gt;
-</code></pre><h5 id="2-新建项目springAOP"><a href="#2-新建项目springAOP" class="headerlink" title="2.新建项目springAOP"></a>2.新建项目springAOP</h5><p>最终项目结构如下<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401093826268.png" alt><br>业务层的AccountServiceImpl中的方法为我们所要增强的方法，即它是我们要用的切入点</p>
-<h6 id="AccountServiceImpl类"><a href="#AccountServiceImpl类" class="headerlink" title="AccountServiceImpl类"></a>AccountServiceImpl类</h6><pre><code>import com.cbw.service.IAccountService;
+<pre class=" language-xml"><code class="language-xml">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.aspectj<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>aspectjweaver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.8.7<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+<h5 id="2-新建项目springAOP"><a href="#2-新建项目springAOP" class="headerlink" title="2.新建项目springAOP"></a>2.新建项目springAOP</h5><p>最终项目结构如下<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401093826268.png" alt><br>业务层的AccountServiceImpl中的方法为我们所要增强的方法，即它是我们要用的切入点</p>
+<h6 id="AccountServiceImpl类"><a href="#AccountServiceImpl类" class="headerlink" title="AccountServiceImpl类"></a>AccountServiceImpl类</h6><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>service<span class="token punctuation">.</span>IAccountService<span class="token punctuation">;</span>
 
-/**
+<span class="token comment" spellcheck="true">/**
  * 账户的业务层实现类
- */
-public class AccountServiceImpl implements IAccountService {
-    /**
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AccountServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">IAccountService</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
      * 保存账户方法
-     */
-    public void saveAccount() {
-        System.out.println(&quot;执行了保存&quot;);
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">saveAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"执行了保存"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 更新账户方法
      * @param i
-     */
-    public void updateAccount(int i) {
-        System.out.println(&quot;执行了更新&quot; + i);
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">updateAccount</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"执行了更新"</span> <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 删除账户方法
      * @return
-     */
-    public int deleteAccount() {
-        System.out.println(&quot;执行了删除&quot;);
-        return 0;
-    }
-}
-</code></pre><p>这3个方法都有各自的特点</p>
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">deleteAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"执行了删除"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>这3个方法都有各自的特点</p>
 <pre><code>    saveAccount()方法：    无返回值，无参数
     updateAccount()方法：  无返回值，有参数
     deleteAccount()方法：  有返回值，无参数
 </code></pre><p>这样设置是为了在后面知识学习中有个对比</p>
 <h6 id="Logger类"><a href="#Logger类" class="headerlink" title="Logger类"></a>Logger类</h6><p>它是用来提供切面中作为通知的方法的类，这里我们用打印日志作为前置通知，来增强service中的方法</p>
-<pre><code>/**
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 用于记录日志的工具类，它里面提供了公共的代码
- */
-public class Logger {
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Logger</span> <span class="token punctuation">{</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 用于打印日志，计划让其在切入点方法执行之前执行(切入点方法就是业务层方法)
-     */
-    public void printLog(){
-        System.out.println(&quot;Logger类中的printLog方法开始执行&quot;);
-    }
-}
-</code></pre><h6 id="AopTest测试类"><a href="#AopTest测试类" class="headerlink" title="AopTest测试类"></a>AopTest测试类</h6><pre><code>import com.cbw.service.IAccountService;
-        import org.junit.Test;
-        import org.junit.runner.RunWith;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.test.context.ContextConfiguration;
-        import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Logger类中的printLog方法开始执行"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h6 id="AopTest测试类"><a href="#AopTest测试类" class="headerlink" title="AopTest测试类"></a>AopTest测试类</h6><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>service<span class="token punctuation">.</span>IAccountService<span class="token punctuation">;</span>
+        <span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>Test<span class="token punctuation">;</span>
+        <span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>runner<span class="token punctuation">.</span>RunWith<span class="token punctuation">;</span>
+        <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
+        <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span>ContextConfiguration<span class="token punctuation">;</span>
+        <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span>junit4<span class="token punctuation">.</span>SpringJUnit4ClassRunner<span class="token punctuation">;</span>
 
-/**
+<span class="token comment" spellcheck="true">/**
  * 测试aop的配置是否成功
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = &quot;classpath:applicationContext.xml&quot;)
-public class AopTest {
-    @Autowired
-    IAccountService accountService;
+ */</span>
+<span class="token annotation punctuation">@RunWith</span><span class="token punctuation">(</span>SpringJUnit4ClassRunner<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@ContextConfiguration</span><span class="token punctuation">(</span>locations <span class="token operator">=</span> <span class="token string">"classpath:applicationContext.xml"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AopTest</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    IAccountService accountService<span class="token punctuation">;</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 测试存储账户方法
-     */
-    @Test
-    public void testSaveAccount(){
-        accountService.saveAccount();
+     */</span>
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testSaveAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        accountService<span class="token punctuation">.</span><span class="token function">saveAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    }
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 测试更新账户方法
-     */
-    @Test
-    public void testUpdateAccount(){
-        accountService.updateAccount(1);
+     */</span>
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testUpdateAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        accountService<span class="token punctuation">.</span><span class="token function">updateAccount</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    }
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 测试删除账户方法
-     */
-    @Test
-    public void testdeleteAccount(){
-        accountService.deleteAccount();
-    }
-}
+     */</span>
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testdeleteAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        accountService<span class="token punctuation">.</span><span class="token function">deleteAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre><h5 id="3-applicationContext-xml中配置IOC和AOP"><a href="#3-applicationContext-xml中配置IOC和AOP" class="headerlink" title="3.applicationContext.xml中配置IOC和AOP"></a>3.applicationContext.xml中配置IOC和AOP</h5><h6 id="1-首先导入相关依赖"><a href="#1-首先导入相关依赖" class="headerlink" title="1.首先导入相关依赖"></a>1.首先导入相关依赖</h6><p>这个可以在文章开头的官方文档里，进Core technologies即core核心组件的文档中搜索xmlns:aop就能快速定位到</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
-       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+</code></pre>
+<h5 id="3-applicationContext-xml中配置IOC和AOP"><a href="#3-applicationContext-xml中配置IOC和AOP" class="headerlink" title="3.applicationContext.xml中配置IOC和AOP"></a>3.applicationContext.xml中配置IOC和AOP</h5><h6 id="1-首先导入相关依赖"><a href="#1-首先导入相关依赖" class="headerlink" title="1.首先导入相关依赖"></a>1.首先导入相关依赖</h6><p>这个可以在文章开头的官方文档里，进Core technologies即core核心组件的文档中搜索xmlns:aop就能快速定位到</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xmlns:</span>aop</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/aop<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
-        https://www.springframework.org/schema/aop/spring-aop.xsd&quot;&gt;
-&lt;/bean&gt;
-</code></pre><h6 id="2-配置spring的ioc并且将bean对象加入容器"><a href="#2-配置spring的ioc并且将bean对象加入容器" class="headerlink" title="2.配置spring的ioc并且将bean对象加入容器"></a>2.配置spring的ioc并且将bean对象加入容器</h6><pre><code>&lt;!--把service对象配置进去--&gt;
-    &lt;bean id=&quot;accountService&quot; class=&quot;com.cbw.service.impl.AccountServiceImpl&quot;&gt;&lt;/bean&gt;
-&lt;!--配置Logger类，因为Logger类要在切入点方法之前执行，也就可以当作是前置通知--&gt;
-    &lt;bean id=&quot;Logger&quot; class=&quot;com.cbw.utils.Logger&quot;&gt;&lt;/bean&gt;
-</code></pre><h6 id="3-配置springAOP"><a href="#3-配置springAOP" class="headerlink" title="3.配置springAOP"></a>3.配置springAOP</h6><pre><code>·使用&lt;aop:config&gt;&lt;/aop:config&gt;标签表明开始AOP的配置
-·使用&lt;aop:aspect&gt;&lt;/aop:aspect&gt;标签表明开始配置切面，在&lt;aop:config&gt;&lt;/aop:config&gt;标签内部使用
-    属性：
-        id：是给切面提供一个唯一标识
-        ref属性：是指定通知类bean的id，即作为通知的方法所在的类的bean的id
-·在&lt;aop:aspect&gt;&lt;/aop:aspect&gt;标签内部使用不同的通知类型的标签来配置通知，这里我们先学前置通知，所用标签&lt;aop:before&gt;&lt;/aop:before&gt;
-    属性：
-        method：用于指定Logger类(即通知类)中哪个方法是前置通知
-        pointcut：用于指定切入点表达式，该表达式的含义指的是对业务层中哪些方法增强
-        切入点表达式的写法：
-            关键字：execution(表达式)
-            表达式：访问控制符 返回值 包名.包名.包名...类名.方法名(参数列表)
-            标准的实例：
-                     增强com.cbw.service.impl包下的AccountServiceImpl类中的pulic void saveAccount()方法
-                 表达式：
-·                    public void com.cbw.service.impl.AccountServiceImpl.saveAccount()
-        注意：切入点表达式可以用通配符表示，最简洁的即全通配符
-                * *..*.*(..)
-            由标准表达式到全通配符变换过程如下
-            1.标准
-                public void com.cbw.service.impl.AccountServiceImpl.saveAccount()
-            2.访问修饰符可以省略
-                void com.cbw.service.impl.AccountServiceImpl.saveAccount()
-            3.返回值可以使用通配符*，表示任意返回值
-                * com.cbw.service.impl.AccountServiceImpl.saveAccount()
-            4.包名可以使用通配符，表示任意包，但是有几级包，就需要写几个
-                * *.*.*.*.AccountServiceImpl.saveAccount()
-            5.包名可以使用..表示当前包及其子包
-                * *..AccountServiceImpl.saveAccount()
-            6.类名和方法名都可以使用通配符*来实现统配
-                * *..*.*()
-            7.参数列表：(这里就体现了设置3个不同方法的用处)
-                基本类型直接写名称   如int
-                      * *..*.*(int)
-                引用类型写包名.类名  如java.lang.String
-                      * *..*.*(java.lang.String)
-                可以使用通配符*表示任意类型，但是一定得有参数
-                      * *..*.*(*)
-                可以使用..表示有无参数均可，有参数则表示任意参数
-                 * *..*.*(..)       &lt;------------------------------------这个即全通配符写法
+        https://www.springframework.org/schema/aop/spring-aop.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+</code></pre>
+<h6 id="2-配置spring的ioc并且将bean对象加入容器"><a href="#2-配置spring的ioc并且将bean对象加入容器" class="headerlink" title="2.配置spring的ioc并且将bean对象加入容器"></a>2.配置spring的ioc并且将bean对象加入容器</h6><pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--把service对象配置进去--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>accountService<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.cbw.service.impl.AccountServiceImpl<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--配置Logger类，因为Logger类要在切入点方法之前执行，也就可以当作是前置通知--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Logger<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.cbw.utils.Logger<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+</code></pre>
+<h6 id="3-配置springAOP"><a href="#3-配置springAOP" class="headerlink" title="3.配置springAOP"></a>3.配置springAOP</h6><pre class=" language-xml"><code class="language-xml">    ·使用<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span>标签表明开始AOP的配置
+    ·使用<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspect</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>aspect</span><span class="token punctuation">></span></span>标签表明开始配置切面，在<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span>标签内部使用
+        属性：
+            id：是给切面提供一个唯一标识
+            ref属性：是指定通知类bean的id，即作为通知的方法所在的类的bean的id
+    ·在<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspect</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>aspect</span><span class="token punctuation">></span></span>标签内部使用不同的通知类型的标签来配置通知，这里我们先学前置通知，所用标签<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>before</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>before</span><span class="token punctuation">></span></span>
+        属性：
+            method：用于指定Logger类(即通知类)中哪个方法是前置通知
+            pointcut：用于指定切入点表达式，该表达式的含义指的是对业务层中哪些方法增强
+            切入点表达式的写法：
+                关键字：execution(表达式)
+                表达式：访问控制符 返回值 包名.包名.包名...类名.方法名(参数列表)
+                标准的实例：
+                         增强com.cbw.service.impl包下的AccountServiceImpl类中的pulic void saveAccount()方法
+                     表达式：
+    ·                    public void com.cbw.service.impl.AccountServiceImpl.saveAccount()
+            注意：切入点表达式可以用通配符表示，最简洁的即全通配符
+                    * *..*.*(..)
+                由标准表达式到全通配符变换过程如下
+                1.标准
+                    public void com.cbw.service.impl.AccountServiceImpl.saveAccount()
+                2.访问修饰符可以省略
+                    void com.cbw.service.impl.AccountServiceImpl.saveAccount()
+                3.返回值可以使用通配符*，表示任意返回值
+                    * com.cbw.service.impl.AccountServiceImpl.saveAccount()
+                4.包名可以使用通配符，表示任意包，但是有几级包，就需要写几个
+                    * *.*.*.*.AccountServiceImpl.saveAccount()
+                5.包名可以使用..表示当前包及其子包
+                    * *..AccountServiceImpl.saveAccount()
+                6.类名和方法名都可以使用通配符*来实现统配
+                    * *..*.*()
+                7.参数列表：(这里就体现了设置3个不同方法的用处)
+                    基本类型直接写名称   如int
+                          * *..*.*(int)
+                    引用类型写包名.类名  如java.lang.String
+                          * *..*.*(java.lang.String)
+                    可以使用通配符*表示任意类型，但是一定得有参数
+                          * *..*.*(*)
+                    可以使用..表示有无参数均可，有参数则表示任意参数
+                     * *..*.*(..)       &lt;------------------------------------这个即全通配符写法
 
-             8.注意，我们实际开发中不能这么写，因为这么写，所有的方法都会被增强，因为它全是*，所有方法都满足条件
-                 写法规则：切到业务层实现类下的所有方法
-                   即：* com.cbw.service.impl.*.*(..)
-</code></pre><p>配置好的是这样的</p>
-<pre><code>        &lt;aop:config&gt;
-            &lt;aop:aspect id=&quot;logAdvice&quot; ref=&quot;Logger&quot;&gt;
-                &lt;aop:before method=&quot;printLog&quot; pointcut=&quot;execution(* com.cbw.service.impl.AccountServiceImpl.*.*(..))&quot;&gt;&lt;/aop:before&gt;
-            &lt;/aop:aspect&gt;
-        &lt;/aop:config&gt;
-</code></pre><p>还有一个小知识点，切入点表达式的解析由aspectjweaver负责，下面这个东西</p>
-<pre><code>        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-test&lt;/artifactId&gt;
-            &lt;version&gt;5.0.2.RELEASE&lt;/version&gt;
-        &lt;/dependency&gt;
-</code></pre><h6 id="4-完整的文件内容"><a href="#4-完整的文件内容" class="headerlink" title="4.完整的文件内容"></a>4.完整的文件内容</h6><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
-       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+                 8.注意，我们实际开发中不能这么写，因为这么写，所有的方法都会被增强，因为它全是*，所有方法都满足条件
+                     写法规则：切到业务层实现类下的所有方法
+                       即：* com.cbw.service.impl.*.*(..)
+</code></pre>
+<p>配置好的是这样的</p>
+<pre class=" language-xml"><code class="language-xml">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspect</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>logAdvice<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Logger<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>before</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>printLog<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(* com.cbw.service.impl.AccountServiceImpl.*.*(..))<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>before</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>aspect</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>还有一个小知识点，切入点表达式的解析由aspectjweaver负责，下面这个东西</p>
+<pre class=" language-xml"><code class="language-xml">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-test<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>5.0.2.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+<h6 id="4-完整的文件内容"><a href="#4-完整的文件内容" class="headerlink" title="4.完整的文件内容"></a>4.完整的文件内容</h6><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xmlns:</span>aop</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/aop<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
-        https://www.springframework.org/schema/aop/spring-aop.xsd&quot;&gt;
+        https://www.springframework.org/schema/aop/spring-aop.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 //配置所需bean，并加入IOC核心容器
-&lt;bean id=&quot;accountService&quot; class=&quot;com.cbw.service.impl.AccountServiceImpl&quot;&gt;&lt;/bean&gt;
-&lt;bean id=&quot;Logger&quot; class=&quot;com.cbw.utils.Logger&quot;&gt;&lt;/bean&gt;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>accountService<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.cbw.service.impl.AccountServiceImpl<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Logger<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.cbw.utils.Logger<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 //配置springAOP
-&lt;aop:config&gt;
-    &lt;aop:aspect id=&quot;logAdvice&quot; ref=&quot;Logger&quot;&gt;
-         &lt;aop:before method=&quot;printLog&quot; pointcut=&quot;execution(* com.cbw.service.impl.*.*(..))&quot;&gt;&lt;/aop:before&gt;
-    &lt;/aop:aspect&gt;
-&lt;/aop:config&gt;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspect</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>logAdvice<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Logger<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>before</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>printLog<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(* com.cbw.service.impl.*.*(..))<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>before</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>aspect</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span>
 
-&lt;/beans&gt;
-</code></pre><h6 id="5-测试类中的测试结果"><a href="#5-测试类中的测试结果" class="headerlink" title="5.测试类中的测试结果"></a>5.测试类中的测试结果</h6><p>testSaveAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112043869.png" alt><br>testUpdateAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112121817.png" alt><br>testDeleteAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112156314.png" alt><br><strong>总结：</strong>方法增强成功了，也就是springAOP配置成功了</p>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span>
+</code></pre>
+<h6 id="5-测试类中的测试结果"><a href="#5-测试类中的测试结果" class="headerlink" title="5.测试类中的测试结果"></a>5.测试类中的测试结果</h6><p>testSaveAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112043869.png" alt><br>testUpdateAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112121817.png" alt><br>testDeleteAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112156314.png" alt><br><strong>总结：</strong>方法增强成功了，也就是springAOP配置成功了</p>
 <h6 id="6-问题"><a href="#6-问题" class="headerlink" title="6.问题"></a>6.问题</h6><p>从上面一节应该可以发现一个问题，它的前置通知为什么输出了两次？我最初想的是可能是它的构造方法也给增强了<br>我就在AccountServiceImpl类中添加了无参构造方法，并加入一句话<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112515018.png" alt><br>然后我去执行testSaveAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401112757950.png" alt><br>这里打印了构造方法中的语句，说明执行了构造方法，但是也不能说明构造方法被增强了，因为前置通知在构造方法的后面，按理说应该是不对的，然后我就想，会不会和bean的作用范围有关，毕竟bean的scope属性默认是sington，而sington类型的bean是在容器创建的时候就一起初始化了，而prototype类型的bean是在调用的时候才初始化的，抱着这个心态，我把accountService的scope设置成了prototype<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401113344111.png" alt><br>再次执行testSaveAccount()方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200401113351837.png" alt><br>他顺序竟然对了，所以我暂时搞不懂，等查阅了相关资料再把这个问题弄明白</p>
 
             </div>

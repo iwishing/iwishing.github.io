@@ -421,7 +421,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        729
+                        719
                     </div>
                     
 
@@ -459,13 +459,14 @@
 </blockquote>
 </blockquote>
 <p>我们找到<strong>mirrors</strong>标签，写入以下代码</p>
-<pre><code>&lt;mirror&gt;
-    &lt;id&gt;alimaven&lt;/id&gt;
-     &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
-     &lt;name&gt;aliyun maven&lt;/name&gt;
-     &lt;url&gt;http://maven.aliyun.com/nexus/content/repositories/central/&lt;/url&gt;
-&lt;/mirror&gt;
-</code></pre><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326030131047.png" alt><br>这代表我们从阿里云的maven仓库下载jar包，修改完成保存退出。</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirror</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>alimaven<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrorOf</span><span class="token punctuation">></span></span>central<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrorOf</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>aliyun maven<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://maven.aliyun.com/nexus/content/repositories/central/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirror</span><span class="token punctuation">></span></span>
+</code></pre>
+<p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--idea%E4%B8%8Emaven%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190326030131047.png" alt><br>这代表我们从阿里云的maven仓库下载jar包，修改完成保存退出。</p>
 
             </div>
             <hr>

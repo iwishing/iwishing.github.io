@@ -457,15 +457,17 @@
 </blockquote>
 </blockquote>
 <p>首先下载好jdk<br><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">下载地址</a><br>要安装一种远程连接工具，xshell或secureCRT都行，我使用的是secureCRT，连接好主机后，使用alt+p调出sftp窗口<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324121414887.png" alt><br><code>put &lt;文件路径&gt;</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324121526986.png" alt><br>回车，上传jdk到服务器，然后查看root目录下，文件是否上传成功<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324121618909.png" alt><br>可以看到，jdk上传成功<br>再将jdk移动到/usr/文件夹下面<br><code>mv jdk /usr/</code><br>然后解压jdk<br><code>tar -xvzf jdk</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324122335603.png" alt><br>解压成功，可以看到有很多jar包。<br>接下来就是配置环境变量了，进入/etc/profile/文件<br><code>vim /etc/profile</code><br>跳到文件末尾，输入以下内容</p>
-<pre><code>export JAVA_HOME=/usr/jdk
-export JRE_HOME=/usr/jdk/jre
-export PATH=$JAVA_HOME/bin:$PATH
-export CLASSPATH=.$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
-</code></pre><p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324122517876.png" alt><br>然后出去输入<br><code>source /etc/profile</code><br>刷新文件并保存，再输入<br><code>java -version</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324122947439.png" alt><br>如果出现以上信息，说明jdk环境已经搭建完毕<br>然后，我们使用scp命令，将jdk和环境配置文件分发到其他的两台服务器上面<br><code>scp -r /usr/jdk/ cbw1:/usr/jdk/</code><br><code>scp /etc/profile/ cbw1:/etc/profile/</code><br>cbw2同理，然后去到另外两台服务器source一下文件,重新加载并生效<br><code>source /etc/profile</code><br>此时，3台服务器的jdk都已经配置完毕</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">export</span> JAVA_HOME<span class="token operator">=</span>/usr/jdk
+<span class="token function">export</span> JRE_HOME<span class="token operator">=</span>/usr/jdk/jre
+<span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">$JAVA_HOME</span>/bin:<span class="token variable">$PATH</span>
+<span class="token function">export</span> CLASSPATH<span class="token operator">=</span>.<span class="token variable">$JAVA_HOME</span>/lib/dt.jar:<span class="token variable">$JAVA_HOME</span>/lib/tools.jar
+</code></pre>
+<p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324122517876.png" alt><br>然后出去输入<br><code>source /etc/profile</code><br>刷新文件并保存，再输入<br><code>java -version</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324122947439.png" alt><br>如果出现以上信息，说明jdk环境已经搭建完毕<br>然后，我们使用scp命令，将jdk和环境配置文件分发到其他的两台服务器上面<br><code>scp -r /usr/jdk/ cbw1:/usr/jdk/</code><br><code>scp /etc/profile/ cbw1:/etc/profile/</code><br>cbw2同理，然后去到另外两台服务器source一下文件,重新加载并生效<br><code>source /etc/profile</code><br>此时，3台服务器的jdk都已经配置完毕</p>
 <h3 id="4-服务器配置Hadoop环境"><a href="#4-服务器配置Hadoop环境" class="headerlink" title="4. 服务器配置Hadoop环境"></a>4. 服务器配置Hadoop环境</h3><p><a href="https://archive.apache.org/dist/hadoop/common/" target="_blank" rel="noopener">hadoop下载地址</a><br>找到相应版本下载即可<br>安装hadoop与jdk同理，上传hadoop压缩包，然后解压，然后放到/usr/里面，开始配置环境变量，进入/etc/profile/文件<br><code>vim /etc/profile</code><br>跳到文件末尾，输入以下内容</p>
-<pre><code>export HADOOP_HOME=/usr/hadoop-2.6.1
-export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
-</code></pre><p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324102915221.png" alt><br>然后出去输入<br><code>source /etc/profile</code><br>刷新文件并保存，再输入<br><code>hadoop version</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324103209122.png" alt><br>如果出现以上画面，说明环境配置完毕</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">export</span> HADOOP_HOME<span class="token operator">=</span>/usr/hadoop-2.6.1
+<span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">$PATH</span><span class="token keyword">:</span><span class="token variable">$HADOOP_HOME</span>/sbin:<span class="token variable">$HADOOP_HOME</span>/bin
+</code></pre>
+<p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324102915221.png" alt><br>然后出去输入<br><code>source /etc/profile</code><br>刷新文件并保存，再输入<br><code>hadoop version</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324103209122.png" alt><br>如果出现以上画面，说明环境配置完毕</p>
 <h3 id="5-Hadoop文件配置"><a href="#5-Hadoop文件配置" class="headerlink" title="5. Hadoop文件配置"></a>5. Hadoop文件配置</h3><p><code>cd /usr/hadoop2.6.1/etc/hadoop/</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324112142817.png" alt><br>进入这个文件夹，我们需要配置6个文件：</p>
 <h4 id="hadoop-env-xml"><a href="#hadoop-env-xml" class="headerlink" title="hadoop-env.xml"></a>hadoop-env.xml</h4><p>这个文件用来配置jdk的根路径<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324111543938.png" alt><br><code>export JAVA_HOME=/usr/jdk</code><br>在文件末尾加入jdk的路径，保存退出</p>
 <h4 id="core-site-xml"><a href="#core-site-xml" class="headerlink" title="core-site.xml"></a>core-site.xml</h4><p>输入<br><code>vim core-site.xml</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hadoop%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/20190324113841647.png" alt><br>文件内容如上，我们使用默认的文件系统<strong>fs.defaultFS</strong>，我们需要修改的是<strong>fs.defaultFS</strong>的<strong>value</strong>，这个值是告诉文件系统他的老大在哪台服务器启动，也就是主机，我的自然是cbw，后面的<strong>9000</strong>是端口。下面的<strong>hadoop.tmp.dir</strong>是告诉系统，hadoop的源文件存放在哪个目录下，<strong>value</strong>就是我设置的目录，默认是在hadoop根目录下的<strong>hdpdata</strong>文件夹，如果没有这个文件夹，hdfs在格式化的时候会去自动创建这个文件夹。                                                                                 </p>
@@ -579,22 +581,22 @@ Hive的安装Hive下载链接下载完成之后，通过远程工具上</div>
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/18/大数据学习--HA/">
+                <a href="/2019/04/18/Linux学习随笔/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="大数据学习--HA（高可用性）">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="linux学习随笔">
                         
-                        <span class="card-title">大数据学习--HA（高可用性）</span>
+                        <span class="card-title">linux学习随笔</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">大数据学习–HA
+                    <div class="summary">linux学习随笔
 
-环境
+环境：系统：centos 6.3VM：15.0.0外部环境：windows 10家庭版远程工具：SecureCRT
 
 
-HA简介集群搭建</div>
+删除用户命令userdel &lt;用户名&gt;今天做实验的时候，发现删除不了用户，原因可能是之</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
@@ -603,8 +605,8 @@ HA简介集群搭建</div>
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/大数据/" class="post-category" target="_blank">
-                                    大数据
+                            <a href="/categories/linux/" class="post-category" target="_blank">
+                                    linux
                                 </a>
                             
                             
@@ -614,12 +616,8 @@ HA简介集群搭建</div>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/大数据/" target="_blank">
-                        <span class="chip bg-color">大数据</span>
-                    </a>
-                    
-                    <a href="/tags/HA/" target="_blank">
-                        <span class="chip bg-color">HA</span>
+                    <a href="/tags/linux/" target="_blank">
+                        <span class="chip bg-color">linux</span>
                     </a>
                     
                 </div>

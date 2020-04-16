@@ -421,7 +421,7 @@ Hive的安装Hive下载链接下载完成之后，通过远程工具上">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        792
+                        761
                     </div>
                     
 
@@ -450,35 +450,38 @@ Hive的安装Hive下载链接下载完成之后，通过远程工具上">
 </blockquote>
 </blockquote>
 <h3 id="Hive的安装"><a href="#Hive的安装" class="headerlink" title="Hive的安装"></a>Hive的安装</h3><p><a href="http://mirror.bit.edu.cn/apache/hive/hive-2.3.4/" target="_blank" rel="noopener">Hive下载链接</a><br>下载完成之后，通过远程工具上传到主机里面（略）<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331122600668.png" alt><br>上传成功，然后解压缩到相应的目录<br><code>tar -xcvf apache-hive-2.3.4-bin.tar.gz</code><br>解压缩完成后，我们需要配置hive的环境变量<br><code>vim /etc/profile</code><br>进入这个文件，在文件尾加入</p>
-<pre><code>export HIVE_HOME= &lt;hive根目录&gt;
-export PATH=$PATH:$HIVE_HOME/bin
-</code></pre><p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331123601806.png" alt><br>保存退出<br><code>source /etc/profile</code><br>使文件生效<br>然后验证是否配置成功<br><code>which hive</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331124037464.png" alt><br>出现路径，说明配置成功<br>下一步，我们安装mysql，首先检查一下系统里有没有mysql，这一步需要网络，我们要设置虚拟机为桥接或者net模式<br><code>yum list installed|grep mysql</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331125840674.png" alt><br>我的之前安装过，我们先卸载他重装一下<br>卸载<code>yum -y remove mysql.x86_64</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331010028817.png" alt><br>卸载成功，重装<br><code>yum -y install mysql-server mysql mysql-devel</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331010222060.png" alt><br>安装成功，我们看一下服务启动没有<br><code>service mysqld status</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331010815220.png" alt><br>没有启动，我们启动一下，并且设置开机启动<br><code>chkconfig --level 35 mysqld on</code><br>然后我们先手动启动一下mysql服务<br><code>service mysqld start</code><br>通常情况下，新安装好的mysql不需要密码输入<strong>mysql</strong>就能登录，我们为了安全起见，要设置用户名和密码<br>进入/usr/bin目录，然后执行<br><code>ls|grep mysql</code><br>再执行<br><code>mysql_secure_installation</code><br>这个是给新安装的mysql配置用户名和密码的，我们设置一下<br>然后我们使用<br><code>mysql -&lt;用户名&gt; -p&lt;密码&gt;</code><br>就能登录mysql了<br>退出输入<code>exit</code>即可<br>接下来配置hive的文件，进入hive里面的conf目录<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331124636570.png" alt><br>能看到hive-default.xml.template和hive-env.sh.template两个文件，我们需要拷贝然后改名字，这就是两个文件的副本，方便我们修改</p>
-<pre><code>cp hive-default.xml.template hive-site.xml
-cp hive-env.sh.template hive-env.sh
-</code></pre><p>然后我们来配置这两个文件</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">export</span> HIVE_HOME<span class="token operator">=</span> <span class="token operator">&lt;</span>hive根目录<span class="token operator">></span>
+<span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">$PATH</span><span class="token keyword">:</span><span class="token variable">$HIVE_HOME</span>/bin
+</code></pre>
+<p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331123601806.png" alt><br>保存退出<br><code>source /etc/profile</code><br>使文件生效<br>然后验证是否配置成功<br><code>which hive</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331124037464.png" alt><br>出现路径，说明配置成功<br>下一步，我们安装mysql，首先检查一下系统里有没有mysql，这一步需要网络，我们要设置虚拟机为桥接或者net模式<br><code>yum list installed|grep mysql</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331125840674.png" alt><br>我的之前安装过，我们先卸载他重装一下<br>卸载<code>yum -y remove mysql.x86_64</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331010028817.png" alt><br>卸载成功，重装<br><code>yum -y install mysql-server mysql mysql-devel</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331010222060.png" alt><br>安装成功，我们看一下服务启动没有<br><code>service mysqld status</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331010815220.png" alt><br>没有启动，我们启动一下，并且设置开机启动<br><code>chkconfig --level 35 mysqld on</code><br>然后我们先手动启动一下mysql服务<br><code>service mysqld start</code><br>通常情况下，新安装好的mysql不需要密码输入<strong>mysql</strong>就能登录，我们为了安全起见，要设置用户名和密码<br>进入/usr/bin目录，然后执行<br><code>ls|grep mysql</code><br>再执行<br><code>mysql_secure_installation</code><br>这个是给新安装的mysql配置用户名和密码的，我们设置一下<br>然后我们使用<br><code>mysql -&lt;用户名&gt; -p&lt;密码&gt;</code><br>就能登录mysql了<br>退出输入<code>exit</code>即可<br>接下来配置hive的文件，进入hive里面的conf目录<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331124636570.png" alt><br>能看到hive-default.xml.template和hive-env.sh.template两个文件，我们需要拷贝然后改名字，这就是两个文件的副本，方便我们修改</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">cp</span> hive-default.xml.template hive-site.xml
+<span class="token function">cp</span> hive-env.sh.template hive-env.sh
+</code></pre>
+<p>然后我们来配置这两个文件</p>
 <h4 id="hive-env-sh"><a href="#hive-env-sh" class="headerlink" title="hive-env.sh"></a>hive-env.sh</h4><p>我们只需要在里面加上hadoop的根目录就行<br><code>HADOOP_HOME=&lt;hadoop根目录&gt;</code><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331014931333.png" alt></p>
 <h4 id="hive-site-xml"><a href="#hive-site-xml" class="headerlink" title="hive-site.xml"></a>hive-site.xml</h4><p>加入</p>
-<pre><code>      &lt;property&gt;
-        &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;
-        &lt;value&gt;/home/local/hive-metastore-dir/warehouse&lt;/value&gt;
-      &lt;/property&gt;
-    &lt;property&gt;
-      &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;
-      &lt;value&gt;jdbc:mysql://cbw:3306/hivedb?createDatabaseIfNotExist=true&lt;/value&gt;
-    &lt;/property&gt;
-    &lt;property&gt;
-      &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;
-      &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;
-    &lt;/property&gt;
-    &lt;property&gt;
-      &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;
-      &lt;value&gt;root&lt;/value&gt;
-    &lt;/property&gt;
-    &lt;property&gt;
-      &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
-      &lt;value&gt;123456&lt;/value&gt;
-&lt;/property&gt;
-</code></pre><p>其中<strong>hive.metastore.warehouse.dir</strong>和<strong>javax.jdo.option.ConnectionURL</strong>文件里面有，可用<code>/&lt;字符串&gt;</code>查找并且修改value为上面的值即可，然后修改主机名为自己的主机名<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331015902175.png" alt><br>然后下载数据库驱动包<br><a href="https://dev.mysql.com/downloads/file/?id=484819" target="_blank" rel="noopener">https://dev.mysql.com/downloads/file/?id=484819</a><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331020502326.png" alt><br>下载完成，上传驱动包到虚拟机<br>然后将驱动包移动到hive安装目录下的lib目录里面<br><code>mv mysql-connector /usr/hive/lib/</code><br>然后重启数据库<br><code>service mysqld restart</code><br>重新初始化元数据信息<br><code>./shematool -dbType mysql -initSchema</code></p>
+<pre class=" language-xml"><code class="language-xml">      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hive.metastore.warehouse.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/home/local/hive-metastore-dir/warehouse<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionURL<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>jdbc:mysql://cbw:3306/hivedb?createDatabaseIfNotExist=true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionDriverName<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>com.mysql.jdbc.Driver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionUserName<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>root<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionPassword<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>123456<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>其中<strong>hive.metastore.warehouse.dir</strong>和<strong>javax.jdo.option.ConnectionURL</strong>文件里面有，可用<code>/&lt;字符串&gt;</code>查找并且修改value为上面的值即可，然后修改主机名为自己的主机名<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331015902175.png" alt><br>然后下载数据库驱动包<br><a href="https://dev.mysql.com/downloads/file/?id=484819" target="_blank" rel="noopener">https://dev.mysql.com/downloads/file/?id=484819</a><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--Hive%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/20190331020502326.png" alt><br>下载完成，上传驱动包到虚拟机<br>然后将驱动包移动到hive安装目录下的lib目录里面<br><code>mv mysql-connector /usr/hive/lib/</code><br>然后重启数据库<br><code>service mysqld restart</code><br>重新初始化元数据信息<br><code>./shematool -dbType mysql -initSchema</code></p>
 
             </div>
             <hr>

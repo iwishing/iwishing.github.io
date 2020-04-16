@@ -415,14 +415,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.8k
+                        3.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        16 分
+                        15 分
                     </div>
                     
                 
@@ -442,173 +442,178 @@
 <p>环境：<br>Idea：2019.3.1<br>系统：windows10 家庭版<br>Jdk: 8<br>spring：5.0.3 release<br><a href="https://spring.io/projects/spring-framework" target="_blank" rel="noopener">spring文档</a><br><a href="https://github.com/iwishing/springStudyDemo" target="_blank" rel="noopener">项目代码</a></p>
 </blockquote>
 <h3 id="一、事务控制"><a href="#一、事务控制" class="headerlink" title="一、事务控制"></a>一、事务控制</h3><h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><p>操作账户的项目结构如下<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200330040823129.png" alt><br>正常流程是<br>首先创建一个账户业务层对象accountServiceImpl<br>再创建一个持久层对象accountDaoImpl<br>最后accountServiceImpl调用accountDao通过ConnectionUtils对象获取Conncetion连接，再执行操作，这就有个问题，按这种来写，如果有<strong>一个功能需要多条代码</strong>，例如，转账，A向B转账</p>
-<pre><code>    /**
+<pre class=" language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
      * 转账
      * @param sourceName：转出账户名称
      * @param targetName：转入账户名称
      * @param money：转账金额
-     */
- public void transfer(String sourceName, String targetName, Float money) {
-        try {
-            //1.根据名称查询转出账户
-            Account sourceAccount = accountDao.findAccountByName(sourceName);
-            //2.根据名称查询转入账户
-            Account targetAccount = accountDao.findAccountByName(targetName);
-            //3.转出账户减钱
-            sourceAccount.setMoney(sourceAccount.getMoney() - money);
-            //4.转入账户加钱
-            targetAccount.setMoney(targetAccount.getMoney() + money);
-            //5.更新转出账户
-            accountDao.updateAccount(sourceAccount);
-            //6.更新转入账户
-            accountDao.updateAccount(targetAccount);
-        }catch (Exception e){
+     */</span>
+ <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">transfer</span><span class="token punctuation">(</span>String sourceName<span class="token punctuation">,</span> String targetName<span class="token punctuation">,</span> Float money<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//1.根据名称查询转出账户</span>
+            Account sourceAccount <span class="token operator">=</span> accountDao<span class="token punctuation">.</span><span class="token function">findAccountByName</span><span class="token punctuation">(</span>sourceName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//2.根据名称查询转入账户</span>
+            Account targetAccount <span class="token operator">=</span> accountDao<span class="token punctuation">.</span><span class="token function">findAccountByName</span><span class="token punctuation">(</span>targetName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//3.转出账户减钱</span>
+            sourceAccount<span class="token punctuation">.</span><span class="token function">setMoney</span><span class="token punctuation">(</span>sourceAccount<span class="token punctuation">.</span><span class="token function">getMoney</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//4.转入账户加钱</span>
+            targetAccount<span class="token punctuation">.</span><span class="token function">setMoney</span><span class="token punctuation">(</span>targetAccount<span class="token punctuation">.</span><span class="token function">getMoney</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//5.更新转出账户</span>
+            accountDao<span class="token punctuation">.</span><span class="token function">updateAccount</span><span class="token punctuation">(</span>sourceAccount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//6.更新转入账户</span>
+            accountDao<span class="token punctuation">.</span><span class="token function">updateAccount</span><span class="token punctuation">(</span>targetAccount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
 
-        }
-</code></pre><p>我们在这6条操作中加入一条<font color="red">int sum = 1/0</font></p>
-<pre><code>            sourceAccount.setMoney(sourceAccount.getMoney() - money);
-            int sum = 1/0        &lt;--------------------------------------------------这里
-            //4.转入账户加钱
-            targetAccount.setMoney(targetAccount.getMoney() + money);
-</code></pre><p>执行程序后我们发现程序出错，转账失败，但是转出账户已经减钱了，这是因为这6条语句的事务都是相互独立的，后面语句出错也不会影响前面的事务在出错前已经提交了，我们要解决这个问题，就要将这些语句变成一个事务</p>
+        <span class="token punctuation">}</span>
+</code></pre>
+<p>我们在这6条操作中加入一条<font color="red">int sum = 1/0</font></p>
+<pre class=" language-java"><code class="language-java">            sourceAccount<span class="token punctuation">.</span><span class="token function">setMoney</span><span class="token punctuation">(</span>sourceAccount<span class="token punctuation">.</span><span class="token function">getMoney</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">/</span><span class="token number">0</span>        <span class="token operator">&lt;</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>这里
+            <span class="token comment" spellcheck="true">//4.转入账户加钱</span>
+            targetAccount<span class="token punctuation">.</span><span class="token function">setMoney</span><span class="token punctuation">(</span>targetAccount<span class="token punctuation">.</span><span class="token function">getMoney</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>执行程序后我们发现程序出错，转账失败，但是转出账户已经减钱了，这是因为这6条语句的事务都是相互独立的，后面语句出错也不会影响前面的事务在出错前已经提交了，我们要解决这个问题，就要将这些语句变成一个事务</p>
 <h5 id="事务控制"><a href="#事务控制" class="headerlink" title="事务控制"></a>事务控制</h5><p>1、新建一个事务控制器类<strong>TransactionManager</strong><br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200330042954376.png" alt><br>该类的内容如下</p>
-<pre><code>import java.sql.SQLException;
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>SQLException<span class="token punctuation">;</span>
 
-/**
+<span class="token comment" spellcheck="true">/**
  * 和事务相关的工具类，它包含了开启事务，提交事务，回滚事务，释放连接
- */
-public class TransactionManager {
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TransactionManager</span> <span class="token punctuation">{</span>
 
-    private ConnectionUtils connectionUtils;
+    <span class="token keyword">private</span> ConnectionUtils connectionUtils<span class="token punctuation">;</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 开始事务
-     */
-    public void beginTranscation(){
-        try {
-        //关闭事务的自动提交，即改为手动提交
-            connectionUtils.getThreadConnection().setAutoCommit(false);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">beginTranscation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//关闭事务的自动提交，即改为手动提交</span>
+            connectionUtils<span class="token punctuation">.</span><span class="token function">getThreadConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setAutoCommit</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">SQLException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 提交事务
-     */
-    public void commit(){
-        try {
-            connectionUtils.getThreadConnection().commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            connectionUtils<span class="token punctuation">.</span><span class="token function">getThreadConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">SQLException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 回滚事务
-     */
-    public void rollback(){
-        try {
-            connectionUtils.getThreadConnection().rollback();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rollback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            connectionUtils<span class="token punctuation">.</span><span class="token function">getThreadConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">rollback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">SQLException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 释放连接
-     */
-    public void release(){
-        try {
-            connectionUtils.getThreadConnection().close();//并不是真的关闭，是将conn连接还回连接池中
-            connectionUtils.removeConnection();//解绑，将连接对象和线程解绑
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">release</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            connectionUtils<span class="token punctuation">.</span><span class="token function">getThreadConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//并不是真的关闭，是将conn连接还回连接池中</span>
+            connectionUtils<span class="token punctuation">.</span><span class="token function">removeConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//解绑，将连接对象和线程解绑</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">SQLException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    public void setConnectionUtils(ConnectionUtils connectionUtils) {
-        this.connectionUtils = connectionUtils;
-    }
-}
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setConnectionUtils</span><span class="token punctuation">(</span>ConnectionUtils connectionUtils<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>connectionUtils <span class="token operator">=</span> connectionUtils<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre><p>2、修改ConnectionUtils，用ThreadLoacl&lt;&gt;容器将Connection连接与当前线程绑定，要使一个线程中只有一个能控制事务的对象</p>
-<pre><code>import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
+</code></pre>
+<p>2、修改ConnectionUtils，用ThreadLoacl&lt;&gt;容器将Connection连接与当前线程绑定，要使一个线程中只有一个能控制事务的对象</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> javax<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>DataSource<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>Connection<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>SQLException<span class="token punctuation">;</span>
 
-/**
+<span class="token comment" spellcheck="true">/**
  * 连接的工具类，它用于从数据源中获取一个连接，并且实现和线程的绑定
- */
-public class ConnectionUtils {
-    //threadlocal是一个线程内部的存储类，可以在指定线程内存储数据，数据存储以后，只有指定线程可以得到存储数据
-    private ThreadLocal&lt;Connection&gt; tl = new ThreadLocal&lt;Connection&gt;();
-    //数据源
-    private DataSource dataSource;
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConnectionUtils</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//threadlocal是一个线程内部的存储类，可以在指定线程内存储数据，数据存储以后，只有指定线程可以得到存储数据</span>
+    <span class="token keyword">private</span> ThreadLocal<span class="token operator">&lt;</span>Connection<span class="token operator">></span> tl <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadLocal</span><span class="token operator">&lt;</span>Connection<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//数据源</span>
+    <span class="token keyword">private</span> DataSource dataSource<span class="token punctuation">;</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
     *获取connection对象
-    */
-    public Connection getThreadConnection(){
-        try {
-        //1.先从ThreadLocal上获取Connection对象
-        Connection conn = tl.get();
-        //2.判断当前线程上是否有连接
-        if(conn == null){
-            //3.从数据源中获取一个连接，并且存入ThreadLocal中
-            conn = dataSource.getConnection();
-            tl.set(conn);
-        }
-        //4.返回当前线程上的连接
-            return conn;
-    }catch (SQLException e){
-        throw new RuntimeException();
-    }
-    }
+    */</span>
+    <span class="token keyword">public</span> Connection <span class="token function">getThreadConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//1.先从ThreadLocal上获取Connection对象</span>
+        Connection conn <span class="token operator">=</span> tl<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//2.判断当前线程上是否有连接</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>conn <span class="token operator">==</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//3.从数据源中获取一个连接，并且存入ThreadLocal中</span>
+            conn <span class="token operator">=</span> dataSource<span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            tl<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>conn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">//4.返回当前线程上的连接</span>
+            <span class="token keyword">return</span> conn<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">SQLException</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 将线程和连接解绑
-     */
-    public void removeConnection(){
-        tl.remove();
-    }
-    /**
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">removeConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        tl<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">/**
     *设置数据源
-    */
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-}
-</code></pre><p>3、在业务层AccountServiceImpl中加入事务</p>
-<pre><code>    public void transfer(String sourceName, String targetName, Float money) {
-        try {
-            //一.开启事务
-            transactionManager.beginTranscation();
-            //二.执行操作
-            //1.根据名称查询转出账户
-            Account sourceAccount = accountDao.findAccountByName(sourceName);
-            //2.根据名称查询转入账户
-            Account targetAccount = accountDao.findAccountByName(targetName);
-            //3.转出账户减钱
-            sourceAccount.setMoney(sourceAccount.getMoney() - money);
-            //4.转入账户加钱
-            targetAccount.setMoney(targetAccount.getMoney() + money);
-            //5.更新转出账户
-            accountDao.updateAccount(sourceAccount);
-            //6.更新转入账户
-            accountDao.updateAccount(targetAccount);
-            //三.提交事务
-            transactionManager.commit();
-            //四.返回结果
-        }catch (Exception e){
-            //五.回滚事务
-            transactionManager.rollback();
-        }finally {
-            //六.释放连接
-            transactionManager.release();
-        }
-    }
-</code></pre><p>将业务操作代码放在第二步，当业务操作代码出问题，事务不会提交，相反，一切正常，事务就会提交，这样就解决了之前的事务问题</p>
+    */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setDataSource</span><span class="token punctuation">(</span>DataSource dataSource<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>dataSource <span class="token operator">=</span> dataSource<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>3、在业务层AccountServiceImpl中加入事务</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">transfer</span><span class="token punctuation">(</span>String sourceName<span class="token punctuation">,</span> String targetName<span class="token punctuation">,</span> Float money<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//一.开启事务</span>
+            transactionManager<span class="token punctuation">.</span><span class="token function">beginTranscation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//二.执行操作</span>
+            <span class="token comment" spellcheck="true">//1.根据名称查询转出账户</span>
+            Account sourceAccount <span class="token operator">=</span> accountDao<span class="token punctuation">.</span><span class="token function">findAccountByName</span><span class="token punctuation">(</span>sourceName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//2.根据名称查询转入账户</span>
+            Account targetAccount <span class="token operator">=</span> accountDao<span class="token punctuation">.</span><span class="token function">findAccountByName</span><span class="token punctuation">(</span>targetName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//3.转出账户减钱</span>
+            sourceAccount<span class="token punctuation">.</span><span class="token function">setMoney</span><span class="token punctuation">(</span>sourceAccount<span class="token punctuation">.</span><span class="token function">getMoney</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//4.转入账户加钱</span>
+            targetAccount<span class="token punctuation">.</span><span class="token function">setMoney</span><span class="token punctuation">(</span>targetAccount<span class="token punctuation">.</span><span class="token function">getMoney</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//5.更新转出账户</span>
+            accountDao<span class="token punctuation">.</span><span class="token function">updateAccount</span><span class="token punctuation">(</span>sourceAccount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//6.更新转入账户</span>
+            accountDao<span class="token punctuation">.</span><span class="token function">updateAccount</span><span class="token punctuation">(</span>targetAccount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//三.提交事务</span>
+            transactionManager<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//四.返回结果</span>
+        <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//五.回滚事务</span>
+            transactionManager<span class="token punctuation">.</span><span class="token function">rollback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">finally</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//六.释放连接</span>
+            transactionManager<span class="token punctuation">.</span><span class="token function">release</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>将业务操作代码放在第二步，当业务操作代码出问题，事务不会提交，相反，一切正常，事务就会提交，这样就解决了之前的事务问题</p>
 <h3 id="二、动态代理"><a href="#二、动态代理" class="headerlink" title="二、动态代理"></a>二、动态代理</h3><pre><code>特点：字节码随用随创建，随用随加载
 作用：不修改源码的基础上对方法增强
 分类：
@@ -631,58 +636,60 @@ public class ConnectionUtils {
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {}
         }）
 </code></pre><h6 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h6><p>proxy类直接导入使用即可</p>
-<h6 id="Producer接口"><a href="#Producer接口" class="headerlink" title="Producer接口"></a>Producer接口</h6><pre><code>/**
+<h6 id="Producer接口"><a href="#Producer接口" class="headerlink" title="Producer接口"></a>Producer接口</h6><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 对生产厂家要求的接口
- */
-public interface IProducer {
-    /**
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">IProducer</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
      * 销售
      * @param money
      *
-     */
-    public void saleProduct(float money);
-    /**
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">saleProduct</span><span class="token punctuation">(</span><span class="token keyword">float</span> money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">/**
      * 售后
      * @param money
-     */
-    public void afterService(float money);
-}
-</code></pre><h6 id="Producer类"><a href="#Producer类" class="headerlink" title="Producer类"></a>Producer类</h6><pre><code>/**
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterService</span><span class="token punctuation">(</span><span class="token keyword">float</span> money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h6 id="Producer类"><a href="#Producer类" class="headerlink" title="Producer类"></a>Producer类</h6><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 一个生产者
- */
-public class Producer implements IProducer{
-    /**
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Producer</span> <span class="token keyword">implements</span> <span class="token class-name">IProducer</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
      * 销售方法
      * @param money
      *
-     */
-    public void saleProduct(float money){
-        System.out.println(&quot;销售产品,拿到钱：&quot;+money);
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">saleProduct</span><span class="token punctuation">(</span><span class="token keyword">float</span> money<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"销售产品,拿到钱："</span><span class="token operator">+</span>money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 售后方法
      * @param money
-     */
-    public void afterService(float money){
-        System.out.println(&quot;提供售后服务，拿到钱：&quot; + money);
-    }
-}
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterService</span><span class="token punctuation">(</span><span class="token keyword">float</span> money<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"提供售后服务，拿到钱："</span> <span class="token operator">+</span> money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre><h6 id="测试类Client"><a href="#测试类Client" class="headerlink" title="测试类Client"></a>测试类Client</h6><pre><code>import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+</code></pre>
+<h6 id="测试类Client"><a href="#测试类Client" class="headerlink" title="测试类Client"></a>测试类Client</h6><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>InvocationHandler<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Method<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Proxy<span class="token punctuation">;</span>
 
-/**
+<span class="token comment" spellcheck="true">/**
  * 模拟一个消费着
- */
-public class Client {
-    public static void main(String[] args) {
-        //创建一个生产商
-        final Producer producer = new Producer();
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//创建一个生产商</span>
+        <span class="token keyword">final</span> Producer producer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Producer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        IProducer proxyProducer = (IProducer) Proxy.newProxyInstance(producer.getClass().getClassLoader(), producer.getClass().getInterfaces(), new InvocationHandler() {
-            /**
+        IProducer proxyProducer <span class="token operator">=</span> <span class="token punctuation">(</span>IProducer<span class="token punctuation">)</span> Proxy<span class="token punctuation">.</span><span class="token function">newProxyInstance</span><span class="token punctuation">(</span>producer<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> producer<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">InvocationHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">/**
              *
              * 作用：执行被代理对象的任何接口方法都会经过该方法
              * 参数：
@@ -691,91 +698,95 @@ public class Client {
              * @param args 当前执行方法所需参数
              * @return 和被代理对象具有相同返回值
              * @throws Throwable
-             */
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                //这里进行方法增强，比如，这里我们可以抽取部分提成
-                Object returnValue = null;
-                //1.获取方法执行的参数
-                Float money = (Float)args[0];
-                //2.判断当前方法是不是销售
-                if(&quot;saleProduct&quot;.equals(method.getName())){
-                    //提成20%
-                    returnValue = method.invoke(producer,money*0.8f);
-                }
-                return returnValue;
-            }
-        });
-        proxyProducer.saleProduct(10000f);
-    }
-}
-</code></pre><p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200329042850822.png" alt></p>
-<h5 id="基于子类的动态代理"><a href="#基于子类的动态代理" class="headerlink" title="基于子类的动态代理"></a>基于子类的动态代理</h5><pre><code>    1.涉及的类：
-        Enhancer
-    2.提供者：
-        第三方cglib库
-    3.如何创建代理对象：
-        使用Enhancer类中的create方法
-    4.创建基于子类的代理对象的要求：
-        被代理对象不能是最终类
-    5.create方法参数：
-        Class：字节码，用于指定被代理对象的字节码，固定写法，类.getClass()
-        Callback：用于让我们写如何代理，一般写一个该接口的实现类，常用MethodInterceptor，通常情况下都是写匿名内部类，但不是必须的，谁用谁写
+             */</span>
+            <span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object proxy<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//这里进行方法增强，比如，这里我们可以抽取部分提成</span>
+                Object returnValue <span class="token operator">=</span> null<span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//1.获取方法执行的参数</span>
+                Float money <span class="token operator">=</span> <span class="token punctuation">(</span>Float<span class="token punctuation">)</span>args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//2.判断当前方法是不是销售</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token string">"saleProduct"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">//提成20%</span>
+                    returnValue <span class="token operator">=</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>producer<span class="token punctuation">,</span>money<span class="token operator">*</span><span class="token number">0.8f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">return</span> returnValue<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        proxyProducer<span class="token punctuation">.</span><span class="token function">saleProduct</span><span class="token punctuation">(</span><span class="token number">10000f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200329042850822.png" alt></p>
+<h5 id="基于子类的动态代理"><a href="#基于子类的动态代理" class="headerlink" title="基于子类的动态代理"></a>基于子类的动态代理</h5><pre class=" language-java"><code class="language-java">        <span class="token number">1</span><span class="token punctuation">.</span>涉及的类：
+            Enhancer
+        <span class="token number">2</span><span class="token punctuation">.</span>提供者：
+            第三方cglib库
+        <span class="token number">3</span><span class="token punctuation">.</span>如何创建代理对象：
+            使用Enhancer类中的create方法
+        <span class="token number">4</span><span class="token punctuation">.</span>创建基于子类的代理对象的要求：
+            被代理对象不能是最终类
+        <span class="token number">5</span><span class="token punctuation">.</span>create方法参数：
+            Class：字节码，用于指定被代理对象的字节码，固定写法，类<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            Callback：用于让我们写如何代理，一般写一个该接口的实现类，常用MethodInterceptor，通常情况下都是写匿名内部类，但不是必须的，谁用谁写
 
-        Enhancer.create(producer.getClass(), new MethodInterceptor() {
-        @Override
-        public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable { 
-        }
-    });
-</code></pre><h6 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h6><p>首先导入Enhancer类所需cglib库的坐标</p>
-<pre><code>        &lt;dependency&gt;
-            &lt;groupId&gt;cglib&lt;/groupId&gt;
-            &lt;artifactId&gt;cglib&lt;/artifactId&gt;
-            &lt;version&gt;2.2.2&lt;/version&gt;
-        &lt;/dependency&gt;
-</code></pre><h6 id="Producer类-1"><a href="#Producer类-1" class="headerlink" title="Producer类"></a>Producer类</h6><pre><code>package com.cbw.cglib;
+            Enhancer<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>producer<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">MethodInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> Object <span class="token function">intercept</span><span class="token punctuation">(</span>Object o<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">,</span> MethodProxy methodProxy<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span> 
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h6 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h6><p>首先导入Enhancer类所需cglib库的坐标</p>
+<pre class=" language-xml"><code class="language-xml">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>cglib<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>cglib<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.2.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+<h6 id="Producer类-1"><a href="#Producer类-1" class="headerlink" title="Producer类"></a>Producer类</h6><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>cglib<span class="token punctuation">;</span>
 
 
-/**
+<span class="token comment" spellcheck="true">/**
  * 一个生产者
- */
-public class Producer {
-    /**
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Producer</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
      * 销售
      * @param money
      *
-     */
-    public void saleProduct(float money){
-        System.out.println(&quot;销售产品,拿到钱：&quot;+money);
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">saleProduct</span><span class="token punctuation">(</span><span class="token keyword">float</span> money<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"销售产品,拿到钱："</span><span class="token operator">+</span>money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 售后
      * @param money
-     */
-    public void afterService(float money){
-        System.out.println(&quot;提供售后服务，拿到钱：&quot; + money);
-    }
-}
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterService</span><span class="token punctuation">(</span><span class="token keyword">float</span> money<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"提供售后服务，拿到钱："</span> <span class="token operator">+</span> money<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre><h6 id="测试类Client-1"><a href="#测试类Client-1" class="headerlink" title="测试类Client"></a>测试类Client</h6><pre><code>package com.cbw.cglib;
-
-
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+</code></pre>
+<h6 id="测试类Client-1"><a href="#测试类Client-1" class="headerlink" title="测试类Client"></a>测试类Client</h6><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>cglib<span class="token punctuation">;</span>
 
 
-import java.lang.reflect.Method;
+<span class="token keyword">import</span> net<span class="token punctuation">.</span>sf<span class="token punctuation">.</span>cglib<span class="token punctuation">.</span>proxy<span class="token punctuation">.</span>Enhancer<span class="token punctuation">;</span>
+<span class="token keyword">import</span> net<span class="token punctuation">.</span>sf<span class="token punctuation">.</span>cglib<span class="token punctuation">.</span>proxy<span class="token punctuation">.</span>MethodInterceptor<span class="token punctuation">;</span>
+<span class="token keyword">import</span> net<span class="token punctuation">.</span>sf<span class="token punctuation">.</span>cglib<span class="token punctuation">.</span>proxy<span class="token punctuation">.</span>MethodProxy<span class="token punctuation">;</span>
 
 
-/**
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Method<span class="token punctuation">;</span>
+
+
+<span class="token comment" spellcheck="true">/**
  * 模拟一个消费着
- */
-public class Client {
-    public static void main(String[] args) {
-        final Producer producer = new Producer();
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">final</span> Producer producer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Producer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        /*
+        <span class="token comment" spellcheck="true">/*
         *动态代理：
         *   特点：字节码随用随创建，随用随加载
         *   作用：不修改源码的基础上对方法增强
@@ -793,202 +804,206 @@ public class Client {
         *       3.create方法参数：
         *           Class：字节码，用于指定被代理对象的字节码，固定写法，类.getClass()
         *           Callback：用于让我们写如何代理，一般写一个该接口的实现类，常用MethodInterceptor，通常情况下都是写匿名内部类，但不是必须的，谁用谁写
-         */
-        Producer proxyProducer = (Producer) Enhancer.create(producer.getClass(), new MethodInterceptor() {
+         */</span>
+        Producer proxyProducer <span class="token operator">=</span> <span class="token punctuation">(</span>Producer<span class="token punctuation">)</span> Enhancer<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>producer<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">MethodInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-            @Override
-            public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
-                //这里进行方法增强，比如，这里我们可以抽取部分提成
-                Object returnValue = null;
-                //1.获取方法执行的参数
-                Float money = (Float)args[0];
-                //2.判断当前方法是不是销售
-                if(&quot;saleProduct&quot;.equals(method.getName())){
-                    returnValue = method.invoke(producer,money*0.8f);
-                }
-                return returnValue;
-            }
-        });
-        proxyProducer.saleProduct(10000f);
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> Object <span class="token function">intercept</span><span class="token punctuation">(</span>Object o<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">,</span> MethodProxy methodProxy<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//这里进行方法增强，比如，这里我们可以抽取部分提成</span>
+                Object returnValue <span class="token operator">=</span> null<span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//1.获取方法执行的参数</span>
+                Float money <span class="token operator">=</span> <span class="token punctuation">(</span>Float<span class="token punctuation">)</span>args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//2.判断当前方法是不是销售</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token string">"saleProduct"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    returnValue <span class="token operator">=</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>producer<span class="token punctuation">,</span>money<span class="token operator">*</span><span class="token number">0.8f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">return</span> returnValue<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        proxyProducer<span class="token punctuation">.</span><span class="token function">saleProduct</span><span class="token punctuation">(</span><span class="token number">10000f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    }
-}
-</code></pre><p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200330033635030.png" alt><br>AccountServiceImpl是之前事务所用到的，所以里面每个方法都套了一遍事务<br>而AccountServiceImpl_new则是无添加事务的普通service，我们使用这个，然后其他文件照旧</p>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200330033635030.png" alt><br>AccountServiceImpl是之前事务所用到的，所以里面每个方法都套了一遍事务<br>而AccountServiceImpl_new则是无添加事务的普通service，我们使用这个，然后其他文件照旧</p>
 <h3 id="三、动态代理实现事务控制"><a href="#三、动态代理实现事务控制" class="headerlink" title="三、动态代理实现事务控制"></a>三、动态代理实现事务控制</h3><p>我们使用基于接口的动态代理，项目结构如下<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200330111443944.png" alt></p>
-<h4 id="1、在之前事务的项目下新建BeanFactory类，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中"><a href="#1、在之前事务的项目下新建BeanFactory类，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中" class="headerlink" title="1、在之前事务的项目下新建BeanFactory类，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中"></a>1、在之前事务的项目下新建<strong>BeanFactory类</strong>，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中</h4><pre><code>import com.cbw.service.IAccountService;
-import com.cbw.utils.TransactionManager;
+<h4 id="1、在之前事务的项目下新建BeanFactory类，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中"><a href="#1、在之前事务的项目下新建BeanFactory类，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中" class="headerlink" title="1、在之前事务的项目下新建BeanFactory类，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中"></a>1、在之前事务的项目下新建<strong>BeanFactory类</strong>，这是创建service代理对象的工厂，我们使用动态代理将事务放在代理对象的增强方法invoke中</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>service<span class="token punctuation">.</span>IAccountService<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>TransactionManager<span class="token punctuation">;</span>
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>InvocationHandler<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Method<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Proxy<span class="token punctuation">;</span>
 
-/**
+<span class="token comment" spellcheck="true">/**
  * 用于创建service的代理对象的工厂
- */
-public class BeanFactory {
-    //accountService对象
-    private IAccountService accountService;
-    //事务管理器对象
-    private TransactionManager transactionManager;
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BeanFactory</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//accountService对象</span>
+    <span class="token keyword">private</span> IAccountService accountService<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//事务管理器对象</span>
+    <span class="token keyword">private</span> TransactionManager transactionManager<span class="token punctuation">;</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 用于注入transactionManager的set方法
      * @param transactionManager
-     */
-    public final void setTransactionManager(TransactionManager transactionManager) {
-        this.transactionManager = transactionManager;
-    }
-    /**
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">setTransactionManager</span><span class="token punctuation">(</span>TransactionManager transactionManager<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>transactionManager <span class="token operator">=</span> transactionManager<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">/**
      * 用于注入accountService的set方法
      * @param accountService
-     */
-    public final void setAccountService(IAccountService accountService) {
-        this.accountService = accountService;
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">setAccountService</span><span class="token punctuation">(</span>IAccountService accountService<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>accountService <span class="token operator">=</span> accountService<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 获取service代理对象的方法
      * @return
-     */
-    public IAccountService getAccountService(){
-       return  (IAccountService) Proxy.newProxyInstance(accountService.getClass().getClassLoader(), accountService.getClass().getInterfaces(), new InvocationHandler() {
-            /**
+     */</span>
+    <span class="token keyword">public</span> IAccountService <span class="token function">getAccountService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       <span class="token keyword">return</span>  <span class="token punctuation">(</span>IAccountService<span class="token punctuation">)</span> Proxy<span class="token punctuation">.</span><span class="token function">newProxyInstance</span><span class="token punctuation">(</span>accountService<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> accountService<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">InvocationHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">/**
              * 添加事务的支持
              * @param proxy
              * @param method
              * @param args
              * @return
              * @throws Throwable
-             */
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                Object rtValue = null;
-                try {
-                    //1.开启事务
-                    transactionManager.beginTranscation();
-                    //2.执行操作
-                    rtValue = method.invoke(accountService,args);
-                    //3.提交事务
-                    transactionManager.commit();
-                    //4.返回结果
-                    return rtValue;
-                }catch (Exception e){
-                    //5.回滚事务
-                    transactionManager.rollback();
-                }finally {
-                    //6.释放连接
-                    transactionManager.release();
-                }
-                return rtValue;
-            }
-        });
-    }
-}
+             */</span>
+            <span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object proxy<span class="token punctuation">,</span> Method method<span class="token punctuation">,</span> Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
+                Object rtValue <span class="token operator">=</span> null<span class="token punctuation">;</span>
+                <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">//1.开启事务</span>
+                    transactionManager<span class="token punctuation">.</span><span class="token function">beginTranscation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">//2.执行操作</span>
+                    rtValue <span class="token operator">=</span> method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>accountService<span class="token punctuation">,</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">//3.提交事务</span>
+                    transactionManager<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">//4.返回结果</span>
+                    <span class="token keyword">return</span> rtValue<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">//5.回滚事务</span>
+                    transactionManager<span class="token punctuation">.</span><span class="token function">rollback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token keyword">finally</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">//6.释放连接</span>
+                    transactionManager<span class="token punctuation">.</span><span class="token function">release</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">return</span> rtValue<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre><p>根据上面事务和动态代理的知识，不难理解这个类。<br>这个类有一个核心方法，就是<strong>getAccountService()</strong> ，用于获取accountService的代理对象，这里简写了，直接return (IAccountService) Proxy.newProxyInstance(…..);这个对象就是accountService的代理对象<br>然后 <strong>invoke(….)</strong> 方法中，首先定义一个rtValue对象，这个是用来接收方法的返回值的，然后执行之前写的事务6步骤，在第2步执行method.invoke(accountService,args)方法，accountService参数是被代理的对象，args则是该方法的参数数组，执行完方法后返回值由rtValue来接收，然后第4步返回返回值，这里我们用Object类型来定义rtValue，所以在外面的return还要强转一下</p>
+</code></pre>
+<p>根据上面事务和动态代理的知识，不难理解这个类。<br>这个类有一个核心方法，就是<strong>getAccountService()</strong> ，用于获取accountService的代理对象，这里简写了，直接return (IAccountService) Proxy.newProxyInstance(…..);这个对象就是accountService的代理对象<br>然后 <strong>invoke(….)</strong> 方法中，首先定义一个rtValue对象，这个是用来接收方法的返回值的，然后执行之前写的事务6步骤，在第2步执行method.invoke(accountService,args)方法，accountService参数是被代理的对象，args则是该方法的参数数组，执行完方法后返回值由rtValue来接收，然后第4步返回返回值，这里我们用Object类型来定义rtValue，所以在外面的return还要强转一下</p>
 <p><font color="red">补充：</font><br>    因为增强方法实在匿名内部类中，又因为我们对象是用set方法注入的，所以我们要在accountService和transactionManager两个对象的set方法加上final关键字</p>
-<h4 id="2、applicationContext-xml文件"><a href="#2、applicationContext-xml文件" class="headerlink" title="2、applicationContext.xml文件"></a>2、applicationContext.xml文件</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+<h4 id="2、applicationContext-xml文件"><a href="#2、applicationContext-xml文件" class="headerlink" title="2、applicationContext.xml文件"></a>2、applicationContext.xml文件</h4><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 
-&lt;!--    1.配置代理的service对象，使用的是普通工厂的方法获取bean对象--&gt;
-        &lt;bean id=&quot;proxyAccountService&quot; factory-bean=&quot;beanFactory&quot; factory-method=&quot;getAccountService&quot;&gt;&lt;/bean&gt;
+<span class="token comment" spellcheck="true">&lt;!--    1.配置代理的service对象，使用的是普通工厂的方法获取bean对象--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>proxyAccountService<span class="token punctuation">"</span></span> <span class="token attr-name">factory-bean</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>beanFactory<span class="token punctuation">"</span></span> <span class="token attr-name">factory-method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>getAccountService<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 
-&lt;!--    2.配置factory对象--&gt;
-        &lt;bean id=&quot;beanFactory&quot; class=&quot;com.cbw.factory.BeanFactory&quot;&gt;
-            &lt;!--        注入service对象--&gt;
-                &lt;property name=&quot;accountService&quot; ref=&quot;accountService&quot;&gt;&lt;/property&gt;
-            &lt;!--        注入事务管理器对象，这个在第8步--&gt;
-                &lt;property name=&quot;transactionManager&quot; ref=&quot;transactionManager&quot;&gt;&lt;/property&gt;
-        &lt;/bean&gt;
+<span class="token comment" spellcheck="true">&lt;!--    2.配置factory对象--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>beanFactory<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.cbw.factory.BeanFactory<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token comment" spellcheck="true">&lt;!--        注入service对象--></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>accountService<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>accountService<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+            <span class="token comment" spellcheck="true">&lt;!--        注入事务管理器对象，这个在第8步--></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>transactionManager<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>transactionManager<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 
-&lt;!--    3.配置service对象--&gt;
-        &lt;bean id=&quot;accountService&quot; class=&quot;com.cbw.service.impl.AccountServiceImpl_new&quot;&gt;
-            &lt;!--        注入accountDao--&gt;
-                &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;&gt;&lt;/property&gt;
-            &lt;!--注入事务管理器对象--&gt;
-                &lt;property name=&quot;transactionManager&quot; ref=&quot;transactionManager&quot;&gt;&lt;/property&gt;--&gt;
-        &lt;/bean&gt;
+<span class="token comment" spellcheck="true">&lt;!--    3.配置service对象--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>accountService<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.cbw.service.impl.AccountServiceImpl_new<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token comment" spellcheck="true">&lt;!--        注入accountDao--></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>accountDao<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>accountDao<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+            <span class="token comment" spellcheck="true">&lt;!--注入事务管理器对象--></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>transactionManager<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>transactionManager<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>-->
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 
-&lt;!--    4.配置Dao对象--&gt;
-        &lt;bean id=&quot;accountDao&quot; class=&quot;com.cbw.dao.impl.AccountDaoImpl&quot;&gt;
-            &lt;!--        注入runner--&gt;
-                &lt;property name=&quot;runner&quot; ref=&quot;runner&quot;&gt;&lt;/property&gt;
-            &lt;!--注入ConnectionUtils--&gt;
-                &lt;property name=&quot;connectionUtils&quot; ref=&quot;connectionUtils&quot;&gt;&lt;/property&gt;
-        &lt;/bean&gt;
+<span class="token comment" spellcheck="true">&lt;!--    4.配置Dao对象--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>accountDao<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.cbw.dao.impl.AccountDaoImpl<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token comment" spellcheck="true">&lt;!--        注入runner--></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>runner<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>runner<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+            <span class="token comment" spellcheck="true">&lt;!--注入ConnectionUtils--></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>connectionUtils<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>connectionUtils<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 
-&lt;!--    5.配置runner对象--&gt;
-        &lt;bean id=&quot;runner&quot; class=&quot;org.apache.commons.dbutils.QueryRunner&quot; scope=&quot;prototype&quot;&gt;&lt;/bean&gt;
+<span class="token comment" spellcheck="true">&lt;!--    5.配置runner对象--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>runner<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.apache.commons.dbutils.QueryRunner<span class="token punctuation">"</span></span> <span class="token attr-name">scope</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>prototype<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 
-&lt;!--    6.配置数据源--&gt;
-        &lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;
-            &lt;!--        注入连接数据库的必备信息--&gt;
-                &lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;
-                &lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql://localhost:3306/myspringspace?useUnicode=true&amp;amp;characterEncoding=utf8&quot;&gt;&lt;/property&gt;
-                &lt;property name=&quot;user&quot; value=&quot;root&quot;&gt;&lt;/property&gt;
-                &lt;property name=&quot;password&quot; value=&quot;123456&quot;&gt;&lt;/property&gt;
-        &lt;/bean&gt;
+<span class="token comment" spellcheck="true">&lt;!--    6.配置数据源--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.mchange.v2.c3p0.ComboPooledDataSource<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token comment" spellcheck="true">&lt;!--        注入连接数据库的必备信息--></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>driverClass<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.mysql.jdbc.Driver<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>jdbcUrl<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>jdbc:mysql://localhost:3306/myspringspace?useUnicode<span class="token punctuation">=</span>true&amp;amp;characterEncoding<span class="token punctuation">=</span>utf8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>root<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>123456<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 
-&lt;!--    7.配置ConncetionUtils工具类--&gt;
-        &lt;bean id=&quot;connectionUtils&quot; class=&quot;com.cbw.utils.ConnectionUtils&quot;&gt;
-            &lt;!--        注入连接池--&gt;
-                &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
-        &lt;/bean&gt;
+<span class="token comment" spellcheck="true">&lt;!--    7.配置ConncetionUtils工具类--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>connectionUtils<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.cbw.utils.ConnectionUtils<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token comment" spellcheck="true">&lt;!--        注入连接池--></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
 
-&lt;!--    8.创建事务管理器对象--&gt;
-        &lt;bean id=&quot;transactionManager&quot; class=&quot;com.cbw.utils.TransactionManager&quot;&gt;
-            &lt;!--        注入connectionUtils对象--&gt;
-                &lt;property name=&quot;connectionUtils&quot; ref=&quot;connectionUtils&quot;&gt;&lt;/property&gt;
-    &lt;/bean&gt;
-&lt;/beans&gt;
-</code></pre><p>用了c3p0连接池，还有apache的dbUtils工具包，实现的内容是一样的，用原生jdbc也是一样的效果，除此之外，没什么要补充的</p>
+<span class="token comment" spellcheck="true">&lt;!--    8.创建事务管理器对象--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>transactionManager<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.cbw.utils.TransactionManager<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token comment" spellcheck="true">&lt;!--        注入connectionUtils对象--></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>connectionUtils<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>connectionUtils<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>用了c3p0连接池，还有apache的dbUtils工具包，实现的内容是一样的，用原生jdbc也是一样的效果，除此之外，没什么要补充的</p>
 <p><font color="red">补充：</font><br>    第1步中获取的bean是accountService的代理对象所以也是IAccountService接口的实现类，再加上第3步中，我们又配置了一个具有相同接口的bean对象，所以我们在使用@Autowried自动注入的时候，要加上@Qualifier(“id”)指定注入的bean类型，不然会出错</p>
 <h4 id="3、TestAccount测试类"><a href="#3、TestAccount测试类" class="headerlink" title="3、TestAccount测试类"></a>3、TestAccount测试类</h4><p>Junit整合spring在上一个笔记</p>
-<pre><code>import com.cbw.domain.Account;
-import com.cbw.service.IAccountService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>Account<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>service<span class="token punctuation">.</span>IAccountService<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>Test<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>runner<span class="token punctuation">.</span>RunWith<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Qualifier<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span>ContextConfiguration<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span>junit4<span class="token punctuation">.</span>SpringJUnit4ClassRunner<span class="token punctuation">;</span>
 
-import java.util.List;
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
 
-/**
+<span class="token comment" spellcheck="true">/**
  * 使用junit单元测试测试我们的配置
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = &quot;classpath:applicationContext.xml&quot;)
-public class accountTest {
-    @Autowired
-    @Qualifier(&quot;proxyAccountService&quot;)
-    private IAccountService accountService;
+ */</span>
+<span class="token annotation punctuation">@RunWith</span><span class="token punctuation">(</span>SpringJUnit4ClassRunner<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@ContextConfiguration</span><span class="token punctuation">(</span>locations <span class="token operator">=</span> <span class="token string">"classpath:applicationContext.xml"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">accountTest</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token annotation punctuation">@Qualifier</span><span class="token punctuation">(</span><span class="token string">"proxyAccountService"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> IAccountService accountService<span class="token punctuation">;</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 测试转账方法
-     */
-    @Test
-    public void testTransfer(){
-        System.out.println(&quot;转账前&quot;);
-        testFindAll();
-        accountService.transfer(&quot;aaa&quot;,&quot;bbb&quot;,200f);
-        System.out.println(&quot;转账后&quot;);
-        testFindAll();
-    }
+     */</span>
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testTransfer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"转账前"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">testFindAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        accountService<span class="token punctuation">.</span><span class="token function">transfer</span><span class="token punctuation">(</span><span class="token string">"aaa"</span><span class="token punctuation">,</span><span class="token string">"bbb"</span><span class="token punctuation">,</span><span class="token number">200f</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"转账后"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">testFindAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 测试查找全部方法
-     */
-    @Test
-    public void testFindAll(){
-        List&lt;Account&gt; accountList = accountService.findAllAccount();
-        System.out.println(accountList);
-    }
-}
-</code></pre><p>测试aaa给bbb转账200块，测试结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331121018061.png" alt><br>转账成功，忽略中间的日志<br>我们再来测试一下，操作如果出问题，事务功能能否实现，在accountServiceImpl_new文件的transfer方法中加入 <strong>int i=1/0</strong>;<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331121446847.png" alt><br>记住，aaa的钱是800，bbb是1200，如果转账出错，不会变的，测试结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331121627473.png" alt><br>钱并没有变动，奇怪的是没有报错1/by zero</p>
+     */</span>
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testFindAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>Account<span class="token operator">></span> accountList <span class="token operator">=</span> accountService<span class="token punctuation">.</span><span class="token function">findAllAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>accountList<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>测试aaa给bbb转账200块，测试结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331121018061.png" alt><br>转账成功，忽略中间的日志<br>我们再来测试一下，操作如果出问题，事务功能能否实现，在accountServiceImpl_new文件的transfer方法中加入 <strong>int i=1/0</strong>;<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331121446847.png" alt><br>记住，aaa的钱是800，bbb是1200，如果转账出错，不会变的，测试结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200331121627473.png" alt><br>钱并没有变动，奇怪的是没有报错1/by zero</p>
 
             </div>
             <hr>

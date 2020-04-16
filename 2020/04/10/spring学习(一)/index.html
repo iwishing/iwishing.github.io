@@ -422,7 +422,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        9 分
+                        8 分
                     </div>
                     
                 
@@ -488,13 +488,13 @@ Rod Johnson(spring之父)
 </code></pre><h2 id="3-IOC概念和spring中的IOC"><a href="#3-IOC概念和spring中的IOC" class="headerlink" title="3.IOC概念和spring中的IOC"></a>3.IOC概念和spring中的IOC</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>常规创建对象方式:自主创建对象，通过new关键字，获取资源创建对象<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200309101406235.png" alt><br>被动接受获取对象：通过一个工厂对资源进行分配，程序只能被动接受对象，这就叫控制反转（IoC）<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200309101420402.png" alt></p>
 <h5 id="Ioc的作用"><a href="#Ioc的作用" class="headerlink" title="Ioc的作用"></a>Ioc的作用</h5><pre><code>  削减计算机程序的耦合（解除我们代码中的依赖关系）   
 </code></pre><h3 id="spring中的IoC"><a href="#spring中的IoC" class="headerlink" title="spring中的IoC"></a>spring中的IoC</h3><p>sipring的开发包<a href="https://repo.spring.io/release/org/springframework/spring/" target="_blank" rel="noopener">Spring仓库</a></p>
-<h5 id="spring对bean的管理细节（applicationContext-xml）"><a href="#spring对bean的管理细节（applicationContext-xml）" class="headerlink" title="spring对bean的管理细节（applicationContext.xml）"></a>spring对bean的管理细节（applicationContext.xml）</h5><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
-&lt;!--    把对象的创建交给spring来管理--&gt;
-&lt;!--
+<h5 id="spring对bean的管理细节（applicationContext-xml）"><a href="#spring对bean的管理细节（applicationContext-xml）" class="headerlink" title="spring对bean的管理细节（applicationContext.xml）"></a>spring对bean的管理细节（applicationContext.xml）</h5><pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>beans</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--    把对象的创建交给spring来管理--></span>
+<span class="token comment" spellcheck="true">&lt;!--
 spring对bean的管理细节：
     1.创建bean对象的三种方式
         第一种方式：使用默认构造函数创建
@@ -502,20 +502,20 @@ spring对bean的管理细节：
              采用的就是默认构造函数创建bean对象，此时如果类中没有默认构造函数，则对象无法创建。
              意思就是，如果你在这个bean类里面写了个带参构造方法，而没有空参构造方法，那么就会报错
              例子：
-             &lt;bean id=&quot;accountService&quot; class=&quot;com.cbw.service.impl.AccountServiceImpl&quot; scope=&quot;singleton&quot;&gt;&lt;/bean&gt; 
+             &lt;bean id="accountService" class="com.cbw.service.impl.AccountServiceImpl" scope="singleton">&lt;/bean> 
         第二种方式：使用普通工厂中的方法创建对象
             使用某个类中的方法创建对象，并存入spring容器，意思就是，可能有个Factory类，他有个方法是
             return一个AccountServiceImpl，即你需要的实现类
             (1)先获取一个工厂的Bean对象
             (2)通过factory-bean（用我们刚刚获取的工厂对象），factory-method（指明哪个方法）两个属性获取我们所需的Bean对象
             例子：
-            &lt;bean id=&quot;instanceFactory&quot; class=&quot;com.cbw.Factory.InstanceFactory&quot;&gt;&lt;/bean&gt;
-            &lt;bean id=&quot;accountService&quot; factory-bean=&quot;instanceFactory&quot; factory-method=&quot;getAccountService&quot;&gt;&lt;/bean&gt;
+            &lt;bean id="instanceFactory" class="com.cbw.Factory.InstanceFactory">&lt;/bean>
+            &lt;bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService">&lt;/bean>
         第三种方式：使用工厂中的静态方法创建对象
             使用某个类中的静态方法创建对象，并存入spring容器
             class属性写那个静态工厂的全限定类名，factory-method写那个静态方法
             例子：
-            &lt;bean id=&quot;accountService&quot; class=&quot;com.cbw.Factory.StaticFactory&quot; factory-method=&quot;getAccountService&quot;&gt;&lt;/bean&gt;
+            &lt;bean id="accountService" class="com.cbw.Factory.StaticFactory" factory-method="getAccountService">&lt;/bean>
 
     2.bean对象的作用范围
         bean标签的scope属性：
@@ -538,66 +538,68 @@ spring对bean的管理细节：
             活着：对象只要是在使用中，就一直活着
             死亡：当对象长时间不用，且没有别的对象引用时，由java垃圾回收器回收
       例子：
-          &lt;bean id=&quot;accountService&quot; class=&quot;com.cbw.service.impl.AccountServiceImpl&quot; scope=&quot;prototype&quot; init-method=&quot;init&quot; destroy-method=&quot;destroy&quot;&gt;&lt;/bean&gt;
-    --&gt;
+          &lt;bean id="accountService" class="com.cbw.service.impl.AccountServiceImpl" scope="prototype" init-method="init" destroy-method="destroy">&lt;/bean>
+    --></span>
 
-&lt;/beans&gt;
-</code></pre><h6 id="小插曲：global-session"><a href="#小插曲：global-session" class="headerlink" title="小插曲：global-session"></a>小插曲：global-session</h6><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200309101452231.png" alt></p>
-<h5 id="获取IoC核心容器（client）"><a href="#获取IoC核心容器（client）" class="headerlink" title="获取IoC核心容器（client）"></a>获取IoC核心容器（client）</h5><pre><code>package com.cbw.ui;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>beans</span><span class="token punctuation">></span></span>
+</code></pre>
+<h6 id="小插曲：global-session"><a href="#小插曲：global-session" class="headerlink" title="小插曲：global-session"></a>小插曲：global-session</h6><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/20200309221158590/20200309101452231.png" alt></p>
+<h5 id="获取IoC核心容器（client）"><a href="#获取IoC核心容器（client）" class="headerlink" title="获取IoC核心容器（client）"></a>获取IoC核心容器（client）</h5><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>ui<span class="token punctuation">;</span>
 
-import com.cbw.dao.IAccountDao;
-import com.cbw.service.IAccountService;
-import com.sun.org.apache.xml.internal.utils.XML11Char;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>dao<span class="token punctuation">.</span>IAccountDao<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>service<span class="token punctuation">.</span>IAccountService<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>sun<span class="token punctuation">.</span>org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>xml<span class="token punctuation">.</span>internal<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>XML11Char<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>BeanFactory<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>xml<span class="token punctuation">.</span>XmlBeanFactory<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>ApplicationContext<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>support<span class="token punctuation">.</span>ClassPathXmlApplicationContext<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>support<span class="token punctuation">.</span>FileSystemXmlApplicationContext<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>core<span class="token punctuation">.</span>io<span class="token punctuation">.</span>ClassPathResource<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>core<span class="token punctuation">.</span>io<span class="token punctuation">.</span>Resource<span class="token punctuation">;</span>
 
 
-  auther:iwishing
+  auther<span class="token operator">:</span>iwishing
  获取spring的IoC容器，并根据id获取对象
   ApplicationContext的三个常用实现类
-       ClassPathXmlApplicationContext：它可以加载类路径下的xml文件，要求配置文件必须在类路径下，否则加载不了(实际开发更常用)
+       ClassPathXmlApplicationContext：它可以加载类路径下的xml文件，要求配置文件必须在类路径下，否则加载不了<span class="token punctuation">(</span>实际开发更常用<span class="token punctuation">)</span>
        FileSystemXmlApplicationContext：它可以加载磁盘任意路径下的配置文件，前提是有访问权限
        AnnotationConfigApplicationContext：它是用于读取注解创建容器
 
   ApplicationContext和BeanFactory的区别
-       ApplicationContext：--------------单例对象适用（一创建就存进去），开发时常用
+       ApplicationContext：<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>单例对象适用（一创建就存进去），开发时常用
            它在构建核心容器时，创建对象采取的策略是采用立即加载的方式。也就是说，只要一读取完配置文件马上就创建配置文件
            中配置的对象
            测试方法：给对象添加一个构造函数，里面打印一句语句，然后yogaApplicationContext构造容器的时候可以看到这条语句打印出来了
-       BeanFactory：--------------多例对象适用（即用即创），顶层接口，功能没有子接口完善，故开发常使用上个接口
+       BeanFactory：<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>多例对象适用（即用即创），顶层接口，功能没有子接口完善，故开发常使用上个接口
            它在构建核心容器时，创建对象采取的策略是采用延迟加载的方式。也就是说，什么时候根据id获取对象了，什么时候才真正的创建对象
 
-public class Client {
-    public static void main(String[] args) {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-  //ApplicationContext接口
-       //1.通过ClassPathXmlApplicationContext实现类获取核心容器对象
-        //ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
-        //通过FileSystemXmlApplicationContext实现类获取核心容器对象
-        ApplicationContext ac = new FileSystemXmlApplicationContext(&quot;E:\\myCodeSpace\\mySpringDemo\\mySpringDemo_spring\\src\\main\\resources\\applicationContext.xml&quot;);
-        //2.根据id获取bean对象
-        //根据唯一标识符，获取object对象再强转
-        IAccountService as = (IAccountService)ac.getBean(&quot;accountService&quot;);
-        //根据字节码自己强转
-        IAccountDao ad = ac.getBean(&quot;accountDao&quot;,IAccountDao.class);
-        as.saveAccount();
+  <span class="token comment" spellcheck="true">//ApplicationContext接口</span>
+       <span class="token comment" spellcheck="true">//1.通过ClassPathXmlApplicationContext实现类获取核心容器对象</span>
+        <span class="token comment" spellcheck="true">//ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");</span>
+        <span class="token comment" spellcheck="true">//通过FileSystemXmlApplicationContext实现类获取核心容器对象</span>
+        ApplicationContext ac <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileSystemXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"E:\\myCodeSpace\\mySpringDemo\\mySpringDemo_spring\\src\\main\\resources\\applicationContext.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//2.根据id获取bean对象</span>
+        <span class="token comment" spellcheck="true">//根据唯一标识符，获取object对象再强转</span>
+        IAccountService as <span class="token operator">=</span> <span class="token punctuation">(</span>IAccountService<span class="token punctuation">)</span>ac<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"accountService"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//根据字节码自己强转</span>
+        IAccountDao ad <span class="token operator">=</span> ac<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"accountDao"</span><span class="token punctuation">,</span>IAccountDao<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        as<span class="token punctuation">.</span><span class="token function">saveAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-     //BeanFactory接口
-        //1.通过ClassPathResource实现类找到配置文件
-        Resource resource = new ClassPathResource(&quot;applicationContext.xml&quot;);
-        //2.通过XmlBeanFactory实现类构建容器
-        BeanFactory beanFactory = new XmlBeanFactory(resource);
-        //3.通过id创建bean对象
-        IAccountService as = (IAccountService) beanFactory.getBean(&quot;accountService&quot;);
-        as.saveAccount();
-    }
-}
+     <span class="token comment" spellcheck="true">//BeanFactory接口</span>
+        <span class="token comment" spellcheck="true">//1.通过ClassPathResource实现类找到配置文件</span>
+        Resource resource <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathResource</span><span class="token punctuation">(</span><span class="token string">"applicationContext.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//2.通过XmlBeanFactory实现类构建容器</span>
+        BeanFactory beanFactory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XmlBeanFactory</span><span class="token punctuation">(</span>resource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//3.通过id创建bean对象</span>
+        IAccountService as <span class="token operator">=</span> <span class="token punctuation">(</span>IAccountService<span class="token punctuation">)</span> beanFactory<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"accountService"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        as<span class="token punctuation">.</span><span class="token function">saveAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
+
             </div>
             <hr>
 

@@ -413,7 +413,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        292
+                        178
                     </div>
                     
 
@@ -446,16 +446,17 @@
 minute 分
 second 秒
 </code></pre><p>然后我们将他赋值给<strong>float</strong>类型，让他将所有时间都换成秒。<br>格式如下</p>
-<pre><code>声明：
-    operator &lt;类型&gt;()
+<pre class=" language-c++"><code class="language-c++">声明：
+    operator <类型>()
 函数体：
-    &lt;类名&gt;::operator &lt;类型&gt;()
+    <类名>::operator <类型>()
     {
     }
-</code></pre><p>实例代码</p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
+</类型></类名></类型></code></pre>
+<p>实例代码</p>
+<pre class=" language-c++"><code class="language-c++">#include<iostream>
+#include<stdio.h>
+#include<string.h>
 
 using namespace std;
 
@@ -470,15 +471,15 @@ public :
 };
 Time::Time(int hour,int minute, int second)
 {
-    this-&gt;hour = hour;
-    this-&gt;minute = minute;
-    this-&gt;second = second;
+    this->hour = hour;
+    this->minute = minute;
+    this->second = second;
 }
 void Time::print()
 {
-    cout &lt;&lt;&quot;小时:&quot; &lt;&lt; this-&gt;hour &lt;&lt; endl;
-    cout &lt;&lt;&quot;分:&quot; &lt;&lt; this-&gt;minute &lt;&lt; endl;
-    cout &lt;&lt;&quot;秒:&quot; &lt;&lt; this-&gt;second &lt;&lt; endl;
+    cout <<"小时:" << this->hour << endl;
+    cout <<"分:" << this->minute << endl;
+    cout <<"秒:" << this->second << endl;
 }
 
 Time::operator float()
@@ -494,11 +495,12 @@ int main(void)
     Time t1(23,30,55);
     t1.print();
     float f = t1;
-    cout &lt;&lt; f;
+    cout << f;
     getchar();
     return 0;
 }
-</code></pre><p>结果<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E7%B1%BB%E5%9E%8B%E9%87%8D%E8%BD%BD/20190403114204303.png" alt><br>可以看到，float型的f成功赋值</p>
+</"秒:"></"分:"></"小时:"></string.h></stdio.h></iostream></code></pre>
+<p>结果<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E7%B1%BB%E5%9E%8B%E9%87%8D%E8%BD%BD/20190403114204303.png" alt><br>可以看到，float型的f成功赋值</p>
 
             </div>
             <hr>

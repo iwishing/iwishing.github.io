@@ -414,7 +414,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        299
+                        151
                     </div>
                     
 
@@ -445,23 +445,20 @@
 <p><strong>输入输出运算符重载，只能重载成友元函数</strong></p>
 <h3 id="输出运算符重载"><a href="#输出运算符重载" class="headerlink" title="输出运算符重载"></a>输出运算符重载</h3><p>通常情况下，输出符只能直接输出标准类型的值，而我们自定义类型是不能直接输出的<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403101633233.png" alt><br>cout返回值为cout<br>cout &lt;&lt; p1 返回值还是cout，因为可以继续加&lt;&lt;输出</p>
 <p>我们在Person对象中声明ostream友元函数<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403102842442.png" alt><br><code>friend ostream&amp; operator&lt;&lt;(ostream &amp;outPut,const Person &amp;p);</code><br>然后函数体</p>
-<pre><code>ostream&amp; operator&lt;&lt;(ostream &amp;outPut,const Person &amp;p)
-{
-    outPut &lt;&lt; p.name &lt;&lt; &quot;-&quot; &lt;&lt; p.address;
-    return outPut;
-}
-</code></pre><p>这个时候我们再去输出p1试试<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403103019718.png" alt><br>这个时候可以发现，cout可以直接输出我们的自定义类型</p>
+<pre class=" language-c++"><code class="language-c++">ostream& operator<<(ostream &output,const person &p) { output << p.name "-" p.address; return output; } < code></(ostream></code></pre>
+<p>这个时候我们再去输出p1试试<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403103019718.png" alt><br>这个时候可以发现，cout可以直接输出我们的自定义类型</p>
 <h3 id="输入运算符重载"><a href="#输入运算符重载" class="headerlink" title="输入运算符重载"></a>输入运算符重载</h3><p>正常情况下<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403112257231.png" alt><br>这样是不行的，不能直接给自定义类型输入值，但是我们重载输入运算符就能自己自定义</p>
-<pre><code>声明：
-   friend istream&amp; operator&gt;&gt;(istream &amp;inPut, Person &amp;p)
+<pre class=" language-c++"><code class="language-c++">声明：
+   friend istream& operator>>(istream &inPut, Person &p)
 函数体
-istream&amp; operator&gt;&gt;(istream &amp;inPut, Person &amp;p)
+istream& operator>>(istream &inPut, Person &p)
 {
     p.address = new char[10];
-    inPut &gt;&gt; p.name &gt;&gt; p.address;
+    inPut >> p.name >> p.address;
     return inPut;
 }
-</code></pre><p>测试一下<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403020543413.png" alt><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403020612308.png" alt><br>重载成功</p>
+</code></pre>
+<p>测试一下<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403020543413.png" alt><br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/c%2B%2B%E5%AD%A6%E4%B9%A0--%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/20190403020612308.png" alt><br>重载成功</p>
 
             </div>
             <hr>

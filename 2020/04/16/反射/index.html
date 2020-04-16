@@ -412,7 +412,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.3k
+                        2.2k
                     </div>
                     
 
@@ -479,32 +479,33 @@
 </code></pre>
 <p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200415013318155.png" alt></p>
 <h5 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h5><p>新建一个Person类<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200415021148035.png" alt><br>新建一个测试类，测试</p>
-<pre><code>package com.cbw;
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">;</span>
 
-import com.cbw.domain.Person;
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>Person<span class="token punctuation">;</span>
 
-public class test {
-    public static void main(String[] args) throws Exception {
-        //1.第一种方式创建Class类,Class.forName(&quot;全限定类名&quot;)
-            Class&lt;?&gt; aClass1 = Class.forName(&quot;com.cbw.domain.Person&quot;);
-            System.out.println(&quot;第一种方式创建：&quot; + aClass1);
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//1.第一种方式创建Class类,Class.forName("全限定类名")</span>
+            Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> aClass1 <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.cbw.domain.Person"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第一种方式创建："</span> <span class="token operator">+</span> aClass1<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        //2.第二种方式创建，类名.class获取
-           Class&lt;Person&gt; aClass2 = Person.class;
-            System.out.println(&quot;第二种方式创建：&quot; + aClass2);
+        <span class="token comment" spellcheck="true">//2.第二种方式创建，类名.class获取</span>
+           Class<span class="token operator">&lt;</span>Person<span class="token operator">></span> aClass2 <span class="token operator">=</span> Person<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第二种方式创建："</span> <span class="token operator">+</span> aClass2<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        //3.第三种方式创建，对象.getClass()
-            Person person = new Person();
-            Class&lt;? extends Person&gt; aClass3 = person.getClass();
-            System.out.println(&quot;第三种方式创建：&quot; + aClass3);
+        <span class="token comment" spellcheck="true">//3.第三种方式创建，对象.getClass()</span>
+            Person person <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span><span class="token operator">></span> aClass3 <span class="token operator">=</span> person<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第三种方式创建："</span> <span class="token operator">+</span> aClass3<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-        //4.比较这几个引用的地址是否相同
-        System.out.println(aClass1 == aClass2);
-        System.out.println(aClass1 == aClass3);
-    }
-}
-</code></pre><p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200415021601394.png" alt><br>这里有个细节，就是比较了这三个Class对象的引用地址，发现是一样的，所以是同一个Class对象<br>我们得出一个<font color="red">结论</font></p>
+        <span class="token comment" spellcheck="true">//4.比较这几个引用的地址是否相同</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>aClass1 <span class="token operator">==</span> aClass2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>aClass1 <span class="token operator">==</span> aClass3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200415021601394.png" alt><br>这里有个细节，就是比较了这三个Class对象的引用地址，发现是一样的，所以是同一个Class对象<br>我们得出一个<font color="red">结论</font></p>
 <pre><code>同一个字节码文件(.class)在一次程序运行中，只会被加载一次，不论通过哪一种方式获取的Class对象都是同一个
 </code></pre><h3 id="四、-Class对象的方法"><a href="#四、-Class对象的方法" class="headerlink" title="四、 Class对象的方法"></a>四、 Class对象的方法</h3><h5 id="1-获取方法"><a href="#1-获取方法" class="headerlink" title="1. 获取方法"></a>1. 获取方法</h5><pre class=" language-java"><code class="language-java"><span class="token number">1</span><span class="token punctuation">.</span>获取成员变量
        <span class="token operator">*</span> Field <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span>：获取所有<span class="token keyword">public</span>修饰的成员变量
@@ -598,137 +599,143 @@ public class test {
                    String aClassName <span class="token operator">=</span> aClass<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h3 id="五、-模拟写一个简易框架"><a href="#五、-模拟写一个简易框架" class="headerlink" title="五、 模拟写一个简易框架"></a>五、 模拟写一个简易框架</h3><p><font color="#F4606C">Person类</font></p>
-<pre><code>package com.cbw.domain;
-/**
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>domain<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/**
  * 用户类
- */
-public class Person {
-        private String name;
-        private int age;
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span> age<span class="token punctuation">;</span>
 
-    public Person() {
-    }
+    <span class="token keyword">public</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+    <span class="token keyword">public</span> <span class="token function">Person</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> <span class="token keyword">int</span> age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public String getName() {
-        return name;
-    }
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public int getAge() {
-        return age;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span class="token punctuation">(</span><span class="token keyword">int</span> age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public String toString() {
-        return &quot;Person{&quot; +
-                &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
-                &quot;, age=&quot; + age +
-                &#39;}&#39;;
-    }
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Person{"</span> <span class="token operator">+</span>
+                <span class="token string">"name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", age="</span> <span class="token operator">+</span> age <span class="token operator">+</span>
+                <span class="token string">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void eat(){
-        System.out.println(&quot;吃烧烤&quot;);
-    }
-}
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">eat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"吃烧烤"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre><p><font color="#F4606C">ReflectFactory类</font></p>
-<pre><code>package com.cbw.domain;
+</code></pre>
+<p><font color="#F4606C">ReflectFactory类</font></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>domain<span class="token punctuation">;</span>
 
-import java.lang.reflect.InvocationTargetException;
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>InvocationTargetException<span class="token punctuation">;</span>
 
-/**
+<span class="token comment" spellcheck="true">/**
  * 反射工厂类，可以创建任意实例，执行任意方法
- */
-public class ReflectFactory {
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ReflectFactory</span> <span class="token punctuation">{</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 获取一个实例
      * @param classpath 
      * @return
-     */
-    public static Object getClassObject(String classpath) {
-        try {
-            //获取Class类
-            Class&lt;?&gt; aClass = Class.forName(classpath);
-            //返回一个实例对象
-            return aClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Object <span class="token function">getClassObject</span><span class="token punctuation">(</span>String classpath<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//获取Class类</span>
+            Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> aClass <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span>classpath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//返回一个实例对象</span>
+            <span class="token keyword">return</span> aClass<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 执行obj对象的methodName方法
      * @param obj 
      * @param methodName
-     */
-    public static void methodInvoke(Object obj,String methodName){
-        try {
-            //执行方法
-            obj.getClass().getMethod(methodName).invoke(obj);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-}
-</code></pre><p><font color="#F4606C">propertie.properties配置文件</font></p>
-<pre><code>className=com.cbw.domain.Person
-methodName=eat
-</code></pre><p><font color="#F4606C">Test测试类</font></p>
-<pre><code>package com.cbw;
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">methodInvoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//执行方法</span>
+            obj<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span>methodName<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><font color="#F4606C">propertie.properties配置文件</font></p>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">className</span><span class="token punctuation">=</span><span class="token attr-value">com.cbw.domain.Person</span>
+<span class="token attr-name">methodName</span><span class="token punctuation">=</span><span class="token attr-value">eat</span>
+</code></pre>
+<p><font color="#F4606C">Test测试类</font></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">;</span>
 
-import com.cbw.domain.ReflectFactory;
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>ReflectFactory<span class="token punctuation">;</span>
 
-import java.io.InputStream;
-import java.util.Properties;
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>InputStream<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Properties<span class="token punctuation">;</span>
 
-public class test {
-    public static void main(String[] args) throws Exception {
-        //1.加载配置文件
-            Properties properties = new Properties();
-                //1.1获取类加载器
-                    ClassLoader classLoader = test.class.getClassLoader();
-                //1.2获取配置文件的字节流
-                    InputStream resourceAsStream = classLoader.getResourceAsStream(&quot;propertie.properties&quot;);
-                //1.3加载字节流
-                    properties.load(resourceAsStream);
-        //2.获取配置文件下定义的数据
-        String className = properties.getProperty(&quot;className&quot;);
-        String methodName = properties.getProperty(&quot;methodName&quot;);
-        //3.创建实例
-        Object classObject = ReflectFactory.getClassObject(className);
-        //4.执行方法
-        ReflectFactory.methodInvoke(classObject,methodName);
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//1.加载配置文件</span>
+            Properties properties <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Properties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//1.1获取类加载器</span>
+                    ClassLoader classLoader <span class="token operator">=</span> test<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//1.2获取配置文件的字节流</span>
+                    InputStream resourceAsStream <span class="token operator">=</span> classLoader<span class="token punctuation">.</span><span class="token function">getResourceAsStream</span><span class="token punctuation">(</span><span class="token string">"propertie.properties"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//1.3加载字节流</span>
+                    properties<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>resourceAsStream<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//2.获取配置文件下定义的数据</span>
+        String className <span class="token operator">=</span> properties<span class="token punctuation">.</span><span class="token function">getProperty</span><span class="token punctuation">(</span><span class="token string">"className"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String methodName <span class="token operator">=</span> properties<span class="token punctuation">.</span><span class="token function">getProperty</span><span class="token punctuation">(</span><span class="token string">"methodName"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//3.创建实例</span>
+        Object classObject <span class="token operator">=</span> ReflectFactory<span class="token punctuation">.</span><span class="token function">getClassObject</span><span class="token punctuation">(</span>className<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//4.执行方法</span>
+        ReflectFactory<span class="token punctuation">.</span><span class="token function">methodInvoke</span><span class="token punctuation">(</span>classObject<span class="token punctuation">,</span>methodName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    }
-}
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre><p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200416015557682.png" alt><br>我们可以新建一个<font color="#F4606C">Student类</font></p>
-<pre><code>package com.cbw.domain;
+</code></pre>
+<p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200416015557682.png" alt><br>我们可以新建一个<font color="#F4606C">Student类</font></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>cbw<span class="token punctuation">.</span>domain<span class="token punctuation">;</span>
 
-public class Student {
-    public void study(){
-        System.out.println(&quot;学生学习&quot;);
-    }
-}
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Student</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">study</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"学生学习"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre><p>然后修改配置文件</p>
-<pre><code>className=com.cbw.domain.Student
-methodName=study
-</code></pre><p>再次执行test方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200416015800942.png" alt><br>可以发现仅仅修改了配置文件，执行的对象和方法都能改变，这也就是利用反射实现了解耦的思想</p>
+</code></pre>
+<p>然后修改配置文件</p>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">className</span><span class="token punctuation">=</span><span class="token attr-value">com.cbw.domain.Student</span>
+<span class="token attr-name">methodName</span><span class="token punctuation">=</span><span class="token attr-value">study</span>
+</code></pre>
+<p>再次执行test方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200416015800942.png" alt><br>可以发现仅仅修改了配置文件，执行的对象和方法都能改变，这也就是利用反射实现了解耦的思想</p>
 
             </div>
             <hr>

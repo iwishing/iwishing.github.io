@@ -500,15 +500,17 @@
 </ul>
 <hr>
 <h3 id="2-zookeeper的安装与配置"><a href="#2-zookeeper的安装与配置" class="headerlink" title="2.zookeeper的安装与配置"></a>2.zookeeper的安装与配置</h3><p><a href="http://archive.apache.org/dist/zookeeper/" target="_blank" rel="noopener">zookeeper下载地址</a><br>我们下载zookeeper-3.4.8<br>上传，解压到/usr/目录<br><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--zookeeper/20190411043446357.png" alt><br><strong>配置</strong><br>首先配置环境变量<br><code>vim /etc/profile</code><br>我们在文件尾加上</p>
-<pre><code>export ZOOKEEPER_HOME=/usr/zookeeper-3.4.8
-export PATH=$PATH:$ZOOKEEPER/bin    
-</code></pre><p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--zookeeper/20190411043919117.png" alt><br>然后别忘了<code>source /etc/profile</code><br>然后我们需要配置/zookeeper-3.4.8/conf/zoo.cfg文件<br><code>vim /usr/zookeeper-3.4.8/conf/zoo.cfg</code><br>我们在文件末加入</p>
-<pre><code>dataDir= /usr/zookeeper-3.4.8/data
-dataLogDir= /usr/zookeeper-3.4.8/log
-server.1=cbw:2888:3888
-server.2=cbw1:2888:3888
-server.3=cbw2:2888:3888
-</code></pre><p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--zookeeper/20190411050411254.png" alt><br>dataDir有时候zookeeper自带，我们就不需要加，我们加上后面的就行<br><strong><em>注意：cbw：主机名，2888：心跳端口，3888数据端口</em></strong><br>我们只需要修改主机名就行，然后<strong>server.x</strong>这个<strong>x</strong>表示你有多少台服务器，比如我有<strong>3</strong>台，我就要写到<strong>server.3</strong>，然后每个后面的主机名都要改成那台服务器的主机名。<br>之后，我们需要到/usr/zookeeper-3.4.8/目录下创建data和log这两个文件夹，有时候zookeeper自带了data，那么我们只需要创建log文件夹就行</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">export</span> ZOOKEEPER_HOME<span class="token operator">=</span>/usr/zookeeper-3.4.8
+<span class="token function">export</span> PATH<span class="token operator">=</span><span class="token variable">$PATH</span><span class="token keyword">:</span><span class="token variable">$ZOOKEEPER</span>/bin    
+</code></pre>
+<p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--zookeeper/20190411043919117.png" alt><br>然后别忘了<code>source /etc/profile</code><br>然后我们需要配置/zookeeper-3.4.8/conf/zoo.cfg文件<br><code>vim /usr/zookeeper-3.4.8/conf/zoo.cfg</code><br>我们在文件末加入</p>
+<pre class=" language-vim"><code class="language-vim">dataDir<span class="token operator">=</span> <span class="token operator">/</span>usr<span class="token operator">/</span>zookeeper<span class="token operator">-</span><span class="token number">3.4</span><span class="token operator">.</span><span class="token number">8</span><span class="token operator">/</span>data
+dataLogDir<span class="token operator">=</span> <span class="token operator">/</span>usr<span class="token operator">/</span>zookeeper<span class="token operator">-</span><span class="token number">3.4</span><span class="token operator">.</span><span class="token number">8</span><span class="token operator">/</span>log
+server<span class="token operator">.</span><span class="token number">1</span><span class="token operator">=</span>cbw<span class="token punctuation">:</span><span class="token number">2888</span><span class="token punctuation">:</span><span class="token number">3888</span>
+server<span class="token operator">.</span><span class="token number">2</span><span class="token operator">=</span>cbw1<span class="token punctuation">:</span><span class="token number">2888</span><span class="token punctuation">:</span><span class="token number">3888</span>
+server<span class="token operator">.</span><span class="token number">3</span><span class="token operator">=</span>cbw2<span class="token punctuation">:</span><span class="token number">2888</span><span class="token punctuation">:</span><span class="token number">3888</span>
+</code></pre>
+<p><img src="https://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--zookeeper/20190411050411254.png" alt><br>dataDir有时候zookeeper自带，我们就不需要加，我们加上后面的就行<br><strong><em>注意：cbw：主机名，2888：心跳端口，3888数据端口</em></strong><br>我们只需要修改主机名就行，然后<strong>server.x</strong>这个<strong>x</strong>表示你有多少台服务器，比如我有<strong>3</strong>台，我就要写到<strong>server.3</strong>，然后每个后面的主机名都要改成那台服务器的主机名。<br>之后，我们需要到/usr/zookeeper-3.4.8/目录下创建data和log这两个文件夹，有时候zookeeper自带了data，那么我们只需要创建log文件夹就行</p>
 <pre><code>mkdir -m 755 data
 mkdir -m 755 log
 </code></pre><p>然后我们在data目录下创建myid文件,并向其中写入<strong>1</strong></p>

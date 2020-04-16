@@ -419,7 +419,7 @@ public ">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        906
+                        897
                     </div>
                     
 
@@ -449,59 +449,62 @@ public ">
 </blockquote>
 <p>运行流程示意图<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0--MapReduce%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99/20190406011925824.png" alt><br>以wordCount为例</p>
 <h3 id="Mapper："><a href="#Mapper：" class="headerlink" title="Mapper："></a>Mapper：</h3><p>数据输入进来的第一步，可以定制键值对<br>Mapper类需要继承Mapper父类</p>
-<pre><code>public static class WordCountMapper extends Mapper&lt;LongWritable,Text,Text,IntWritable&gt;{
-protected void map(LongWritable key,Text value, Context context) throws IOException, InterrupteException{
-        String[] words = value.toString().split(&quot;,&quot;);
-        for(String word:words){
-            context.write(new Text(word),new IntWritable(1));
-        }
-    }
-}
-</code></pre><p><strong>Mapper</strong>父类一共有4个参数<br>1：是数据的偏移量，例如刚进来为0，第二次进来因为已经读完了一行数据，他就等于第一行数据的长度+0，以此类推<br>2：表示下一行数据，在这个例子里面是一行的字符，也就是下面map方法中的value<br>3：输出的key的数据类型<br>4：这个表示map方法产生的value类型，在我们这个例子中是IntWritable型的，所以我们继承的时候要写IntWritable</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">WordCountMapper</span> <span class="token keyword">extends</span> <span class="token class-name">Mapper</span><span class="token operator">&lt;</span>LongWritable<span class="token punctuation">,</span>Text<span class="token punctuation">,</span>Text<span class="token punctuation">,</span>IntWritable<span class="token operator">></span><span class="token punctuation">{</span>
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">map</span><span class="token punctuation">(</span>LongWritable key<span class="token punctuation">,</span>Text value<span class="token punctuation">,</span> Context context<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">,</span> InterrupteException<span class="token punctuation">{</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> words <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">","</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span>String word<span class="token operator">:</span>words<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            context<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>word<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">new</span> <span class="token class-name">IntWritable</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>Mapper</strong>父类一共有4个参数<br>1：是数据的偏移量，例如刚进来为0，第二次进来因为已经读完了一行数据，他就等于第一行数据的长度+0，以此类推<br>2：表示下一行数据，在这个例子里面是一行的字符，也就是下面map方法中的value<br>3：输出的key的数据类型<br>4：这个表示map方法产生的value类型，在我们这个例子中是IntWritable型的，所以我们继承的时候要写IntWritable</p>
 <p><strong>map</strong>方法一共有3个参数<br>LongWritable key：偏移量<br>Text value：输入的这行的数据<br>Context：存储map运算后的数据，本例子中<code>context.write(new Text(word),new IntWritable(1))</code>,key是字母，value则为1，因为         字母出现一次就记一次</p>
 <h3 id="Reducer："><a href="#Reducer：" class="headerlink" title="Reducer："></a>Reducer：</h3><p>由流程图可以看出这是最后一步，就是总结的作用吧，汇总所有数据，然后进行输出<br>Reducer类需要继承Reducer父类</p>
-<pre><code>    public static class HadoopReducer extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
-        //相同的key聚合 几种类型的key调用reduce几次
-        private IntWritable count = new IntWritable();
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">HadoopReducer</span> <span class="token keyword">extends</span> <span class="token class-name">Reducer</span><span class="token operator">&lt;</span>Text<span class="token punctuation">,</span> IntWritable<span class="token punctuation">,</span> Text<span class="token punctuation">,</span> IntWritable<span class="token operator">></span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//相同的key聚合 几种类型的key调用reduce几次</span>
+        <span class="token keyword">private</span> IntWritable count <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">IntWritable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        @Override
-        protected void reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context) throws IOException, InterruptedException {
-            int sum = 0;
-            for (IntWritable value : values) {
-                sum += value.get();
-            }
-            count.set(sum);
-            context.write(key, count);
-        }
-    }
-</code></pre><p><strong>Reducer</strong>父类一共有4个参数<br>1：输入的key数据类型，本例中是字母，我们用Text存储<br>2：输入的value数据类型，本例中是频率，我们用IntWritable来存储<br>3：输出key的数据类型<br>4：这个表示reduce方法产生的value类型，在我们这个例子中是IntWritable型的，所以我们继承的时候要写IntWritable<br><strong>reduce</strong>方法一共有3个参数<br>Text key：map运算设置的key<br>Iterable<intwritable> value：这是key相同的value的聚合，本例中因为key是字母，value都是1，所以在这里是这样，如，key=a,如                              果里面有3个a，那么这个value中就是{1,1,1}，这个是迭代式的形式<br>Context：存储reduce运算后的数据，本例子中<code>context.write(new Text(word),new IntWritable(1))</code>,key是字母，value则为频          率</intwritable></p>
-<h3 id="main方法测试"><a href="#main方法测试" class="headerlink" title="main方法测试"></a>main方法测试</h3><pre><code>        Configuration config = new Configuration(); //初始化配置
-        Job job = Job.getInstance(config);//把任务封装到job对象
-        job.setJarByClass(HadoopDriver.class);//设置任务启动类
-        job.setMapperClass(HadoopMapper.class);//设置mapper类
-        job.setReducerClass(HadoopReducer.class);//设置reducer类
-
-        //设置输出的key和value的数据类型， 如果map的输出和reduce输出key-value类型一致  可以不写map
-        job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(IntWritable.class);
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
-
-        //告诉hadoop集群以什么方式读取数据，从哪里读取
-        job.setInputFormatClass(TextInputFormat.class);//设置输入格式，默认是key-value输入
-        TextInputFormat.setInputPaths(job, new Path(&quot;D:\\word.txt&quot;));//设置输入目录，本例也就是需要统计字频的文件
-
-        //告诉hadoop集群以什么样的方式写入数据，数据写入到哪里
-        job.setOutputFormatClass(TextOutputFormat.class);//设置输出格式，默认是key-value输出
-        Path path = new Path(&quot;D:\\wordcount&quot;);//新建路径
-        FileSystem fs = FileSystem.get(config);//新建文件系统
-        if (fs.exists(path)) {//判断路径是否存在，如果存在则删除，hadoop的严格的容错性保证每次输出一定是新目录
-            fs.delete(path, true);
-        }
-        TextOutputFormat.setOutputPath(job, path);//设置输出路径
-        //提交任务
-        System.exit(job.waitForCompletion(true) ? 0 : 1);//当任务完成时，系统退出
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">reduce</span><span class="token punctuation">(</span>Text key<span class="token punctuation">,</span> Iterable<span class="token operator">&lt;</span>IntWritable<span class="token operator">></span> values<span class="token punctuation">,</span> Context context<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">,</span> InterruptedException <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span>IntWritable value <span class="token operator">:</span> values<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                sum <span class="token operator">+=</span> value<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            count<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>sum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            context<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 </code></pre>
+<p><strong>Reducer</strong>父类一共有4个参数<br>1：输入的key数据类型，本例中是字母，我们用Text存储<br>2：输入的value数据类型，本例中是频率，我们用IntWritable来存储<br>3：输出key的数据类型<br>4：这个表示reduce方法产生的value类型，在我们这个例子中是IntWritable型的，所以我们继承的时候要写IntWritable<br><strong>reduce</strong>方法一共有3个参数<br>Text key：map运算设置的key<br>Iterable<intwritable> value：这是key相同的value的聚合，本例中因为key是字母，value都是1，所以在这里是这样，如，key=a,如                              果里面有3个a，那么这个value中就是{1,1,1}，这个是迭代式的形式<br>Context：存储reduce运算后的数据，本例子中<code>context.write(new Text(word),new IntWritable(1))</code>,key是字母，value则为频          率</intwritable></p>
+<h3 id="main方法测试"><a href="#main方法测试" class="headerlink" title="main方法测试"></a>main方法测试</h3><pre class=" language-java"><code class="language-java">        Configuration config <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Configuration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//初始化配置</span>
+        Job job <span class="token operator">=</span> Job<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//把任务封装到job对象</span>
+        job<span class="token punctuation">.</span><span class="token function">setJarByClass</span><span class="token punctuation">(</span>HadoopDriver<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置任务启动类</span>
+        job<span class="token punctuation">.</span><span class="token function">setMapperClass</span><span class="token punctuation">(</span>HadoopMapper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置mapper类</span>
+        job<span class="token punctuation">.</span><span class="token function">setReducerClass</span><span class="token punctuation">(</span>HadoopReducer<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置reducer类</span>
+
+        <span class="token comment" spellcheck="true">//设置输出的key和value的数据类型， 如果map的输出和reduce输出key-value类型一致  可以不写map</span>
+        job<span class="token punctuation">.</span><span class="token function">setMapOutputKeyClass</span><span class="token punctuation">(</span>Text<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        job<span class="token punctuation">.</span><span class="token function">setMapOutputValueClass</span><span class="token punctuation">(</span>IntWritable<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        job<span class="token punctuation">.</span><span class="token function">setOutputKeyClass</span><span class="token punctuation">(</span>Text<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        job<span class="token punctuation">.</span><span class="token function">setOutputValueClass</span><span class="token punctuation">(</span>IntWritable<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//告诉hadoop集群以什么方式读取数据，从哪里读取</span>
+        job<span class="token punctuation">.</span><span class="token function">setInputFormatClass</span><span class="token punctuation">(</span>TextInputFormat<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置输入格式，默认是key-value输入</span>
+        TextInputFormat<span class="token punctuation">.</span><span class="token function">setInputPaths</span><span class="token punctuation">(</span>job<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Path</span><span class="token punctuation">(</span><span class="token string">"D:\\word.txt"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置输入目录，本例也就是需要统计字频的文件</span>
+
+        <span class="token comment" spellcheck="true">//告诉hadoop集群以什么样的方式写入数据，数据写入到哪里</span>
+        job<span class="token punctuation">.</span><span class="token function">setOutputFormatClass</span><span class="token punctuation">(</span>TextOutputFormat<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置输出格式，默认是key-value输出</span>
+        Path path <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Path</span><span class="token punctuation">(</span><span class="token string">"D:\\wordcount"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//新建路径</span>
+        FileSystem fs <span class="token operator">=</span> FileSystem<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//新建文件系统</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>fs<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//判断路径是否存在，如果存在则删除，hadoop的严格的容错性保证每次输出一定是新目录</span>
+            fs<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        TextOutputFormat<span class="token punctuation">.</span><span class="token function">setOutputPath</span><span class="token punctuation">(</span>job<span class="token punctuation">,</span> path<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置输出路径</span>
+        <span class="token comment" spellcheck="true">//提交任务</span>
+        System<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span>job<span class="token punctuation">.</span><span class="token function">waitForCompletion</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//当任务完成时，系统退出</span>
+</code></pre>
+
             </div>
             <hr>
 
