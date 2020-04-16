@@ -1,0 +1,1055 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="反射, blogs">
+    <meta name="description" content="反射
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8java中文api
+
+一、 Java代码在计算机中经历的三个阶段
+1. Source源代码阶段我们编写的.java文件，通过javac.exe翻译成.clas">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>反射 | 我所希冀的未来</title>
+    <link rel="icon" type="image/png" href="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/f0efd497b0316c993d517f78de7a23.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">我所希冀的未来</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://blog-img-1258890494.cos.ap-chengdu.myqcloud.com/f0efd497b0316c993d517f78de7a23.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">我所希冀的未来</div>
+        <div class="logo-desc">
+            
+            a perfact combination of handsome and cute
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/iwishing" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/iwishing" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1223372496@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1223372496" class="tooltipped" data-tooltip="QQ联系我: 1223372496" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/iwishing" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        反射
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                Java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-04-16
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2.3k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        9 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a><font size="6">反射</font></h1><blockquote>
+<p>环境：<br>Idea：2019.3.1<br>系统：windows10 家庭版<br>Jdk: 8<br><a href="https://www.runoob.com/manual/jdk1.6/" target="_blank" rel="noopener">java中文api</a></p>
+</blockquote>
+<h3 id="一、-Java代码在计算机中经历的三个阶段"><a href="#一、-Java代码在计算机中经历的三个阶段" class="headerlink" title="一、 Java代码在计算机中经历的三个阶段"></a>一、 Java代码在计算机中经历的三个阶段</h3><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200415125900898.png" alt></p>
+<h5 id="1-Source源代码阶段"><a href="#1-Source源代码阶段" class="headerlink" title="1. Source源代码阶段"></a>1. Source源代码阶段</h5><p>我们编写的.java文件，通过javac.exe翻译成.class字节码文件，字节码文件中包含着</p>
+<ul>
+<li>成员变量</li>
+<li>构造方法</li>
+<li>成员方法<br>还有比如类名等</li>
+</ul>
+<h5 id="2-Class类对象阶段"><a href="#2-Class类对象阶段" class="headerlink" title="2. Class类对象阶段"></a>2. Class类对象阶段</h5><p>.class文件通过类加载器ClassLoader，加载为类对象<br>在java中有一个Class类，<code>java.lang.Class</code>类<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200415010418796.png" alt><br>它是来描述所有.class字节码文件的共同特征和行为的类，不管是什么样的字节码文件都应该或多或少有以下特征</p>
+<ul>
+<li>成员变量<br>将成员变量封装为<font color="red">Field []</font>对象，因为可能有多个成员变量，所以它是一个数组</li>
+<li>构造方法<br>将构造方法封装为<font color="red">Constructor []</font>对象，因为可能有多个构造器，所以它是一个数组</li>
+<li>成员方法<br>将成员方法封装为<font color="red">Method []</font>对象,因为可能有多个成员方法，所以它是一个数组<pre><code>这三条即我们所说的反射机制
+</code></pre></li>
+</ul>
+<h5 id="3-Runtime运行时阶段"><a href="#3-Runtime运行时阶段" class="headerlink" title="3. Runtime运行时阶段"></a>3. Runtime运行时阶段</h5><p>通过第2阶段的class类的一些行为，比如构造方法，我们可以创建一个实例对象，然后执行相关操作</p>
+<h3 id="二、-概念"><a href="#二、-概念" class="headerlink" title="二、 概念"></a>二、 概念</h3><pre><code>将类的各个组成部分封装为其他对象，这就是反射机制，反射是框架的灵魂
+
+    好处：
+        1.可以在程序运行过程中，操作这些变量
+            很明显的一个例子：
+                idea在运行中可以知道我们创建的变量中有哪些方法
+</code></pre><p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200415011857454.png" alt></p>
+<pre><code>                这就是因为使用了反射，将String的所有方法封装到了method对象里面，然后遍历method数组就能帮我们显示所有的成员方法
+        2.可以解耦，提高程序的可扩展性
+</code></pre><h3 id="三、-获取Class对象的方法"><a href="#三、-获取Class对象的方法" class="headerlink" title="三、 获取Class对象的方法"></a>三、 获取Class对象的方法</h3><h5 id="1-java代码处于Source源代码阶段时"><a href="#1-java代码处于Source源代码阶段时" class="headerlink" title="1. java代码处于Source源代码阶段时"></a>1. java代码处于Source源代码阶段时</h5><p><font color="red">多用于配置文件，将类名定义在配置文件中，读取文件，加载类</font></p>
+<pre class=" language-java"><code class="language-java">    Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"全限定类名"</span><span class="token punctuation">)</span>
+        将字节码文件加载入内存，返回Class对象
+        全限定类名，即包名加类名的完整路径，我们加载jdbc的时候，使用过这个
+        示例：
+            Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.jdbc.mysql.Driver"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h5 id="2-java代码处于Class类对象阶段时"><a href="#2-java代码处于Class类对象阶段时" class="headerlink" title="2. java代码处于Class类对象阶段时"></a>2. java代码处于Class类对象阶段时</h5><p><font color="red">多用于参数的传递</font></p>
+<pre class=" language-java"><code class="language-java">    类名<span class="token punctuation">.</span><span class="token keyword">class</span>
+        通过类名的属性<span class="token keyword">class</span>获取
+</code></pre>
+<h5 id="3-java代码处于Runtime运行阶段时"><a href="#3-java代码处于Runtime运行阶段时" class="headerlink" title="3. java代码处于Runtime运行阶段时"></a>3. java代码处于Runtime运行阶段时</h5><p><font color="red">多用于通过对象获取字节码对象</font></p>
+<pre class=" language-java"><code class="language-java">    对象<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span>方法在Object对象中定义
+</code></pre>
+<p><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200415013318155.png" alt></p>
+<h5 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h5><p>新建一个Person类<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200415021148035.png" alt><br>新建一个测试类，测试</p>
+<pre><code>package com.cbw;
+
+import com.cbw.domain.Person;
+
+public class test {
+    public static void main(String[] args) throws Exception {
+        //1.第一种方式创建Class类,Class.forName(&quot;全限定类名&quot;)
+            Class&lt;?&gt; aClass1 = Class.forName(&quot;com.cbw.domain.Person&quot;);
+            System.out.println(&quot;第一种方式创建：&quot; + aClass1);
+
+        //2.第二种方式创建，类名.class获取
+           Class&lt;Person&gt; aClass2 = Person.class;
+            System.out.println(&quot;第二种方式创建：&quot; + aClass2);
+
+        //3.第三种方式创建，对象.getClass()
+            Person person = new Person();
+            Class&lt;? extends Person&gt; aClass3 = person.getClass();
+            System.out.println(&quot;第三种方式创建：&quot; + aClass3);
+
+
+        //4.比较这几个引用的地址是否相同
+        System.out.println(aClass1 == aClass2);
+        System.out.println(aClass1 == aClass3);
+    }
+}
+</code></pre><p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200415021601394.png" alt><br>这里有个细节，就是比较了这三个Class对象的引用地址，发现是一样的，所以是同一个Class对象<br>我们得出一个<font color="red">结论</font></p>
+<pre><code>同一个字节码文件(.class)在一次程序运行中，只会被加载一次，不论通过哪一种方式获取的Class对象都是同一个
+</code></pre><h3 id="四、-Class对象的方法"><a href="#四、-Class对象的方法" class="headerlink" title="四、 Class对象的方法"></a>四、 Class对象的方法</h3><h5 id="1-获取方法"><a href="#1-获取方法" class="headerlink" title="1. 获取方法"></a>1. 获取方法</h5><pre class=" language-java"><code class="language-java"><span class="token number">1</span><span class="token punctuation">.</span>获取成员变量
+       <span class="token operator">*</span> Field <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span>：获取所有<span class="token keyword">public</span>修饰的成员变量
+       <span class="token operator">*</span> Field <span class="token function">getField</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span>：获取指定名称的<span class="token keyword">public</span>修饰的成员变量
+       <span class="token operator">*</span> Field <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getDeclaredFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span>：获取所有的成员变量， 不考虑修饰符
+       <span class="token operator">*</span> Field <span class="token function">getDeclaredField</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span>：获取指定名称的成员变量，不考虑修饰符
+
+        Field对象方法：
+            <span class="token number">1</span><span class="token punctuation">.</span>设置值
+                <span class="token keyword">void</span> <span class="token function">set</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object value<span class="token punctuation">)</span>
+            <span class="token number">2</span><span class="token punctuation">.</span>获取值
+                <span class="token function">get</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span>
+            示例：
+                <span class="token comment" spellcheck="true">//1.获取Class对象</span>
+                     Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> aClass <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.cbw.domain.Person"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//2.获取成员变量对象 (使用的这个方法获取的成员变量必须是public修饰的)</span>
+                    Field name <span class="token operator">=</span> aClass<span class="token punctuation">.</span><span class="token function">getField</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//3.设置成员变量的值</span>
+                    <span class="token comment" spellcheck="true">//3.1 创建person对象</span>
+                        Person p <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">//3.2 设置p的成员变量a的值</span>
+                        name<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span><span class="token string">"张三"</span><span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true">//4.获取成员变量的值</span>
+                    Object value <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        注意：
+            如果使用getDeclaredField这种方法，无视修饰符获取的时候，我们需要加入一行代码
+            name<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//设置忽略访问权限修饰符的安全检查，这也叫作暴力反射，不这样设置会报错</span>
+
+
+<span class="token number">2</span><span class="token punctuation">.</span>获取构造方法
+       <span class="token operator">*</span> Constructor<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       <span class="token operator">*</span> Constructor<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">getConstructor</span><span class="token punctuation">(</span>类<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>parameterTypes<span class="token punctuation">)</span>
+       <span class="token operator">*</span> Constructor<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token function">getDeclaredConstructor</span><span class="token punctuation">(</span>类<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
+       <span class="token operator">*</span> Constructor<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getDeclaredConstructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        Constructor对象方法：
+            <span class="token number">1</span><span class="token punctuation">.</span>构造实例
+                T <span class="token function">newInstance</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>initargs<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//这里面就传获取构造器的时候获取的哪个构造器对应的参数</span>
+            示例：
+                <span class="token comment" spellcheck="true">//1.获取Class对象</span>
+                    Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> aClass <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.cbw.domain.Person"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        
+                <span class="token comment" spellcheck="true">//2.获取构造器对象</span>
+                    Constructor constructor <span class="token operator">=</span> aClass<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//这里我们使用的是有参构造方法，参数是什么，就要传什么类型的字节码文件</span>
+                <span class="token comment" spellcheck="true">//3.使用构造器创建实例</span>
+                    Object person <span class="token operator">=</span> constructor<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token string">"张三"</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">//也可以使用空构造方法创建实例</span>
+                        Constructor constructor <span class="token operator">=</span> aClass<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        Object person <span class="token operator">=</span> constructor<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">//硬要使用空构造器的话，还有一种方法更简单，使用Class对象的方法,不过，在我写这篇文章的时候，这个方法已经过期了，但是也能够使用</span>
+                        Object person <span class="token operator">=</span> aClass<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//补充：</span>
+                    获取构造方法的这些方法和获取成员变量的是类似的，前两个只能获取<span class="token keyword">public</span>类型的构造方法，后两个可以无视修饰符获取构造方法，但是别忘了执行：
+                        constructor<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+<span class="token number">3</span><span class="token punctuation">.</span>获取成员方法
+       <span class="token operator">*</span> Method <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       <span class="token operator">*</span> Method <span class="token function">getMethod</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> 类<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
+       <span class="token operator">*</span> Method <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getDeclaredMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       <span class="token operator">*</span> Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> 类<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
+
+        Method对象方法
+            <span class="token number">1</span><span class="token punctuation">.</span>执行方法
+                Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span>Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//第一个参数是该方法所属类的示例对象，后面的参数是该方法的参数</span>
+            <span class="token number">2</span><span class="token punctuation">.</span>获取方法名
+                String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            示例：
+                <span class="token comment" spellcheck="true">//1.获取Class对象</span>
+                    Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> aClass <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.cbw.domain.Person"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        
+                <span class="token comment" spellcheck="true">//2.获取成员方法对象</span>
+                    <span class="token comment" spellcheck="true">//aClass.getMethod(方法名，参数列表的各个参数的字节码文件);无参方法可以只传方法名</span>
+                    Method eat_method1 <span class="token operator">=</span> aClass<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"eat"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    Method eat_method2 <span class="token operator">=</span> aClass<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"eat"</span><span class="token punctuation">,</span>String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//3.执行</span>
+                    Person p <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    eat_method1<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//p吃东西</span>
+                    eat_method2<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span><span class="token string">"水果"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//p吃水果</span>
+            <span class="token comment" spellcheck="true">//补充：</span>
+                <span class="token number">1</span><span class="token punctuation">.</span>还是一样，没带declared则只能获取<span class="token keyword">public</span>修饰的成员方法，带了的方法可以获取任意修饰符修饰的成员方法，但是别忘了
+                    method<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token number">2</span><span class="token punctuation">.</span>获取多个方法的方法会将自己的，还有继承的类的方法都获取到，Object类的都能获取到
+
+
+<span class="token number">4</span><span class="token punctuation">.</span>获取类名
+       <span class="token operator">*</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       示例：
+           <span class="token comment" spellcheck="true">//1.获取Class对象</span>
+               Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> aClass <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.cbw.domain.Person"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        
+           <span class="token comment" spellcheck="true">//2.获取类名</span>
+               <span class="token comment" spellcheck="true">//这个类名是全限定类名，从包名到类都有</span>
+                   String aClassName <span class="token operator">=</span> aClass<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="五、-模拟写一个简易框架"><a href="#五、-模拟写一个简易框架" class="headerlink" title="五、 模拟写一个简易框架"></a>五、 模拟写一个简易框架</h3><p><font color="#F4606C">Person类</font></p>
+<pre><code>package com.cbw.domain;
+/**
+ * 用户类
+ */
+public class Person {
+        private String name;
+        private int age;
+
+    public Person() {
+    }
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Person{&quot; +
+                &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
+                &quot;, age=&quot; + age +
+                &#39;}&#39;;
+    }
+
+    public void eat(){
+        System.out.println(&quot;吃烧烤&quot;);
+    }
+}
+
+</code></pre><p><font color="#F4606C">ReflectFactory类</font></p>
+<pre><code>package com.cbw.domain;
+
+import java.lang.reflect.InvocationTargetException;
+
+/**
+ * 反射工厂类，可以创建任意实例，执行任意方法
+ */
+public class ReflectFactory {
+
+    /**
+     * 获取一个实例
+     * @param classpath 
+     * @return
+     */
+    public static Object getClassObject(String classpath) {
+        try {
+            //获取Class类
+            Class&lt;?&gt; aClass = Class.forName(classpath);
+            //返回一个实例对象
+            return aClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 执行obj对象的methodName方法
+     * @param obj 
+     * @param methodName
+     */
+    public static void methodInvoke(Object obj,String methodName){
+        try {
+            //执行方法
+            obj.getClass().getMethod(methodName).invoke(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre><p><font color="#F4606C">propertie.properties配置文件</font></p>
+<pre><code>className=com.cbw.domain.Person
+methodName=eat
+</code></pre><p><font color="#F4606C">Test测试类</font></p>
+<pre><code>package com.cbw;
+
+import com.cbw.domain.ReflectFactory;
+
+import java.io.InputStream;
+import java.util.Properties;
+
+public class test {
+    public static void main(String[] args) throws Exception {
+        //1.加载配置文件
+            Properties properties = new Properties();
+                //1.1获取类加载器
+                    ClassLoader classLoader = test.class.getClassLoader();
+                //1.2获取配置文件的字节流
+                    InputStream resourceAsStream = classLoader.getResourceAsStream(&quot;propertie.properties&quot;);
+                //1.3加载字节流
+                    properties.load(resourceAsStream);
+        //2.获取配置文件下定义的数据
+        String className = properties.getProperty(&quot;className&quot;);
+        String methodName = properties.getProperty(&quot;methodName&quot;);
+        //3.创建实例
+        Object classObject = ReflectFactory.getClassObject(className);
+        //4.执行方法
+        ReflectFactory.methodInvoke(classObject,methodName);
+
+    }
+}
+
+</code></pre><p>运行结果<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200416015557682.png" alt><br>我们可以新建一个<font color="#F4606C">Student类</font></p>
+<pre><code>package com.cbw.domain;
+
+public class Student {
+    public void study(){
+        System.out.println(&quot;学生学习&quot;);
+    }
+}
+
+</code></pre><p>然后修改配置文件</p>
+<pre><code>className=com.cbw.domain.Student
+methodName=study
+</code></pre><p>再次执行test方法<br><img src="http://cbw-1258890494.cos.ap-chengdu.myqcloud.com/反射/20200416015800942.png" alt><br>可以发现仅仅修改了配置文件，执行的对象和方法都能改变，这也就是利用反射实现了解耦的思想</p>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://iwishing.github.io" class="b-link-green">我所希冀的未来</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2020/04/16/反射/" class="b-link-green">反射</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/04/16/反射/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="反射">
+                        
+                        <span class="card-title">反射</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">反射
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8java中文api
+
+一、 Java代码在计算机中经历的三个阶段
+1. Source源代码阶段我们编写的.java文件，通过javac.exe翻译成.clas</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/04/10/spring学习(一)/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="spring框架的概述以及spring中基于xml的IOC配置">
+                        
+                        <span class="card-title">spring框架的概述以及spring中基于xml的IOC配置</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">一.spring框架的概述以及spring中基于xml的IOC配置
+环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8spring：5.0.3 releasespring文档项目代码
+
+1.spring的概述spr</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Spring/" target="_blank">
+                        <span class="chip bg-color">Spring</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 我所希冀的未来<br />'
+            + '作者: Iwishing<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+
+            
+    <div class="container row center-align">
+	<!--<div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/iwishing" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1223372496@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1223372496" class="tooltipped" data-tooltip="QQ联系我: 1223372496" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>-->
+        <div class="col s12 copy-right">
+            <p>
+				<span>
+				&copy&nbsp2018&nbsp-&nbsp2019
+				</span>
+					By
+					<a href="https://github.com/iwishing" target="_blank">Iwishing</a>
+			</p>
+			Driven&nbsp-&nbsp
+            <a href="https://hexo.io/" target="_blank">Hexo</a> |
+            Theme - 
+			<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
