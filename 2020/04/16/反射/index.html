@@ -468,7 +468,9 @@
         全限定类名，即包名加类名的完整路径，我们加载jdbc的时候，使用过这个
         示例：
             Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.jdbc.mysql.Driver"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ClassLoader<span class="token punctuation">.</span><span class="token function">loadClass</span><span class="token punctuation">(</span><span class="token string">"全限定类名"</span><span class="token punctuation">)</span>
 </code></pre>
+<p><a href="https://my.oschina.net/gpzhang/blog/486743" target="_blank" rel="noopener"><font color="#F4606C">参考资料：ClassLoader.loadClass()与Class.forName()的区别</font></a></p>
 <h5 id="2-java代码处于Class类对象阶段时"><a href="#2-java代码处于Class类对象阶段时" class="headerlink" title="2. java代码处于Class类对象阶段时"></a>2. java代码处于Class类对象阶段时</h5><p><font color="red">多用于参数的传递</font></p>
 <pre class=" language-java"><code class="language-java">    类名<span class="token punctuation">.</span><span class="token keyword">class</span>
         通过类名的属性<span class="token keyword">class</span>获取
@@ -782,28 +784,32 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/16/反射/">
+                <a href="/2020/04/22/集合/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="反射">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="集合">
                         
-                        <span class="card-title">反射</span>
+                        <span class="card-title">集合</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">反射
+                    <div class="summary">集合
 环境：Idea：2019.3.1系统：windows10 家庭版Jdk: 8java中文api
 
-一、 Java代码在计算机中经历的三个阶段
-1. Source源代码阶段我们编写的.java文件，通过javac.exe翻译成.clas</div>
+
+connection接口    jdk中的详细描述
+概述：
+    是集合类的顶级接口
+
+位置：
+    java.util.Coll</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-16
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-04-22
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -816,7 +822,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
